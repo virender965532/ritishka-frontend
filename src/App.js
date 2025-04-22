@@ -20,6 +20,8 @@ import TermsConditions from "./Pages/TermsConditions";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
 import Popup from "./Components/PopupBanner/Popup";
 import { Toaster } from "react-hot-toast";
+import Category from './Pages/admin/Category';
+import Subcategory from './Pages/admin/Subcategory';
 
 const App = () => {
   return (
@@ -40,7 +42,10 @@ const App = () => {
           <Route path="/BlogDetails" element={<BlogDetails />} />
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/cart" element={<ShoppingCart />} />
-          <Route path="*" element={<NotFound />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
+
+          <Route path="/admin/categoty" element={<Category />} />          
+          <Route path="/admin/subcategoty" element={<Subcategory />} />          
         </Routes>
         <Footer />
         <Toaster />

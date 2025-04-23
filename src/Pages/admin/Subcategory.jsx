@@ -3,7 +3,7 @@ import SubcategoryList from './../../Components/Admin/SubcategoryList';
 
 function Subcategory() {
   return (
-    <div className="Subcategory">
+    <div className="container">
       <SubcategoryList />
     </div>
   );

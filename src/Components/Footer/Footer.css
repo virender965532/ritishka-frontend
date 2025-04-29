@@ -22,10 +22,12 @@
 
 .footer_logo_container {
   margin-bottom: 20px;
+
 }
 
 .footer_logo_container img {
   background: none !important;
+  width: 200px;
 }
 
 .footer_left p {

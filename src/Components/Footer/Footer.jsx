@@ -34,11 +34,11 @@ const Footer = () => {
               <img src={logo} alt="" Z />
             </div>
 
-            <p>1418 River Drive, Suite 35 Cottonhall, CA 9622 United States</p>
+            <p>A-79/16 Baba Colony Burari Delhi 110084</p>
 
             <div className="footer_address">
-              <strong> sale@uomo.com </strong>
-              <strong> +1 246-345-0695 </strong>
+              <strong> ritishkasilver@gmail.com </strong>
+              <strong> +91 9716620018 </strong>
             </div>
 
             <div className="social_links">

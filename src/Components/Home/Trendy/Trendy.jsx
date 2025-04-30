@@ -82,7 +82,7 @@ const Trendy = () => {
     <>
       <div className="trendyProducts">
         <h2>
-          Our Trendy <span>Products</span>
+          Trending Collection 
         </h2>
         <div className="trendyTabs">
           <div className="tabs">

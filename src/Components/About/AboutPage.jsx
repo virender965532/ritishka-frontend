@@ -22,55 +22,47 @@ const AboutPage = () => {
   return (
     <>
       <div className="aboutSection">
-        <h2>About Uomo</h2>
+        <h2>Where Elegance Meets Excellence</h2>
         <img src={about1} alt="" />
         <div className="aboutContent">
           <h3>Our Story</h3>
-          <h4>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.
+          <h4>At Ritishka Silver, we believe that every piece of silver tells a story — of heritage,
+             craftsmanship, and timeless beauty. Founded with a passion for purity and design, 
+             our startup is dedicated to bringing you the finest silver jewelry and artifacts that
+              blend traditional artistry with modern sophistication.
           </h4>
           <p>
-            Saw wherein fruitful good days image them, midst, waters upon, saw.
-            Seas lights seasons. Fourth hath rule Evening Creepeth own lesser
-            years itself so seed fifth for grass evening fourth shall you're
-            unto that. Had. Female replenish for yielding so saw all one to
-            yielding grass you'll air sea it, open waters subdue, hath. Brought
-            second Made. Be. Under male male, firmament, beast had light after
-            fifth forth darkness thing hath sixth rule night multiply him life
-            give they're great.
+          Whether you’re searching for everyday elegance or heirloom-worthy creations, Ritishka Silver 
+          is your destination for authenticity, quality, and design innovation. Each item in our collection 
+          is thoughtfully curated or handcrafted, using premium 92.5 sterling silver to ensure durability, 
+          charm, and value.
           </p>
           <div className="content1">
             <div className="contentBox">
               <h5>Our Mission</h5>
               <p>
-                Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat.
+                QPremium Sterling Silver (92.5%), Artisan Craftsmanship & Unique Designs, Customer-Centric Approach, 
+                Ethically Sourced & Hand-Finished Products
               </p>
             </div>
             <div className="contentBox">
               <h5>Our Vision</h5>
               <p>
-                Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat.
+              join us on a journey where silver shines brighter — not just as a metal, but as a
+               symbol of grace, culture, and individuality.
               </p>
+              
             </div>
           </div>
           <div className="content2">
-            <div className="imgContent">
+            {/* <div className="imgContent">
               <img src={about2} alt="" />
-            </div>
+            </div> */}
             <div className="textContent">
               <h5>The Company</h5>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet
-                sapien dignissim a elementum. Sociis metus, hendrerit mauris id
-                in. Quis sit sit ultrices tincidunt euismod luctus diam. Turpis
-                sodales orci etiam phasellus lacus id leo. Amet turpis nunc,
-                nulla massa est viverra interdum. Praesent auctor nulla morbi
-                non posuere mattis. Arcu eu id maecenas cras.
+              Ritishka Silver – Crafted with Passion, Delivered with Love.
+
               </p>
             </div>
           </div>

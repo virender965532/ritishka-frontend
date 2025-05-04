@@ -26,6 +26,8 @@
 
 .logoContainer img {
   background: none !important;
+  width: 200px;
+  height: auto;
 }
 
 .linkContainer ul {

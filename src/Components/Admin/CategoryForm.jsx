@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { createCategory, updateCategory } from './../../api/api';
+import React, { useState, useEffect } from "react";
+import { createCategory, updateCategory } from "./../../api/api";
 
-const CategoryForm = ({ selected, onSave }) => {
-  const [form, setForm] = useState({ name: '', title: '', description: '', image: '', isactive: true });
+const CategoryForm = ({ selected, onSave, showCreateForm=false, handleshowcreateForm }) => {
+  const [form, setForm] = useState({
+    name: "",
+    title: "",
+    description: "",
+    image: "",
+    isactive: true,
+  });
 
   useEffect(() => {
     if (selected) setForm(selected);
@@ -10,25 +16,147 @@ const CategoryForm = ({ selected, onSave }) => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setForm({ ...form, [name]: type === 'checkbox' ? checked : value });
+    setForm({ ...form, [name]: type === "checkbox" ? checked : value });
+  };
+
+  const handleCancel = () => {
+    setForm({
+      name: "",
+      title: "",
+      description: "",
+      image: "",
+      isactive: true,
+    });
+    handleshowcreateForm(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    selected ? await updateCategory(selected._id, form) : await createCategory(form);
+    selected
+      ? await updateCategory(selected._id, form)
+      : await createCategory(form);
     onSave();
-    setForm({ name: '', title: '', description: '', image: '', isactive: true });
+    setForm({
+      name: "",
+      title: "",
+      description: "",
+      image: "",
+      isactive: true,
+    });
+    handleshowcreateForm(false);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="name" value={form.name} onChange={handleChange} placeholder="Name" required />
-      <input name="title" value={form.title} onChange={handleChange} placeholder="Title" required />
-      <input name="image" value={form.image} onChange={handleChange} placeholder="Image URL" />
-      <textarea name="description" value={form.description} onChange={handleChange} placeholder="Description" />
-      <label><input type="checkbox" name="isactive" checked={form.isactive} onChange={handleChange} /> Active</label>
-      <button type="submit">{selected ? 'Update' : 'Create'} Category</button>
-    </form>
+    <>
+      {showCreateForm && <div className="form-header grid place-items-center min-h-screen bg-gray-100">
+        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+          <h2 className="text-2xl font-bold mb-6 text-center">
+            {selected ? "Edit Category" : "Add New Category"}
+          </h2>
+
+          <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-2 items-center">
+              <label className="font-medium" htmlFor="name">
+                Name
+              </label>
+              <input
+                className="border border-gray-300 rounded-md p-2 w-full"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="Name"
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-2 items-center">
+              <label className="font-medium" htmlFor="title">
+                Title
+              </label>
+              <input
+                className="border border-gray-300 rounded-md p-2 w-full"
+                name="title"
+                value={form.title}
+                onChange={handleChange}
+                placeholder="Title"
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-2 items-center">
+              <label className="font-medium" htmlFor="image">
+                Image URL
+              </label>
+              <input
+                className="border border-gray-300 rounded-md p-2 w-full"
+                name="image"
+                value={form.image}
+                onChange={handleChange}
+                placeholder="Image URL"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 items-center">
+              <label className="font-medium" htmlFor="description">
+                Description
+              </label>
+              <textarea
+                className="border border-gray-300 rounded-md p-2 w-full"
+                name="description"
+                value={form.description}
+                onChange={handleChange}
+                placeholder="Description"
+              ></textarea>
+            </div>
+
+            <div className="grid grid-cols-2 items-center">
+              <label className="font-medium" htmlFor="isactive">
+                Active
+              </label>
+              <input
+                className="w-5 h-5"
+                type="checkbox"
+                name="isactive"
+                checked={form.isactive}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="flex justify-center gap-4 mt-6">
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+              onClick={(e) => handleSubmit(e)}
+            >
+              {selected ? "Update" : "Create"} Category
+            </button>
+            <button
+              type="button"
+              className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+              onClick={() => handleCancel()}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+              onClick={() =>
+                setForm({
+                  name: "",
+                  title: "",
+                  description: "",
+                  image: "",
+                  isactive: true,
+                })
+              }
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>}
+    </>
   );
 };
 

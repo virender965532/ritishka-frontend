@@ -1,5 +1,6 @@
 import React from 'react';
 import './Layout.css';
+import { Link } from 'react-router-dom';
 
 const AdminHeader = ({ pageTitle, breadcrumb, isLoggedIn, user }) => {
   return (
@@ -18,7 +19,7 @@ const AdminHeader = ({ pageTitle, breadcrumb, isLoggedIn, user }) => {
             <button className="logout-btn">Logout</button>
           </div>
         ) : (
-          <button className="login-btn">Login</button>
+          <Link className="login-btn">Login</Link>
         )}
       </div>
     </header>

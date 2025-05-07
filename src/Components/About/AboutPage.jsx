@@ -41,7 +41,7 @@ const AboutPage = () => {
             <div className="contentBox">
               <h5>Our Mission</h5>
               <p>
-                QPremium Sterling Silver (92.5%), Artisan Craftsmanship & Unique Designs, Customer-Centric Approach, 
+                Premium Sterling Silver (92.5%), Artisan Craftsmanship & Unique Designs, Customer-Centric Approach, 
                 Ethically Sourced & Hand-Finished Products
               </p>
             </div>

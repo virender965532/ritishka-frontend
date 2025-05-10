@@ -18,6 +18,10 @@ import Subcategory from './../Pages/admin/Subcategory';
 import AdminFooter from "../Components/Admin/Layout/AdminFooter";
 import AdminHeader from "../Components/Admin/Layout/AdminHeader";
 import AdminSidebar from "../Components/Admin/Layout/AdminSidebar";
+import Collection from './../Pages/admin/Collection';
+import Occasion from './../Pages/admin/Occasion';
+import Tag from './../Pages/admin/Tag';
+import Color from './../Pages/admin/Color';
 
 const Routing = () => {
   const location = useLocation();
@@ -39,7 +43,12 @@ const Routing = () => {
 
            {/* Admin Routes */}
           <Route path="/admin/categories" element={<Category />} />          
-          <Route path="/admin/subcategories" element={<Subcategory />} />     
+          <Route path="/admin/subcategories" element={<Subcategory />} />
+          <Route path="/admin/manage-collections" element={<Collection />} />
+          <Route path="/admin/manage-occasions" element={<Occasion />} />
+          <Route path="/admin/manage-tags" element={<Tag />} />
+          <Route path="/admin/manage-colours" element={<Color />} />     
+          {/* <Route path="/admin/manage-products" element={<Color />} />      */}
 
           {/* Public Website Routes */}
           <Route path="/" element={<Home />} />

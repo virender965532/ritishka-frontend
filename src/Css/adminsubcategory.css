@@ -92,19 +92,9 @@
   border-bottom: none;
 }
 
-.subcategory-table button {
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.subcategory-table button:hover {
-  background-color: #0056b3;
+.subcategory-table-header-actions {
+  text-align: right !important;
+  padding-right: 75px !important;
 }
 
 /* Subcategory form container styling */
@@ -112,7 +102,7 @@
   display: grid;
   place-items: center;
   min-height: 75vh;
-  background-color: #f3f4f6; /* Light gray background */
+  background-color: #f3f4f6;
 }
 
 .subcategory-form-header > div {
@@ -271,7 +261,55 @@
   background: #c82333;
 }
 
-/* Subcategory action buttons */
+.subcategory-table-header-actions {
+  text-align: right !important;
+  padding-right: 75px !important;
+}
+
+.subcategory-action-buttons-container {
+  float: right;
+}
+
+/* Dropdown styling for Select Category */
+.subcategory-select-category {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #333333;
+  box-sizing: border-box;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.subcategory-select-category:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+.subcategory-select-category option {
+  font-size: 14px;
+  color: #333333;
+  background-color: #ffffff;
+  padding: 8px;
+}
+
+/* Dropdown container styling */
+.subcategory-select-category-container {
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.subcategory-select-category-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555555;
+}
+
 .subcategory-action-buttons button {
   background-color: #007bff;
   color: #ffffff;
@@ -291,44 +329,13 @@
   float: right;
 }
 
-/* Dropdown styling for Select Category */
-.select-category {
-  width: 100%;
-  padding: 8px 12px;
+.subcategory-action-buttons button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
   font-size: 14px;
-  border: 1px solid #cccccc;
-  border-radius: 6px;
-  background-color: #ffffff;
-  color: #333333;
-  box-sizing: border-box;
-  appearance: none; /* Removes default browser styling */
   cursor: pointer;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.select-category:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
-}
-
-.select-category option {
-  font-size: 14px;
-  color: #333333;
-  background-color: #ffffff;
-  padding: 8px;
-}
-
-/* Dropdown container styling */
-.select-category-container {
-  /* display: flex; */
-  /* flex-direction: column; */
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.select-category-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #555555;
+  transition: background-color 0.3s ease;
 }

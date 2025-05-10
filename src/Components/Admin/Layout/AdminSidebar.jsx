@@ -9,10 +9,20 @@ const AdminSidebar = () => {
       path: '/dashboard'
     },
     {
-      title: 'Management',
+      title: 'Manage Categories',
       children: [
         { title: 'Categories', path: '/admin/categories' },
         { title: 'Subcategories', path: '/admin/subcategories' }
+      ]
+    },
+    {
+      title: 'Manage Products',
+      children: [
+        { title: 'Manage Collections', path: '/admin/manage-collections' },
+        { title: 'Manage Occasions', path: '/admin/manage-occasions' },
+        { title: 'Manage Tags', path: '/admin/manage-tags' },
+        { title: 'Manage Colours', path: '/admin/manage-colours' },
+        // { title: 'Manage Products', path: '/admin/manage-products' }
       ]
     }
   ];

@@ -4,7 +4,7 @@ import "./../../Css/adminsubcategory.css";
 
 function Subcategory() {
   return (
-    <div className="container">
+    <div className="subcategory-container">
       <SubcategoryList />
     </div>
   );

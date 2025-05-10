@@ -8,9 +8,9 @@ const SubcategoryList = () => {
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [categories, setCategories] = useState([]);
   
-    useEffect(() => {
-      fetchCategories().then((res) => setCategories(res.data));
-    }, []);
+  useEffect(() => {
+    fetchCategories().then((res) => setCategories(res.data));
+  }, []);
 
   const loadData = () => fetchSubcategories().then((res) => setSubcategories(res.data));
 
@@ -34,12 +34,12 @@ const SubcategoryList = () => {
 
   return (
     <>
-      <div className="section">
-        <div className="section-header">
-          <div className="section-title">Subcategories</div>
-          <div className="section-description">Manage your subcategories here.</div>
+      <div className="subcategory-section">
+        <div className="subcategory-section-header">
+          <div className="subcategory-section-title">Subcategories</div>
+          <div className="subcategory-section-description">Manage your subcategories here.</div>
         </div>
-        <div className="section-actions">
+        <div className="subcategory-section-actions">
           {!showCreateForm && <button onClick={() => setShowCreateForm(true)}>Add New Subcategory</button>}
           {showCreateForm && <button onClick={() => setShowCreateForm(false)}>Hide Subcategory Form</button>}
         </div>
@@ -59,7 +59,7 @@ const SubcategoryList = () => {
             <th>Title</th>
             <th>Description</th>
             <th>Status</th>
-            <th className='table-header-actions'>Actions</th>
+            <th className='subcategory-table-header-actions'>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -79,14 +79,14 @@ const SubcategoryList = () => {
               <td>{subcat?.title || "N/A"}</td>
               <td>{subcat?.description || "N/A"}</td>
               <td>
-                <div className='status-indicator'>
-                  <span className={`active-status ${subcat?.isactive ? 'bg-green-500' : 'bg-red-500'}`}>
+                <div className='subcategory-status-indicator'>
+                  <span className={`subcategory-active-status ${subcat?.isactive ? 'subcategory-bg-green-500' : 'subcategory-bg-red-500'}`}>
                   {subcat?.isactive ? 'Active' : 'Disable'}
                   </span>
                 </div>
               </td>
-              <td className="action-buttons">
-                <div className='action-buttons-container'>
+              <td className="subcategory-action-buttons">
+                <div className='subcategory-action-buttons-container'>
                   <button onClick={() => {
                         setSelected(subcat);
                         setShowCreateForm(true);

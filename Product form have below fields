@@ -1,0 +1,20 @@
+Product form have below fields
+Title of Product: string (upto 100 words) mandatory
+Price(in Rs): should be float or integer mandatory
+Discount(in %): optional
+Colour: enum option and optional
+description: rich text with HTML and optional
+Quantity: integer and mandatory
+Subcategory: dropdown and optional
+Tags: dropdown 
+can upload image minimum 1 and maximum 6 images
+Collection: dropdown and optional
+Occation:  dropdown and optional  
+
+
+
+
+
+
+in the adminsubcategory.css change all css and add category to that existing class names and convert the tags css and into the class css with category in the begining and apply all that classes in the subcategory.jsx, subcategorylist.jsx, subcategoryform.jsx where they are using
+and also add those classes which are created from tags in the form jsx and if some css is missed in sub category the please add those classes from categorycss

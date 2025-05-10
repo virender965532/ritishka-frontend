@@ -6,7 +6,7 @@ const CategoryForm = ({ selected, onSave, showCreateForm = false, handleshowcrea
     name: "",
     title: "",
     description: "",
-    image: null, // Change to handle file input
+    image: null,
     isactive: true,
   });
 
@@ -59,19 +59,19 @@ const CategoryForm = ({ selected, onSave, showCreateForm = false, handleshowcrea
   return (
     <>
       {showCreateForm && (
-        <div className="form-header grid place-items-center min-h-screen bg-gray-100">
+        <div className="category-form-header category-grid place-items-center min-h-screen bg-gray-100">
           <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
             <h2 className="text-2xl font-bold mb-6 text-center">
               {selected ? "Edit Category" : "Add New Category"}
             </h2>
 
-            <div className="grid grid-cols-1 gap-4">
-              <div className="grid grid-cols-2 items-center">
-                <label className="font-medium" htmlFor="name">
+            <div className="category-grid category-grid-cols-1 category-gap-4">
+              <div className="category-grid category-grid-cols-2 category-items-center">
+                <label className="category-label" htmlFor="name">
                   Name
                 </label>
                 <input
-                  className="border border-gray-300 rounded-md p-2 w-full"
+                  className="category-input"
                   name="name"
                   value={form.name}
                   onChange={handleChange}
@@ -80,12 +80,12 @@ const CategoryForm = ({ selected, onSave, showCreateForm = false, handleshowcrea
                 />
               </div>
 
-              <div className="grid grid-cols-2 items-center">
-                <label className="font-medium" htmlFor="title">
+              <div className="category-grid category-grid-cols-2 category-items-center">
+                <label className="category-label" htmlFor="title">
                   Title
                 </label>
                 <input
-                  className="border border-gray-300 rounded-md p-2 w-full"
+                  className="category-input"
                   name="title"
                   value={form.title}
                   onChange={handleChange}
@@ -94,24 +94,24 @@ const CategoryForm = ({ selected, onSave, showCreateForm = false, handleshowcrea
                 />
               </div>
 
-              <div className="grid grid-cols-2 items-center">
-                <label className="font-medium" htmlFor="image">
+              <div className="category-grid category-grid-cols-2 category-items-center">
+                <label className="category-label" htmlFor="image">
                   Image
                 </label>
                 <input
-                  className="border border-gray-300 rounded-md p-2 w-full"
+                  className="category-input"
                   type="file"
                   name="image"
                   onChange={handleChange}
                 />
               </div>
 
-              <div className="grid grid-cols-2 items-center">
-                <label className="font-medium" htmlFor="description">
+              <div className="category-grid category-grid-cols-2 category-items-center">
+                <label className="category-label" htmlFor="description">
                   Description
                 </label>
                 <textarea
-                  className="border border-gray-300 rounded-md p-2 w-full"
+                  className="category-textarea"
                   name="description"
                   value={form.description}
                   onChange={handleChange}
@@ -119,12 +119,12 @@ const CategoryForm = ({ selected, onSave, showCreateForm = false, handleshowcrea
                 ></textarea>
               </div>
 
-              <div className="grid grid-cols-2 items-center">
-                <label className="font-medium" htmlFor="isactive">
+              <div className="category-grid category-grid-cols-2 category-items-center">
+                <label className="category-label" htmlFor="isactive">
                   Active
                 </label>
                 <input
-                  className="w-5 h-5"
+                  className="category-checkbox"
                   type="checkbox"
                   name="isactive"
                   checked={form.isactive}
@@ -133,24 +133,24 @@ const CategoryForm = ({ selected, onSave, showCreateForm = false, handleshowcrea
               </div>
             </div>
 
-            <div className="flex justify-center gap-4 mt-6">
+            <div className="category-flex category-justify-center category-gap-4 category-mt-6">
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                className="category-button"
                 onClick={(e) => handleSubmit(e)}
               >
                 {selected ? "Update" : "Create"} Category
               </button>
               <button
                 type="button"
-                className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+                className="category-button category-bg-red-500"
                 onClick={() => handleCancel()}
               >
                 Cancel
               </button>
               <button
                 type="button"
-                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                className="category-button category-bg-grey-500"
                 onClick={() =>
                   setForm({
                     name: "",

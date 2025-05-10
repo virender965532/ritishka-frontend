@@ -29,12 +29,12 @@ const CategoryList = () => {
 
   return (
     <>
-      <div className='section'>
-        <div className='section-header'>
-          <div className='section-title'>Categories</div>
-          <div className='section-description'>Manage your categories here.</div>
+      <div className='category-section'>
+        <div className='category-section-header'>
+          <div className='category-section-title'>Categories</div>
+          <div className='category-section-description'>Manage your categories here.</div>
         </div>
-        <div className='section-actions'>
+        <div className='category-section-actions'>
           {!showCreateForm && <button onClick={() => setShowCreateForm(true)}>Add New Category</button>}
           {showCreateForm && <button onClick={() => setShowCreateForm(false)}>Hide Category Form</button>}
         </div>
@@ -53,7 +53,7 @@ const CategoryList = () => {
             <th>Title</th>
             <th>Description</th>
             <th>Status</th>
-            <th className='table-header-actions'>Actions</th>
+            <th className='category-table-header-actions'>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -62,10 +62,10 @@ const CategoryList = () => {
               <td>
                 {cat?.image && (
                   <img
-                    src={`${process.env.REACT_APP_BACKEND_URL}${cat?.image}`} // Use the image path from the backend
+                    src={`${process.env.REACT_APP_BACKEND_URL}${cat?.image}`}
                     alt={cat?.name}
                     className="category-image"
-                    style={{ width: '50px', height: '50px', borderRadius: '10px' }} // Adjust the size as needed
+                    style={{ width: '50px', height: '50px', borderRadius: '10px' }}
                   />
                 )}
               </td>
@@ -73,14 +73,14 @@ const CategoryList = () => {
               <td>{cat?.title || "N/A"}</td>
               <td>{cat?.description?.length > 200 ? `${cat?.description.substring(0, 200)}...` : cat?.description || "N/A"}</td>
               <td>
-                <div className='status-indicator'>
-                  <span className={`active-status ${cat?.isactive ? 'bg-green-500' : 'bg-red-500'}`}>
+                <div className='category-status-indicator'>
+                  <span className={`category-active-status ${cat?.isactive ? 'category-bg-green-500' : 'category-bg-red-500'}`}>
                     {cat?.isactive ? 'Active' : 'Disable'}
                   </span>
                 </div>
               </td>
-              <td className='action-buttons'>
-                <div className='action-buttons-container'>
+              <td className='category-action-buttons'>
+                <div className='category-action-buttons-container'>
                   <button
                     onClick={() => {
                       setSelected(cat);

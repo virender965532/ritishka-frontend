@@ -4,7 +4,7 @@ import "./../../Css/admincategory.css";
 
 function Category() {
   return (
-    <div className="container">
+    <div className="category-container">
       <CategoryList />
     </div>
   );

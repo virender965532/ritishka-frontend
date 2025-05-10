@@ -65,19 +65,19 @@ const SubcategoryForm = ({ selected, onSave, showCreateForm = false, handleshowc
   return (
     <>
       {showCreateForm && (
-        <div className="form-header grid place-items-center min-h-screen bg-gray-100">
-          <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
-            <h2 className="text-2xl font-bold mb-6 text-center">
+        <div className="subcategory-form-header">
+          <div>
+            <h2>
               {selected ? "Edit Subcategory" : "Add New Subcategory"}
             </h2>
 
-            <div className="grid grid-cols-1 gap-4">
-              <div className="grid grid-cols-2 items-center select-category-container">
-                <label className="select-category-label" htmlFor="category">
+            <div className="subcategory-grid subcategory-grid-cols-1 subcategory-gap-4">
+              <div className="subcategory-grid subcategory-grid-cols-2 subcategory-items-center subcategory-select-category-container">
+                <label className="subcategory-select-category-label" htmlFor="category">
                   Select Category
                 </label>
                 <select
-                  className="select-category"
+                  className="subcategory-select-category"
                   name="category"
                   value={form.category}
                   onChange={handleChange}
@@ -92,12 +92,12 @@ const SubcategoryForm = ({ selected, onSave, showCreateForm = false, handleshowc
                 </select>
               </div>
 
-              <div className="grid grid-cols-2 items-center">
-                <label className="font-medium" htmlFor="name">
+              <div className="subcategory-grid subcategory-grid-cols-2 subcategory-items-center">
+                <label className="subcategory-label" htmlFor="name">
                   Subcategory Name
                 </label>
                 <input
-                  className="border border-gray-300 rounded-md p-2 w-full"
+                  className="subcategory-input"
                   name="name"
                   value={form.name}
                   onChange={handleChange}
@@ -106,12 +106,12 @@ const SubcategoryForm = ({ selected, onSave, showCreateForm = false, handleshowc
                 />
               </div>
 
-              <div className="grid grid-cols-2 items-center">
-                <label className="font-medium" htmlFor="title">
+              <div className="subcategory-grid subcategory-grid-cols-2 subcategory-items-center">
+                <label className="subcategory-label" htmlFor="title">
                   Title
                 </label>
                 <input
-                  className="border border-gray-300 rounded-md p-2 w-full"
+                  className="subcategory-input"
                   name="title"
                   value={form.title}
                   onChange={handleChange}
@@ -120,24 +120,24 @@ const SubcategoryForm = ({ selected, onSave, showCreateForm = false, handleshowc
                 />
               </div>    
 
-              <div className="grid grid-cols-2 items-center">
-                <label className="font-medium" htmlFor="image">
+              <div className="subcategory-grid subcategory-grid-cols-2 subcategory-items-center">
+                <label className="subcategory-label" htmlFor="image">
                   Image
                 </label>
                 <input
-                  className="border border-gray-300 rounded-md p-2 w-full"
+                  className="subcategory-input"
                   type="file"
                   name="image"
                   onChange={handleChange}
                 />
               </div>
 
-              <div className="grid grid-cols-2 items-center">
-                <label className="font-medium" htmlFor="description">
+              <div className="subcategory-grid subcategory-grid-cols-2 subcategory-items-center">
+                <label className="subcategory-label" htmlFor="description">
                   Description
                 </label>
                 <textarea
-                  className="border border-gray-300 rounded-md p-2 w-full"
+                  className="subcategory-textarea"
                   name="description"
                   value={form.description}
                   onChange={handleChange}
@@ -145,12 +145,12 @@ const SubcategoryForm = ({ selected, onSave, showCreateForm = false, handleshowc
                 ></textarea>
               </div>
 
-              <div className="grid grid-cols-2 items-center">
-                <label className="font-medium" htmlFor="isactive">
+              <div className="subcategory-grid subcategory-grid-cols-2 subcategory-items-center">
+                <label className="subcategory-label" htmlFor="isactive">
                   Active
                 </label>
                 <input
-                  className="w-5 h-5"
+                  className="subcategory-checkbox"
                   type="checkbox"
                   name="isactive"
                   checked={form.isactive}
@@ -159,24 +159,24 @@ const SubcategoryForm = ({ selected, onSave, showCreateForm = false, handleshowc
               </div>
             </div>
 
-            <div className="flex justify-center gap-4 mt-6">
+            <div className="subcategory-flex subcategory-justify-center subcategory-gap-4 subcategory-mt-6">
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                className="subcategory-button"
                 onClick={(e) => handleSubmit(e)}
               >
                 {selected ? "Update" : "Create"} Subcategory
               </button>
               <button
                 type="button"
-                className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+                className="subcategory-button bg-red-500"
                 onClick={() => handleCancel()}
               >
                 Cancel
               </button>
               <button
                 type="button"
-                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                className="subcategory-button bg-grey-500"
                 onClick={() =>
                   setForm({
                     name: "",

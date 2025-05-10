@@ -95,12 +95,14 @@
   padding: 8px 10px;
   text-decoration: none;
   border-radius: 4px;
+  margin: 5px 0px 0px 15px;
 }
 
 .sidebar-link:hover,
 .sidebar-link.active {
   background-color: #57606f;
   color: white;
+  margin: 5px 0px 0px 15px;
 }
 
 .admin-footer {

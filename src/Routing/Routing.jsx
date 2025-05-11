@@ -22,6 +22,7 @@ import Collection from './../Pages/admin/Collection';
 import Occasion from './../Pages/admin/Occasion';
 import Tag from './../Pages/admin/Tag';
 import Color from './../Pages/admin/Color';
+import Products from './../Pages/admin/Products';
 
 const Routing = () => {
   const location = useLocation();
@@ -48,7 +49,7 @@ const Routing = () => {
           <Route path="/admin/manage-occasions" element={<Occasion />} />
           <Route path="/admin/manage-tags" element={<Tag />} />
           <Route path="/admin/manage-colours" element={<Color />} />     
-          {/* <Route path="/admin/manage-products" element={<Color />} />      */}
+          <Route path="/admin/manage-products" element={<Products />} />     
 
           {/* Public Website Routes */}
           <Route path="/" element={<Home />} />

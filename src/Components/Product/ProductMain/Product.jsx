@@ -138,6 +138,8 @@ const Product = () => {
             <div className="productThumb">
               <img src={product1} onClick={() => setCurrentImg(0)} alt="" />
               <img src={product2} onClick={() => setCurrentImg(1)} alt="" />
+              <img src={product2} onClick={() => setCurrentImg(1)} alt="" />
+              <img src={product3} onClick={() => setCurrentImg(2)} alt="" />
               <img src={product3} onClick={() => setCurrentImg(2)} alt="" />
               <img src={product4} onClick={() => setCurrentImg(3)} alt="" />
             </div>

@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./CollectionBox.css";
+import { fetchCollections } from "./../../../api/api";
 
 import { Link } from "react-router-dom";
 
 const CollectionBox = () => {
+  const [collections, setCollections] = useState([]);
+  const loadData = () => fetchCollections().then((res) => { 
+    const collectionList = res.data.filter((collection) => collection.showonhomepage && collection.isactive)
+    setCollections(collectionList)});
+
+  useEffect(() => {
+      loadData();
+    }, []);
+
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -13,14 +24,18 @@ const CollectionBox = () => {
 
   return (
     <>
+    {collections?.length > 0  && (
       <div className="collection">
         <div className="collectionLeft">
           <p className="col-p">Hot List</p>
           <h3 className="col-h3">
-            <span>Women</span> Collection
+            <span>{collections[0].name || "Women"}</span> {collections[0].subtitle || "Collection"}
           </h3>
+          <p className="col-p">
+            {collections[0].description || ""}
+          </p>
           <div className="col-link">
-            <Link to="/shop" onClick={scrollToTop}>
+            <Link to={collections[0].link} onClick={scrollToTop}>
               <h5>Shop Now</h5>
             </Link>
           </div>
@@ -29,10 +44,13 @@ const CollectionBox = () => {
           <div className="collectionTop">
             <p className="col-p">Hot List</p>
             <h3 className="col-h3">
-              <span>Men</span> Collection
+            <span>{collections[1].name || "Men"}</span> {collections[1].subtitle || "Collection"}
             </h3>
+            <p className="col-p">
+              {collections[1].description || ""}
+            </p>
             <div className="col-link">
-              <Link to="/shop" onClick={scrollToTop}>
+              <Link to={collections[1].link} onClick={scrollToTop}>
                 <h5>Shop Now</h5>
               </Link>
             </div>
@@ -41,23 +59,26 @@ const CollectionBox = () => {
             <div className="box1">
               <p className="col-p">Hot List</p>
               <h3 className="col-h3">
-                <span>Kids</span> Collection
+              <span>{collections[2].name || "Kids"}</span> {collections[2].subtitle || "Collection"}
               </h3>
+              <p className="col-p">
+                {collections[2].description || ""}
+              </p>
               <div className="col-link">
-                <Link to="/shop" onClick={scrollToTop}>
+                <Link to={collections[2].link} onClick={scrollToTop}>
                   <h5>Shop Now</h5>
                 </Link>
               </div>
             </div>
             <div className="box2">
               <h3 className="col-h3">
-                <span>E-gift</span> Cards
+              <span>{collections[3].name || "E-Gift"}</span> {collections[3].subtitle || "Cards"}
               </h3>
               <p className="col-p">
-                Surprise someone with the gift they really want.
+                {collections[3].description || ""}
               </p>
               <div className="col-link">
-                <Link to="/shop" onClick={scrollToTop}>
+                <Link to={collections[3].link} onClick={scrollToTop}>
                   <h5>Shop Now</h5>
                 </Link>
               </div>
@@ -65,6 +86,7 @@ const CollectionBox = () => {
           </div>
         </div>
       </div>
+      )}
     </>
   );
 };

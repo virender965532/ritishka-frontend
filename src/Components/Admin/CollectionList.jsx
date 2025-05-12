@@ -49,6 +49,9 @@ const CollectionList = () => {
         <thead>
           <tr>
             <th>Name</th>
+            <th>Subtitle</th>
+            <th>Description</th>
+            <th>Link</th>
             <th>Status</th>
             <th>Show on Homepage</th>
             <th className='collection-table-header-actions'>Actions</th>
@@ -58,6 +61,9 @@ const CollectionList = () => {
           {collections.map((collection) => (
             <tr key={collection?._id}>
               <td>{collection?.name}</td>
+              <td>{collection?.subtitle}</td>
+              <td>{collection?.description}</td>
+              <td>{collection?.link}</td>
               <td>
                 <span className={`collection-active-status ${collection?.isactive ? "collection-bg-green-500" : "collection-bg-red-500"}`}>
                   {collection?.isactive ? "Active" : "Disable"}

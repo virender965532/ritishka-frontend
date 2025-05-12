@@ -4,6 +4,9 @@ import { createCollection, updateCollection } from "./../../api/api";
 const CollectionForm = ({ selected, onSave, showCreateForm = false, handleshowcreateForm }) => {
   const [form, setForm] = useState({
     name: "",
+    subtitle: "",
+    description: "",
+    link: "",
     isactive: true,
     showonhomepage: false,
   });
@@ -20,6 +23,9 @@ const CollectionForm = ({ selected, onSave, showCreateForm = false, handleshowcr
   const handleCancel = () => {
     setForm({
       name: "",
+      subtitle: "",
+      description: "",
+      link: "",
       isactive: true,
       showonhomepage: false,
     });
@@ -37,6 +43,9 @@ const CollectionForm = ({ selected, onSave, showCreateForm = false, handleshowcr
     onSave();
     setForm({
       name: "",
+      subtitle: "",
+      description: "",
+      link: "",
       isactive: true,
       showonhomepage: false,
     });
@@ -64,6 +73,45 @@ const CollectionForm = ({ selected, onSave, showCreateForm = false, handleshowcr
                   onChange={handleChange}
                   placeholder="Name"
                   required
+                />
+              </div>
+
+              <div className="collection-grid collection-grid-cols-2 items-center">
+                <label className="font-medium" htmlFor="subtitle">
+                  Subtitle
+                </label>
+                <input
+                  className="collection-input border border-gray-300 rounded-md p-2 w-full"
+                  name="subtitle"
+                  value={form.subtitle}
+                  onChange={handleChange}
+                  placeholder="Subtitle"
+                />
+              </div>
+
+              <div className="collection-grid collection-grid-cols-2 items-center">
+                <label className="font-medium" htmlFor="description">
+                  Description
+                </label>
+                <textarea
+                  className="collection-input border border-gray-300 rounded-md p-2 w-full"
+                  name="description"
+                  value={form.description}
+                  onChange={handleChange}
+                  placeholder="Description"
+                />
+              </div>
+
+              <div className="collection-grid collection-grid-cols-2 items-center">
+                <label className="font-medium" htmlFor="link">
+                  Link
+                </label>
+                <input
+                  className="collection-input border border-gray-300 rounded-md p-2 w-full"
+                  name="link"
+                  value={form.link}
+                  onChange={handleChange}
+                  placeholder="Link"
                 />
               </div>
 
@@ -115,7 +163,11 @@ const CollectionForm = ({ selected, onSave, showCreateForm = false, handleshowcr
                 onClick={() =>
                   setForm({
                     name: "",
+                    subtitle: "",
+                    description: "",
+                    link: "",
                     isactive: true,
+                    showonhomepage: false,
                   })
                 }
               >

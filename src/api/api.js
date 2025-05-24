@@ -9,7 +9,7 @@ export const updateCategory = (id, data) => axios.put(`${API_BASE}/categories/${
 export const deleteCategory = (id) => axios.delete(`${API_BASE}/categories/${id}`);
 
 // Subcategory APIs
-export const fetchSubcategories = () => axios.get(`${API_BASE}/subcategories`);
+export const fetchSubcategories = (data) => axios.get(`${API_BASE}/subcategories`, { params: data });
 export const createSubcategory = (data) => axios.post(`${API_BASE}/subcategories`, data);
 export const updateSubcategory = (id, data) => axios.put(`${API_BASE}/subcategories/${id}`, data);
 export const deleteSubcategory = (id) => axios.delete(`${API_BASE}/subcategories/${id}`);
@@ -43,3 +43,6 @@ export const fetchProducts = () => axios.get(`${API_BASE}/products`);
 export const createProduct = (data) => axios.post(`${API_BASE}/products`, data);
 export const updateProduct = (id, data) => axios.put(`${API_BASE}/products/${id}`, data);
 export const deleteProduct = (id) => axios.delete(`${API_BASE}/products/${id}`);
+
+export const ProductTag = (data) => axios.post(`${API_BASE}/products/by-tags`, data);
+export const ProductTypes = (data) => axios.post(`${API_BASE}/products/by-types`, data);

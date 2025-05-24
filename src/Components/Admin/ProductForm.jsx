@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   createProduct,
   updateProduct,
-  // fetchCategories,
+  fetchCategories,
   fetchSubcategories,
   fetchTags,
   fetchCollections,
@@ -18,6 +18,7 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
     color: "",
     description: "",
     quantity: "",
+    category: "",
     subcategory: "",
     tags: [],
     images: [],
@@ -31,8 +32,8 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
     isactive: true,
     isfeatured: false,
   });
-
-  // const [categories, setCategories] = useState([]);
+  // const selectedImage = []
+  const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [tags, setTags] = useState([]);
   const [collections, setCollections] = useState([]);
@@ -41,15 +42,15 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
 
   useEffect(() => {
     const loadData = async () => {
-      const [subcatRes, tagRes, collectionRes, occasionRes, colorRes] = await Promise.all([
-        // fetchCategories(),
+      const [catRes, subcatRes, tagRes, collectionRes, occasionRes, colorRes] = await Promise.all([
+        fetchCategories(),
         fetchSubcategories(),
         fetchTags(),
         fetchCollections(),
         fetchOccasions(),
         fetchColors(),
       ]);
-      // setCategories(catRes.data);
+      setCategories(catRes.data);
       setSubcategories(subcatRes.data);
       setTags(tagRes.data);
       setCollections(collectionRes.data);
@@ -58,10 +59,16 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
     };
 
     loadData();
-    if (selected) setForm(selected);
+    if (selected) 
+    {
+      // selected?.images?.forEach((image) => {
+      //   selectedImage.push(image?.url);
+      // })
+      setForm(selected);
+    }
   }, [selected]);
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const { name, value, type, checked, files } = e.target;
     if (name === "images") {
       const uploadedImages = Array.from(files);
@@ -71,6 +78,11 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
       }
       setForm({ ...form, images: [...form.images, ...uploadedImages] });
     } else {
+      if(name==="category"){
+        await fetchSubcategories({id: value}).then((res) => {
+          setSubcategories(res.data);
+        });
+      }
       setForm({ ...form, [name]: type === "checkbox" ? checked : value });
     }
   };
@@ -85,13 +97,19 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
     const formData = new FormData();
     Object.keys(form).forEach((key) => {
       if (key === "images") {
-        form.images.forEach((image) => formData.append("images", image));
+        form.images.forEach((image, index) => {
+          if(image instanceof File){
+            formData.append("images", image)
+          }
+        });
       } else {
         formData.append(key, form[key]);
       }
     });
 
     if (selected) {
+      console.log("Updating product with ID:", selected._id);
+      console.log("Form data:", formData);
       await updateProduct(selected._id, formData);
     } else {
       await createProduct(formData);
@@ -105,6 +123,7 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
       color: "",
       description: "",
       quantity: "",
+      category: "",
       subcategory: "",
       tags: [],
       images: [],
@@ -135,6 +154,26 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
                 <div className="product-grid product-grid-cols-2 product-items-center">
                   <label className="product-label" htmlFor="title">Title</label>
                   <input className="product-input" name="title" value={form.title} onChange={handleChange} placeholder="Title" required />
+                </div>
+
+                <div className="product-grid product-grid-cols-2 product-items-center">
+                  <label className="product-label" htmlFor="category">Category</label>
+                  <select className="product-input" name="category" value={form.category} onChange={handleChange}>
+                    <option value="">Select Category</option>
+                    {categories.map((cat) => (
+                      <option key={cat._id} value={cat._id}>{cat.name}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="product-grid product-grid-cols-2 product-items-center">
+                  <label className="product-label" htmlFor="subcategory">Subcategory</label>
+                  <select className="product-input" name="subcategory" value={form.subcategory} onChange={handleChange}>
+                    <option value="">Select Subcategory</option>
+                    {subcategories.map((subcat) => (
+                      <option key={subcat._id} value={subcat._id}>{subcat.name}</option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className="product-grid product-grid-cols-2 product-items-center">
@@ -199,20 +238,10 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
                 </div>
 
                 <div className="product-grid product-grid-cols-2 product-items-center">
-                  <label className="product-label" htmlFor="subcategory">Subcategory</label>
-                  <select className="product-input" name="subcategory" value={form.subcategory} onChange={handleChange}>
-                    <option value="">Select Subcategory</option>
-                    {subcategories.map((subcat) => (
-                      <option key={subcat._id} value={subcat.name}>{subcat.name}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="product-grid product-grid-cols-2 product-items-center">
                   <label className="product-label" htmlFor="tags">Tags</label>
-                  <select className="product-input" name="tags" multiple value={form.tags} onChange={handleChange}>
+                  <select className="product-input" name="tags" value={form.tags} onChange={handleChange}>
                     {tags.map((tag) => (
-                      <option key={tag._id} value={tag.name}>{tag.name}</option>
+                      <option key={tag._id} value={tag._id}>{tag.name}</option>
                     ))}
                   </select>
                 </div>
@@ -231,7 +260,7 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
                   {form.images.map((image, index) => (
                     <div key={index} className="image-preview">
                       <img
-                        src={URL.createObjectURL(image)}
+                        src={image instanceof File ? URL.createObjectURL(image) : `${process.env.REACT_APP_BACKEND_URL}${image}`}
                         alt={`Preview ${index}`}
                         style={{ width: "100px", height: "100px", objectFit: "cover", marginRight: "10px" }}
                       />
@@ -252,7 +281,7 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
                   <select className="product-input" name="collection" value={form.collection} onChange={handleChange}>
                     <option value="">Select Collection</option>
                     {collections.map((collection) => (
-                      <option key={collection._id} value={collection.name}>{collection.name}</option>
+                      <option key={collection._id} value={collection._id}>{collection.name}</option>
                     ))}
                   </select>
                 </div>
@@ -262,7 +291,7 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
                   <select className="product-input" name="occasion" value={form.occasion} onChange={handleChange}>
                     <option value="">Select Occasion</option>
                     {occasions.map((occasion) => (
-                      <option key={occasion._id} value={occasion.name}>{occasion.name}</option>
+                      <option key={occasion._id} value={occasion._id}>{occasion.name}</option>
                     ))}
                   </select>
                 </div>
@@ -321,6 +350,7 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
                     color: "",
                     description: "",
                     quantity: "",
+                    category: "",
                     subcategory: "",
                     tags: [],
                     images: [],

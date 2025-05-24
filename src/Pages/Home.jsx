@@ -5,6 +5,9 @@ import Services from "../Components/Home/Services/Services";
 import Instagram from "../Components/Home/Instagram/Instagram";
 import Trendy from "../Components/Home/Trendy/Trendy";
 import LimitedEdition from "../Components/Home/Limited/LimitedEdition";
+import TrendingProducts from "../Components/Home/Limited/TrendingProducts";
+import HotSellerProducts from "../Components/Home/Limited/HotSellerProducts";
+import FeaturedProducts from "../Components/Home/Limited/FeaturedProducts";
 // import DealTimer from "../Components/Home/Deal/DealTimer";
 import HeroSection from "../Components/Home/Hero/HeroSection";
 
@@ -14,10 +17,13 @@ const Home = () => {
       <HeroSection />
       <CollectionBox />
       <Trendy />
+      <HotSellerProducts />
+      <FeaturedProducts />
       {/* <DealTimer /> */}
       <Banner />
       <LimitedEdition />
       <Instagram />
+      <TrendingProducts />
       <Services />
     </>
   );

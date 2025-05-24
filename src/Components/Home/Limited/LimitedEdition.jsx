@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./LimitedEdition.css";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -13,19 +13,30 @@ import { Autoplay } from "swiper/modules";
 
 import { Link } from "react-router-dom";
 
-import StoreData from "../../../Data/StoreData";
+// import StoreData from "../../../Data/StoreData";
 
 import { FiHeart } from "react-icons/fi";
-import { FaStar } from "react-icons/fa";
+// import { FaStar } from "react-icons/fa";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaCartPlus } from "react-icons/fa";
 
 import toast from "react-hot-toast";
+import { ProductTypes } from "./../../../api/api";
 
 const LimitedEdition = () => {
   const dispatch = useDispatch();
 
   const [wishList, setWishList] = useState({});
+  const [products, setProducts] = useState([]);
+
+  const loadProducts = () => ProductTypes({types: ['isLatest']}).then((res) => {
+        setProducts(res?.data)
+      });
+      
+  useEffect(() => {
+    loadProducts();
+  }, []);
+  
 
   const handleWishlistClick = (productID) => {
     setWishList((prevWishlist) => ({
@@ -80,7 +91,7 @@ const LimitedEdition = () => {
     <>
       <div className="limitedProductSection">
         <h2>
-          Limited <span>Edition</span>
+          Most <span>Latest</span> Products
         </h2>
         <div className="limitedProductSlider">
           <div className="swiper-button image-swiper-button-next">
@@ -122,15 +133,15 @@ const LimitedEdition = () => {
               },
             }}
           >
-            {StoreData.slice(8, 13).map((product) => {
+            { products?.length > 0 &&  products.map((product) => {
               return (
-                <SwiperSlide key={product.productID}>
+                <SwiperSlide key={product?._id}>
                   <div className="lpContainer">
                     <div className="lpImageContainer">
                       <Link to="/Product" onClick={scrollToTop}>
                         <img
-                          src={product.frontImg}
-                          alt={product.productName}
+                          src={`${process.env.REACT_APP_BACKEND_URL}` + product?.images[0]}
+                          alt={product?.title}
                           className="lpImage"
                         />
                       </Link>
@@ -146,11 +157,11 @@ const LimitedEdition = () => {
                     </div>
                     <div className="limitedProductInfo">
                       <div className="lpCategoryWishlist">
-                        <p>Dresses</p>
+                        <p>{product?.category?.name}</p>
                         <FiHeart
-                          onClick={() => handleWishlistClick(product.productID)}
+                          onClick={() => handleWishlistClick(product?._id)}
                           style={{
-                            color: wishList[product.productID]
+                            color: wishList[product?._id]
                               ? "red"
                               : "#767676",
                             cursor: "pointer",
@@ -159,10 +170,10 @@ const LimitedEdition = () => {
                       </div>
                       <div className="productNameInfo">
                         <Link to="/Product" onClick={scrollToTop}>
-                          <h5>{product.productName}</h5>
+                          <h5>{product?.title}</h5>
                         </Link>
-                        <p>${product.productPrice}</p>
-                        <div className="productRatingReviews">
+                        <p>${product?.price}</p>
+                        {/* <div className="productRatingReviews">
                           <div className="productRatingStar">
                             <FaStar color="#FEC78A" size={10} />
                             <FaStar color="#FEC78A" size={10} />
@@ -172,7 +183,7 @@ const LimitedEdition = () => {
                           </div>
 
                           <span>{product.productReviews}</span>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ShopDetails.css";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -6,19 +6,29 @@ import { addToCart } from "../../../Features/Cart/cartSlice";
 
 import Filter from "../Filters/Filter";
 import { Link } from "react-router-dom";
-import StoreData from "../../../Data/StoreData";
+// import StoreData from "../../../Data/StoreData";
 import { FiHeart } from "react-icons/fi";
-import { FaStar } from "react-icons/fa";
+// import { FaStar } from "react-icons/fa";
 import { IoFilterSharp, IoClose } from "react-icons/io5";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 import { FaCartPlus } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { ProductFilter } from "./../../../api/api";
 
 const ShopDetails = () => {
   const dispatch = useDispatch();
 
   const [wishList, setWishList] = useState({});
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [products, setProducts] = useState([]);
+  
+    const loadProducts = () => ProductFilter().then((res) => {
+          setProducts(res?.data)
+        });
+        
+    useEffect(() => {
+      loadProducts();
+    }, []);
 
   const handleWishlistClick = (productID) => {
     setWishList((prevWishlist) => ({
@@ -118,64 +128,74 @@ const ShopDetails = () => {
             </div>
             <div className="shopDetailsProducts">
               <div className="shopDetailsProductsContainer">
-                {StoreData.slice(0, 6).map((product) => (
-                  <div className="sdProductContainer">
-                    <div className="sdProductImages">
-                      <Link to="/Product" onClick={scrollToTop}>
-                        <img
-                          src={product.frontImg}
-                          alt=""
-                          className="sdProduct_front"
-                        />
-                        <img
-                          src={product.backImg}
-                          alt=""
-                          className="sdProduct_back"
-                        />
-                      </Link>
-                      <h4 onClick={() => handleAddToCart(product)}>
-                        Add to Cart
-                      </h4>
-                    </div>
-                    <div
-                      className="sdProductImagesCart"
-                      onClick={() => handleAddToCart(product)}
-                    >
-                      <FaCartPlus />
-                    </div>
-                    <div className="sdProductInfo">
-                      <div className="sdProductCategoryWishlist">
-                        <p>Dresses</p>
-                        <FiHeart
-                          onClick={() => handleWishlistClick(product.productID)}
-                          style={{
-                            color: wishList[product.productID]
-                              ? "red"
-                              : "#767676",
-                            cursor: "pointer",
-                          }}
-                        />
-                      </div>
-                      <div className="sdProductNameInfo">
-                        <Link to="/product" onClick={scrollToTop}>
-                          <h5>{product.productName}</h5>
-                        </Link>
-
-                        <p>${product.productPrice}</p>
-                        <div className="sdProductRatingReviews">
-                          <div className="sdProductRatingStar">
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
+                {products?.length > 0 ? (
+                  <>
+                    { products?.map((product) => (
+                      <div className="sdProductContainer">
+                        <div className="sdProductImages">
+                          <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
+                            <img
+                              src={`${process.env.REACT_APP_BACKEND_URL}` + product?.images[0]}
+                              alt=""
+                              className="sdProduct_front"
+                            />
+                            <img
+                              src={`${process.env.REACT_APP_BACKEND_URL}` + product?.images[1]}
+                              alt=""
+                              className="sdProduct_back"
+                            />
+                          </Link>
+                          <h4 onClick={() => handleAddToCart(product)}>
+                            Add to Cart
+                          </h4>
+                        </div>
+                        <div
+                          className="sdProductImagesCart"
+                          onClick={() => handleAddToCart(product)}
+                        >
+                          <FaCartPlus />
+                        </div>
+                        <div className="sdProductInfo">
+                          <div className="sdProductCategoryWishlist">
+                            <p>{product?.category?.name || ''}</p>
+                            <FiHeart
+                              onClick={() => handleWishlistClick(product?._id)}
+                              style={{
+                                color: wishList[product?._id]
+                                  ? "red"
+                                  : "#767676",
+                                cursor: "pointer",
+                              }}
+                            />
                           </div>
-                          <span>{product.productReviews}</span>
+                          <div className="sdProductNameInfo">
+                            <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
+                              <h5>{product?.title}</h5>
+                            </Link>
+
+                            <p>${product?.price}</p>
+                            {/* <div className="sdProductRatingReviews">
+                              <div className="sdProductRatingStar">
+                                <FaStar color="#FEC78A" size={10} />
+                                <FaStar color="#FEC78A" size={10} />
+                                <FaStar color="#FEC78A" size={10} />
+                                <FaStar color="#FEC78A" size={10} />
+                                <FaStar color="#FEC78A" size={10} />
+                              </div>
+                              <span>{product.productReviews}</span>
+                            </div> */}
+                          </div>
                         </div>
                       </div>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    <div className="noProductsFound">
+                      <h3>No Products Found</h3>
                     </div>
-                  </div>
-                ))}
+                  </>
+                )}
               </div>
             </div>
             <div className="shopDetailsPagination">

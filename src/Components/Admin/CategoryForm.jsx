@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createCategory, updateCategory } from "./../../api/api";
+import { toast } from "react-hot-toast";
 
 const CategoryForm = ({ selected, onSave, showCreateForm = false, handleshowcreateForm }) => {
   const [form, setForm] = useState({
@@ -39,10 +40,44 @@ const CategoryForm = ({ selected, onSave, showCreateForm = false, handleshowcrea
     formData.append("isactive", form.isactive);
     if (form.image) formData.append("image", form.image);
 
-    if (selected) {
-      await updateCategory(selected._id, formData);
-    } else {
-      await createCategory(formData);
+    try {
+      var message = "";
+      if (selected) {
+        await updateCategory(selected._id, formData);
+        message = `Category updated successfully!`;
+      } else {
+        await createCategory(formData);
+        message = `Category created successfully!`;
+      }
+      toast.success(`${message}`, {
+        duration: 2000,
+        style: {
+          backgroundColor: "#07bc0c",
+          color: "white",
+        },
+        iconTheme: {
+          primary: "#fff",
+          secondary: "#07bc0c",
+        },
+      });
+    } catch (error) {
+      toast.error(
+        error.response?.data?.error ||
+          error.response?.data?.message ||
+          "An error occurred while saving the Category.",
+        {
+          duration: 2000,
+          style: {
+            backgroundColor: "#ff4b4b",
+            color: "white",
+          },
+          iconTheme: {
+            primary: "#fff",
+            secondary: "#ff4b4b",
+          },
+        }
+      );
+      return;
     }
 
     onSave();

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createCollection, updateCollection } from "./../../api/api";
+import { toast } from "react-hot-toast";
 
 const CollectionForm = ({ selected, onSave, showCreateForm = false, handleshowcreateForm }) => {
   const [form, setForm] = useState({
@@ -34,10 +35,45 @@ const CollectionForm = ({ selected, onSave, showCreateForm = false, handleshowcr
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (selected) {
-      await updateCollection(selected._id, form);
-    } else {
-      await createCollection(form);
+    
+    try {
+      var message = "";
+      if (selected) {
+        await updateCollection(selected._id, form);
+        message = `Category updated successfully!`;
+      } else {
+        await createCollection;
+        message = `Category created successfully!`;
+      }
+      toast.success(`${message}`, {
+        duration: 2000,
+        style: {
+          backgroundColor: "#07bc0c",
+          color: "white",
+        },
+        iconTheme: {
+          primary: "#fff",
+          secondary: "#07bc0c",
+        },
+      });
+    } catch (error) {
+      toast.error(
+        error.response?.data?.error ||
+          error.response?.data?.message ||
+          "An error occurred while saving the Category.",
+        {
+          duration: 2000,
+          style: {
+            backgroundColor: "#ff4b4b",
+            color: "white",
+          },
+          iconTheme: {
+            primary: "#fff",
+            secondary: "#ff4b4b",
+          },
+        }
+      );
+      return;
     }
 
     onSave();

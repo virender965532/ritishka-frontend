@@ -46,3 +46,5 @@ export const deleteProduct = (id) => axios.delete(`${API_BASE}/products/${id}`);
 
 export const ProductTag = (data) => axios.post(`${API_BASE}/products/by-tags`, data);
 export const ProductTypes = (data) => axios.post(`${API_BASE}/products/by-types`, data);
+export const ProductFilter = (data) => axios.post(`${API_BASE}/products/by-filter`, data);
+export const ProductBySlug = (slug) => axios.get(`${API_BASE}/products/${slug}`);

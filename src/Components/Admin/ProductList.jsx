@@ -40,6 +40,13 @@ const ProductList = () => {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const handleDelete = async (product) => {
     await deleteProduct(product._id);
     loadData();
@@ -115,6 +122,7 @@ const ProductList = () => {
                     onClick={() => {
                       setSelected(product);
                       setShowCreateForm(true);
+                      scrollToTop();
                     }}
                   >
                     Edit

@@ -138,7 +138,7 @@ const LimitedEdition = () => {
                 <SwiperSlide key={product?._id}>
                   <div className="lpContainer">
                     <div className="lpImageContainer">
-                      <Link to="/Product" onClick={scrollToTop}>
+                      <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
                         <img
                           src={`${process.env.REACT_APP_BACKEND_URL}` + product?.images[0]}
                           alt={product?.title}
@@ -169,7 +169,7 @@ const LimitedEdition = () => {
                         />
                       </div>
                       <div className="productNameInfo">
-                        <Link to="/Product" onClick={scrollToTop}>
+                        <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
                           <h5>{product?.title}</h5>
                         </Link>
                         <p>${product?.price}</p>

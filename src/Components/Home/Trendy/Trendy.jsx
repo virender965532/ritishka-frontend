@@ -14,7 +14,7 @@ const Trendy = () => {
   const [wishList, setWishList] = useState({});
   const [tags, setTags] = useState([]);
   const [productTagData, setProductTagData] = useState([]);
-  const [tagurl, setTagUrl] = useState("/shop?tag=");
+  const [tagurl, setTagUrl] = useState("/shop?tag=[]");
     const loadData = () => fetchTags().then((res) => { 
       const tagsList = res.data.filter((tag) => tag.showonhomepage && tag.isactive)
       setTags(tagsList)}
@@ -30,9 +30,10 @@ const Trendy = () => {
     useEffect(() => {
       if(tags?.length > 0)
       loadProductTag();
+      setTagUrl(`/shop?tag=[${tags?.[0]?._id?.toString()}]`);
     }, [tags])
   const handleTabClick = (tab) => {
-    setTagUrl("/shop?tag=" + tags?.[parseInt(tab.replace("tab", ""))]?._id);
+    setTagUrl(`/shop?tag=[${tags?.[parseInt(tab.replace("tab", ""))]?._id?.toString()}]`);
     setActiveTab(tab);
   };
 
@@ -126,10 +127,10 @@ const Trendy = () => {
                     {activeTab === `tab${index}` && (
                       <>
                         <div className="trendyMainContainer">
-                          {productTagData?.length > 0 && productTagData?.filter((el) => el.tags[0] === tag?._id).map((product) => (
+                          {productTagData?.length > 0 && productTagData?.filter((el) => el.tags?.includes(tag?._id)).map((product) => (
                             <div className="trendyProductContainer" key={product._id}>
                               <div className="trendyProductImages">
-                                <Link to="/product" onClick={scrollToTop}>
+                                <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
                                   <img
                                     src={`${process.env.REACT_APP_BACKEND_URL}` + product?.images[0]}
                                     alt=""
@@ -153,11 +154,11 @@ const Trendy = () => {
                               </div>
                               <div className="trendyProductInfo">
                                 <div className="trendyProductCategoryWishlist">
-                                  <p>{product?.category?.name}</p>
+                                  <p>{product?.category?.name || ''}</p>
                                   <FiHeart
-                                    onClick={() => handleWishlistClick(product.productID)}
+                                    onClick={() => handleWishlistClick(product._id)}
                                     style={{
-                                      color: wishList[product.productID]
+                                      color: wishList[product._id]
                                         ? "red"
                                         : "#767676",
                                       cursor: "pointer",
@@ -165,8 +166,8 @@ const Trendy = () => {
                                   />
                                 </div>
                                 <div className="trendyProductNameInfo">
-                                  <Link to="product" onClick={scrollToTop}>
-                                    <h5>{product?.title}</h5>
+                                  <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
+                                    <h5>{product?.title || ''}</h5>
                                   </Link>
 
                                   <p>${product?.price}</p>

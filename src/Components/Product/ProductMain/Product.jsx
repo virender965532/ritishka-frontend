@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
 
@@ -21,19 +21,44 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import "./Product.css";
+import { useParams, useNavigate } from "react-router-dom";
+import { ProductBySlug } from "./../../../api/api";
+import Subcategory from './../../../Pages/admin/Subcategory';
 
 const Product = () => {
   // Product images Gallery
 
+  const { slug } = useParams();
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!slug) {
+      navigate("/");
+    }
+  }, [slug, navigate]);
   const productImg = [product1, product2, product3, product4];
   const [currentImg, setCurrentImg] = useState(0);
+  const [product, setProduct] = useState([]);
+  
+  const fetchProductBySlug = () => ProductBySlug(slug).then((res) => {
+        if (!res?.data) {
+          navigate("/");
+        } else {
+          setProduct(res?.data);
+        }  
+      });
+      
+  useEffect(() => {
+    fetchProductBySlug();
+  }, []);
+
 
   const prevImg = () => {
-    setCurrentImg(currentImg === 0 ? productImg.length - 1 : currentImg - 1);
+    setCurrentImg(currentImg === 0 ? product?.images?.length - 1 : currentImg - 1);
   };
 
   const nextImg = () => {
-    setCurrentImg(currentImg === productImg.length - 1 ? 0 : currentImg + 1);
+    setCurrentImg(currentImg === product?.images?.length - 1 ? 0 : currentImg + 1);
   };
 
   // Product Quantity
@@ -136,15 +161,15 @@ const Product = () => {
         <div className="productShowCase">
           <div className="productGallery">
             <div className="productThumb">
-              <img src={product1} onClick={() => setCurrentImg(0)} alt="" />
-              <img src={product2} onClick={() => setCurrentImg(1)} alt="" />
-              <img src={product2} onClick={() => setCurrentImg(1)} alt="" />
-              <img src={product3} onClick={() => setCurrentImg(2)} alt="" />
-              <img src={product3} onClick={() => setCurrentImg(2)} alt="" />
-              <img src={product4} onClick={() => setCurrentImg(3)} alt="" />
+              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[0] : `#`} onClick={() => setCurrentImg(0)} alt="" />
+              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[1] : `#`} onClick={() => setCurrentImg(1)} alt="" />
+              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[2] : `#`} onClick={() => setCurrentImg(2)} alt="" />
+              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[3] : `#`} onClick={() => setCurrentImg(3)} alt="" />
+              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[4] : `#`} onClick={() => setCurrentImg(4)} alt="" />
+              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[5] : `#`} onClick={() => setCurrentImg(5)} alt="" />
             </div>
             <div className="productFullImg">
-              <img src={productImg[currentImg]} alt="" />
+              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[currentImg] : `#`} alt="" />
               <div className="buttonsGroup">
                 <button onClick={prevImg} className="directionBtn">
                   <GoChevronLeft size={18} />
@@ -161,41 +186,26 @@ const Product = () => {
                 <Link to="/">Home</Link>&nbsp;/&nbsp;
                 <Link to="/shop">The Shop</Link>
               </div>
-              <div className="prevNextLink">
-                <Link to="/product">
-                  <GoChevronLeft />
-                  <p>Prev</p>
-                </Link>
-                <Link to="/product">
-                  <p>Next</p>
-                  <GoChevronRight />
-                </Link>
-              </div>
             </div>
             <div className="productName">
-              <h1>Lightweight Puffer Jacket With a Hood</h1>
+              <h1>{product?.title || ''}</h1>
             </div>
-            <div className="productRating">
+            {/* <div className="productRating">
               <FaStar color="#FEC78A" size={10} />
               <FaStar color="#FEC78A" size={10} />
               <FaStar color="#FEC78A" size={10} />
               <FaStar color="#FEC78A" size={10} />
               <FaStar color="#FEC78A" size={10} />
               <p>8k+ reviews</p>
-            </div>
+            </div> */}
             <div className="productPrice">
-              <h3>$90</h3>
+              <h3>${product?.price}</h3>
             </div>
             <div className="productDescription">
-              <p>
-                Phasellus sed volutpat orci. Fusce eget lore mauris vehicula
-                elementum gravida nec dui. Aenean aliquam varius ipsum, non
-                ultricies tellus sodales eu. Donec dignissim viverra nunc, ut
-                aliquet magna posuere eget.
-              </p>
+              <p>{product?.description  || ''}</p>
             </div>
             <div className="productSizeColor">
-              <div className="productSize">
+              {/* <div className="productSize">
                 <p>Sizes</p>
                 <div className="sizeBtn">
                   {sizes.map((size, index) => (
@@ -218,7 +228,7 @@ const Product = () => {
                     </Tooltip>
                   ))}
                 </div>
-              </div>
+              </div> */}
               <div className="productColor">
                 <p>Color</p>
                 <div className="colorBtn">
@@ -280,13 +290,15 @@ const Product = () => {
             </div>
             <div className="productTags">
               <p>
-                <span>SKU: </span>N/A
+                <span>CATEGORIES: </span>{product?.category?.name || 'N/A'}
               </p>
               <p>
-                <span>CATEGORIES: </span>Casual & Urban Wear, Jackets, Men
+                <span>SUB-CATEGORIES: </span>{product?.subcategory?.name || 'N/A'}
               </p>
               <p>
-                <span>TAGS: </span>biker, black, bomber, leather
+                <span>TAGS: </span>{product?.tags?.length > 0 ? product?.tags.map((el, index)=> {
+                  return el?.name
+                }).join(',') : 'N/A'}
               </p>
             </div>
           </div>

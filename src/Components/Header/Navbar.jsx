@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Navbar.css";
-
 import { useSelector } from "react-redux";
-
 import logo from "../../Assets/logo.png";
 import { Link } from "react-router-dom";
-
 import { RiMenu2Line } from "react-icons/ri";
 import { FiSearch } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa6";
@@ -17,13 +14,40 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaPinterest } from "react-icons/fa";
-
 import Badge from "@mui/material/Badge";
+import { NAVBAR_LINKS } from "../../Constants/Constants"; // <-- Import your links
+import { fetchCategories } from "../../api/api"; // <-- Add this import, adjust path as needed
 
 const Navbar = () => {
   const cart = useSelector((state) => state.cart);
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [navbarLinks, setNavbarLinks] = useState(NAVBAR_LINKS);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await fetchCategories();
+        const categories = res.data || [];
+        const categoryLinks = categories?.filter(cat => cat?.isactive).sort((a,b)=> a.name.localeCompare(b.name)).map(cat => ({
+          label: cat.name,
+          to: `/shop?category=${cat.slug || cat.name.toLowerCase()}`
+        }));
+
+        // Clone and update the categories dropdown
+        const updatedLinks = navbarLinks.map(link =>
+          link.label === "Categories"
+            ? { ...link, children: categoryLinks }
+            : link
+        );
+        setNavbarLinks(updatedLinks);
+      } catch (err) {
+        console.error("Failed to fetch categories:", err);
+        // Optionally handle error, e.g., show a notification
+      }
+    };
+    getCategories();
+    // eslint-disable-next-line
+  }, []);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -49,31 +73,32 @@ const Navbar = () => {
           </div>
           <div className="linkContainer">
             <ul>
-              <li>
-                <Link to="/" onClick={scrollToTop}>
-                  HOME
-                </Link>
-              </li>
-              <li>
-                <Link to="/shop" onClick={scrollToTop}>
-                  SHOP
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" onClick={scrollToTop}>
-                  BLOG
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" onClick={scrollToTop}>
-                  ABOUT
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" onClick={scrollToTop}>
-                  CONTACT
-                </Link>
-              </li>
+              {navbarLinks.map((link) =>
+                link.isDropdown ? (
+                  <li key={link.label} className="dropdown">
+                    <span className="dropdown-header">{link.label}</span>
+                    <ul className="dropdown-menu dropdown-menu-categories">
+                      {link.children && link.children.length > 0 ? (
+                        link.children.map((child) => (
+                          <li key={child.to}>
+                            <Link to={child.to} onClick={scrollToTop}>
+                              {child.label}
+                            </Link>
+                          </li>
+                        ))
+                      ) : (
+                        <li><span>Loading...</span></li>
+                      )}
+                    </ul>
+                  </li>
+                ) : (
+                  <li key={link.to}>
+                    <Link to={link.to} onClick={scrollToTop}>
+                      {link.label}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </div>
         </div>
@@ -95,7 +120,6 @@ const Navbar = () => {
             </Badge>
           </Link>
           <FiHeart size={22} onClick={scrollToTop} />
-          {/* <RiMenu2Line size={22} /> */}
         </div>
       </nav>
 
@@ -137,31 +161,32 @@ const Navbar = () => {
             </div>
             <div className="mobile-menuList">
               <ul>
-                <li>
-                  <Link to="/" onClick={toggleMobileMenu}>
-                    HOME
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/shop" onClick={toggleMobileMenu}>
-                    SHOP
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/blog" onClick={toggleMobileMenu}>
-                    BLOG
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/about" onClick={toggleMobileMenu}>
-                    ABOUT
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/contact" onClick={toggleMobileMenu}>
-                    CONTACT
-                  </Link>
-                </li>
+                {navbarLinks.map((link) =>
+                  link.isDropdown ? (
+                    <li key={link.label} className="dropdown">
+                      <span className="dropdown-header">{link.label}</span>
+                      <ul className="dropdown-menu dropdown-menu-categories">
+                        {link.children && link.children.length > 0 ? (
+                          link.children.map((child) => (
+                            <li key={child.to}>
+                              <Link to={child.to} onClick={scrollToTop}>
+                                {child.label}
+                              </Link>
+                            </li>
+                          ))
+                        ) : (
+                          <li><span>Loading...</span></li>
+                        )}
+                      </ul>
+                    </li>
+                  ) : (
+                    <li key={link.to}>
+                      <Link to={link.to} onClick={scrollToTop}>
+                        {link.label}
+                      </Link>
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           </div>

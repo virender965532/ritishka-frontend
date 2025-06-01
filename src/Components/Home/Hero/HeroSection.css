@@ -1,6 +1,7 @@
 .heroMain {
   background-color: #f4e5e0;
   background-image: url("../../../Assets/slideshow-pattern.png");
+  /* background-image: url("../../../../public/images/kids/kids\ \(9\).JPG"); */
   background-size: cover;
   padding: 0 160px;
   display: flex;

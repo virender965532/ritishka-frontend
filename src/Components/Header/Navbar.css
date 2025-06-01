@@ -42,14 +42,14 @@
 
 .linkContainer ul li a {
   text-decoration: none;
-  color: #1b1b1b;
-  font-size: 14px;
+  color: #aa8136;
+  font-size: 16px;
   font-weight: 600;
   position: relative;
 }
 
 .linkContainer ul li a::after {
-  content: "";
+  /* content: ""; */
   position: absolute;
   bottom: -5px;
   left: 0;
@@ -245,4 +245,93 @@
 
 .mobile-menuSocial_links svg {
   cursor: pointer;
+}
+
+/* Dropdown base */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-header {
+  cursor: pointer;
+  color: #aa8136;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 8px 0;
+  display: inline-block;
+  transition: color 0.2s;
+}
+
+.dropdown-header:hover {
+  color: #d4af37;
+}
+
+/* Dropdown menu for categories */
+.dropdown-menu-categories {
+  display: none;
+  position: absolute;
+  top: 80%;
+  left: -10%;
+  background: #fff;
+  /* min-width: 340px; */
+  box-shadow: 0 8px 32px rgba(170, 129, 54, 0.15);
+  border-radius: 12px;
+  padding: 24px 16px 24px 36px;
+  z-index: 100;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 32px;
+  transition: all 0.2s;
+  border: 1px solid #f3e8d2;
+  display: grid;
+}
+
+/* .dropdown:hover .dropdown-menu-categories {
+  display: grid;
+} */
+
+/* Show dropdown when hovering on header or inside dropdown */
+.dropdown:hover .dropdown-menu-categories,
+.dropdown:focus-within .dropdown-menu-categories {
+  display: grid !important;
+}
+
+.linkContainer ul li ul {
+    display: none !important;
+    gap: 20px;
+}
+
+.dropdown-menu .dropdown-menu-categories {
+  display: none !important;
+}
+
+/* Category links */
+.dropdown-menu-categories li {
+  list-style: none;
+  width: 120px
+  /* display: none; */
+}
+.dropdown-menu-categories li:hover {
+  display: grid;
+}
+
+.dropdown-menu-categories li a {
+  color: #6d4c1c;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 6px 0;
+  display: block;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-menu-categories li a:hover {
+  background: #f8f1e3;
+  color: #aa8136;
+}
+
+/* Optional: Add a subtle gold border on hover for jewelry feel */
+.dropdown-menu-categories li a:hover {
+  border-left: 3px solid #d4af37;
+  padding-left: 12px;
 }

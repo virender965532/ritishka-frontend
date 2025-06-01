@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
-export function Model({ color, ...props }) {
-  const { nodes, materials } = useGLTF("/shirt_baked_2.glb");
+export function Model({ color, modelPath, ...props }) {
+  const { nodes, materials } = useGLTF(modelPath);
   const modelRef = useRef();
 
   const [scale, setScale] = useState([1, 1, 1]);
@@ -41,6 +41,13 @@ export function Model({ color, ...props }) {
     });
   }, [color, materials]);
 
+  // Dynamically preload the model
+  useEffect(() => {
+    if (modelPath) {
+      useGLTF.preload(modelPath);
+    }
+  }, [modelPath]);
+
   return (
     <group
       ref={modelRef}
@@ -58,5 +65,3 @@ export function Model({ color, ...props }) {
     </group>
   );
 }
-
-useGLTF.preload("/shirt_baked_2.glb");

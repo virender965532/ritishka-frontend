@@ -101,10 +101,10 @@ const HotSellerProducts = () => {
             <IoIosArrowBack />
           </div>
           <Swiper
-            slidesPerView={4}
-            slidesPerGroup={4}
+            slidesPerView={2}
+            slidesPerGroup={1}
             spaceBetween={30}
-            loop={true}
+            loop={products.length > 4}
             navigation={{
               nextEl: ".image-swiper-button-next",
               prevEl: ".image-swiper-button-prev",
@@ -133,7 +133,7 @@ const HotSellerProducts = () => {
               },
             }}
           >
-            { products?.length > 0 &&  products.map((product) => {
+            { products.map((product) => {
               return (
                 <SwiperSlide key={product?._id}>
                   <div className="lpContainer">

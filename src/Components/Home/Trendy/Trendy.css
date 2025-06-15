@@ -2,9 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 85px 0;
-  padding: 0 160px;
-  gap: 40px;
+  margin: 25px 0 0 0;
+  padding: 32px 16px;
+  gap: 30px;
+  background-color: #ffebc6;
 }
 
 .trendyProducts h2 {
@@ -22,6 +23,7 @@
   flex-direction: column;
   align-items: center;
   gap: 40px;
+  width: 100%;
 }
 
 .tabs {
@@ -82,8 +84,11 @@
 
 .trendyMainContainer {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 30px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 20px;
+  width: 100%;
+  margin-left: auto;
+  padding-left: 16px;
 }
 
 .trendyProductContainer {
@@ -99,6 +104,8 @@
   transition: 0.3s linear;
   -moz-transition: 0.3s linear;
   -o-transition: 0.3s linear;
+  border: 4px solid #e2c48d;
+  border-radius: 1rem;
 }
 
 .trendyProductImages img {
@@ -155,6 +162,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 258px;
 }
 
 .trendyProductCategoryWishlist {
@@ -324,4 +332,8 @@
     align-items: center;
     gap: 2px;
   }
+}
+
+.trendyTabContent {
+  width: 100%
 }

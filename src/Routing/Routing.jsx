@@ -23,6 +23,10 @@ import Occasion from './../Pages/admin/Occasion';
 import Tag from './../Pages/admin/Tag';
 import Color from './../Pages/admin/Color';
 import Products from './../Pages/admin/Products';
+import HeroSection from "../Pages/admin/HeroSection";
+import PackingBoxSection from "../Pages/admin/PackingBoxSection";
+import ThreeDynamicCardSection from "../Pages/admin/ThreeDynamicCardSection";
+import DynamicCardSection from "../Pages/admin/DynamicCardSection";
 
 const Routing = () => {
   const location = useLocation();
@@ -50,6 +54,11 @@ const Routing = () => {
           <Route path="/admin/manage-tags" element={<Tag />} />
           <Route path="/admin/manage-colours" element={<Color />} />     
           <Route path="/admin/manage-products" element={<Products />} />     
+          <Route path="/admin/pages/hero" element={<HeroSection />} />     
+          <Route path="/admin/pages/packing-box" element={<PackingBoxSection />} />     
+          <Route path="/admin/pages/offer" element={<HeroSection />} />     
+          <Route path="/admin/pages/fresh" element={<DynamicCardSection />} />     
+          <Route path="/admin/pages/3-box" element={<ThreeDynamicCardSection />} />     
 
           {/* Public Website Routes */}
           <Route path="/" element={<Home />} />

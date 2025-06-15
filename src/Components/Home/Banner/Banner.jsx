@@ -1,7 +1,7 @@
 import React from "react";
 import "./Banner.css";
-
 import { Link } from "react-router-dom";
+import { BANNER_DATA } from "../../../Constants/Constants";
 
 const Banner = () => {
   const scrollToTop = () => {
@@ -12,32 +12,30 @@ const Banner = () => {
   };
 
   return (
-    <>
-      <div className="banner">
-        <div className="bannerLeft">
-          <h6 className="bannerh6">Starting At $19</h6>
-          <h3 className="bannerh3">Women's T-shirts</h3>
-          <h5 className="bannerh5">
-            <Link to="/shop" onClick={scrollToTop} style={{ color: "white" }}>
-              Shop Now
-            </Link>
-          </h5>
-        </div>
-        <div className="bannerRight">
-          <h6 className="bannerh6" style={{ color: "black" }}>
-            Starting At $39
-          </h6>
-          <h3 className="bannerh3" style={{ color: "black" }}>
-            Men's Sportswear
-          </h3>
-          <h5 className="bannerh5">
-            <Link to="/shop" onClick={scrollToTop} style={{ color: "black" }}>
-              Shop Now
-            </Link>
-          </h5>
-        </div>
-      </div>
-    </>
+    <div className="banner">
+      {BANNER_DATA.map((item, idx) => {
+        const sideClass = idx === 0 ? "bannerLeft" : "bannerRight";
+        return (
+          <div className={sideClass} key={idx}>
+            <h6 className="bannerh6" style={{ color: "black" }}>
+              {item.price}
+            </h6>
+            <h3 className="bannerh3" style={{ color: "black" }}>
+              {item.title}
+            </h3>
+            <h5 className="bannerh5">
+              <Link
+                to={item.link}
+                onClick={scrollToTop}
+                style={{ color: "black" }}
+              >
+                Shop Now
+              </Link>
+            </h5>
+          </div>
+        );
+      })}
+    </div>
   );
 };
 

@@ -29,8 +29,17 @@ const AdminSidebar = () => {
         { title: 'Manage Tags', path: '/admin/manage-tags' },
         { title: 'Manage Colours', path: '/admin/manage-colours' },
       ]
+    },
+    {
+      title: 'Manage Pages',
+      children: [
+        { title: 'Hero Page Section', path: '/admin/pages/hero' },
+        { title: 'Packing Box Section', path: '/admin/pages/packing-box' },
+        // { title: 'Offer Section', path: '/admin/pages/offer' },
+        { title: 'Fresh Section', path: '/admin/pages/fresh' },
+        { title: '3 Box Section', path: '/admin/pages/3-box' }
+      ]
     }
-
   ];
 
   return (

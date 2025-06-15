@@ -54,6 +54,9 @@
   color: #fff;
   padding: 20px;
   display: inline-block;
+  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: unset;
 }
 
 .sidebar-user {

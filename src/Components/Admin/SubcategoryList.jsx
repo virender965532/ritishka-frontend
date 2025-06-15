@@ -70,7 +70,7 @@ const SubcategoryList = () => {
                     src={`${process.env.REACT_APP_BACKEND_URL}${subcat?.image}`} // Use the image path from the backend
                     alt={subcat?.name}
                     className="subcategory-image"    
-                    style={{ width: '50px', height: '50px', borderRadius: '10px' }}
+                    style={{ width: '80px', height: '80px', borderRadius: '10px' }}
                   />
                 )}
               </td>

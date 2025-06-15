@@ -48,3 +48,27 @@ export const ProductTag = (data) => axios.post(`${API_BASE}/products/by-tags`, d
 export const ProductTypes = (data) => axios.post(`${API_BASE}/products/by-types`, data);
 export const ProductFilter = (data) => axios.post(`${API_BASE}/products/by-filter`, data);
 export const ProductBySlug = (slug) => axios.get(`${API_BASE}/products/${slug}`);
+
+// Hero Section APIs
+export const fetchHeroSections = () => axios.get(`${API_BASE}/pages/hero`);
+export const createHeroSection = (data) => axios.post(`${API_BASE}/pages/hero`, data);
+export const updateHeroSection = (id, data) => axios.put(`${API_BASE}/pages/hero/${id}`, data);
+export const deleteHeroSection = (id) => axios.delete(`${API_BASE}/pages/hero/${id}`);
+
+// Packing Box Section APIs
+export const fetchPackingBoxSections = () => axios.get(`${API_BASE}/pages/packing-box`);
+export const createPackingBoxSection = (data) => axios.post(`${API_BASE}/pages/packing-box`, data);
+export const updatePackingBoxSection = (id, data) => axios.put(`${API_BASE}/pages/packing-box/${id}`, data);
+export const deletePackingBoxSection = (id) => axios.delete(`${API_BASE}/pages/packing-box/${id}`);
+
+// Three Dynamic Card APIs
+export const fetchThreeDynamicCards = () => axios.get(`${API_BASE}/pages/three-dynamic`);
+export const createThreeDynamicCard = (data) => axios.post(`${API_BASE}/pages/three-dynamic`, data);
+export const updateThreeDynamicCard = (id, data) => axios.put(`${API_BASE}/pages/three-dynamic/${id}`, data);
+export const deleteThreeDynamicCard = (id) => axios.delete(`${API_BASE}/pages/three-dynamic/${id}`);
+
+// Dynamic Card APIs
+export const fetchDynamicCards = () => axios.get(`${API_BASE}/pages/dynamic-card`);
+export const createDynamicCard = (data) => axios.post(`${API_BASE}/pages/dynamic-card`, data);
+export const updateDynamicCard = (id, data) => axios.put(`${API_BASE}/pages/dynamic-card/${id}`, data);
+export const deleteDynamicCard = (id) => axios.delete(`${API_BASE}/pages/dynamic-card/${id}`);

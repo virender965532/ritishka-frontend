@@ -3,8 +3,9 @@
   grid-template-columns: 1fr 1fr;
   grid-gap: 30px;
   height: 30rem;
-  padding: 0 160px;
-  margin: 85px 0;
+  padding: 32px 16px;
+  margin: 25px 0 0 0;
+  background-color: #ffebc6;
 }
 
 .collectionLeft {
@@ -16,6 +17,8 @@
   flex-direction: column;
   justify-content: flex-end;
   background-color: #eff0f1;
+  border: 3px solid #e2c48d;
+  border-radius: 1rem;
 }
 
 .col-link {
@@ -55,6 +58,8 @@
   justify-content: flex-end;
   padding: 30px;
   background-color: #eff0f1;
+  border: 3px solid #e2c48d;
+  border-radius: 1rem;
 }
 
 .collectionBottom {
@@ -72,6 +77,8 @@
   justify-content: flex-end;
   padding: 30px;
   background-color: #eff0f1;
+  border: 3px solid #e2c48d;
+  border-radius: 1rem;
 }
 
 .box2 {
@@ -80,6 +87,8 @@
   flex-direction: column;
   justify-content: flex-end;
   padding: 30px;
+  border: 3px solid #e2c48d;
+  border-radius: 1rem;
 }
 
 /* text in box style */

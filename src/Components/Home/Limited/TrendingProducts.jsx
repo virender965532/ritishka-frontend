@@ -101,10 +101,10 @@ const TrendingProducts = () => {
             <IoIosArrowBack />
           </div>
           <Swiper
-            slidesPerView={4}
-            slidesPerGroup={4}
+            slidesPerView={2}
+            slidesPerGroup={1}
             spaceBetween={30}
-            loop={true}
+            loop={products.length > 4}
             navigation={{
               nextEl: ".image-swiper-button-next",
               prevEl: ".image-swiper-button-prev",

@@ -26,12 +26,12 @@ const AdditionalInfo = () => {
               >
                 Description
               </p>
-              <p
+              {/* <p
                 onClick={() => handleTabClick("aiTab2")}
                 className={activeTab === "aiTab2" ? "aiActive" : ""}
               >
                 Additional Information
-              </p>
+              </p> */}
               <p
                 onClick={() => handleTabClick("aiTab3")}
                 className={activeTab === "aiTab3" ? "aiActive" : ""}
@@ -99,7 +99,7 @@ const AdditionalInfo = () => {
 
             {/* Tab2 */}
 
-            {activeTab === "aiTab2" && (
+            {/* {activeTab === "aiTab2" && (
               <div className="aiTabAdditionalInfo">
                 <div className="additionalInfoContainer">
                   <h6>Weight</h6>
@@ -122,7 +122,7 @@ const AdditionalInfo = () => {
                   <p> Relaxed fit shirt-style dress with a rugged</p>
                 </div>
               </div>
-            )}
+            )} */}
 
             {/* Tab3 */}
 

@@ -7,7 +7,7 @@
   background-image: url(../../../Assets/Deal/dealbg.jpg);
   height: 500px;
   background-size: cover;
-  padding: 0 160px;
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

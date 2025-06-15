@@ -22,6 +22,16 @@ const Navbar = () => {
   const cart = useSelector((state) => state.cart);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navbarLinks, setNavbarLinks] = useState(NAVBAR_LINKS);
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // If scrolled more than 10px, set sticky
+      setIsSticky(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -64,7 +74,7 @@ const Navbar = () => {
   return (
     <>
       {/* Desktop Menu */}
-      <nav className="navBar">
+      <nav className={`navBar${isSticky ? " sticky" : ""}`}>
         <div className="logoLinkContainer">
           <div className="logoContainer">
             <Link to="/" onClick={scrollToTop}>

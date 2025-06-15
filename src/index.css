@@ -9,6 +9,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-transform: capitalize;
+  background-color: #ffebc6;
 }
 
 code {

@@ -65,7 +65,7 @@ const CategoryList = () => {
                     src={`${process.env.REACT_APP_BACKEND_URL}${cat?.image}`}
                     alt={cat?.name}
                     className="category-image"
-                    style={{ width: '50px', height: '50px', borderRadius: '10px' }}
+                    style={{ width: '80px', height: '80px', borderRadius: '10px' }}
                   />
                 )}
               </td>

@@ -1,0 +1,150 @@
+/* ThreeDynamicCards.css */
+.three-dynamic-cards-section {
+  background-color: #ffebc6;
+  padding: 32px 0 32px 0;
+  color: #0e0d09;
+  margin: 25px 0 0 0;
+  /* width: 100vw; */
+  /* overflow-x: auto; */
+}
+
+.three-dynamic-cards-container {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.three-dynamic-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(170, 129, 54, 0.10), 0 1.5px 6px 0 rgba(170, 129, 54, 0.08);
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.2s;
+  min-width: 320px;
+  max-width: 435px;
+  flex: 1 1 320px;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.three-dynamic-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 32px 0 rgba(170, 129, 54, 0.18), 0 3px 12px 0 rgba(170, 129, 54, 0.12);
+}
+
+.three-dynamic-card-img-wrapper {
+  width: 435px;
+  min-width: 435px;
+  max-width: 435px;
+  min-height: 579px;
+  height: 579px;
+  max-height: 579px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3e8d2;
+}
+
+.three-dynamic-card-img-wrapper img {
+  width: 435px;
+  min-width: 435px;
+  max-width: 435px;
+  height: 579px;
+  min-height: 579px;
+  max-height: 579px;
+  object-fit: cover;
+  border-radius: 18px 18px 0 0;
+  transition: transform 0.3s;
+}
+
+.three-dynamic-card:hover .three-dynamic-card-img-wrapper img {
+  transform: scale(1.07);
+}
+
+.three-dynamic-card-overlay {
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.three-dynamic-card-label {
+  background: rgba(255,255,255,0.92);
+  color: #aa8136;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 8px 28px;
+  border-radius: 24px;
+  box-shadow: 0 2px 8px rgba(170, 129, 54, 0.10);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  pointer-events: auto;
+  transition: background 0.2s, color 0.2s;
+}
+
+.three-dynamic-card:hover .three-dynamic-card-label {
+  background: #aa8136;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .three-dynamic-cards-container {
+    gap: 16px;
+    padding: 0 8px;
+  }
+  .three-dynamic-card {
+    min-width: 220px;
+    max-width: 320px;
+  }
+  .three-dynamic-card-img-wrapper {
+    min-height: 220px;
+    height: 220px;
+    max-height: 320px;
+  }
+  .three-dynamic-card-img-wrapper img {
+    min-height: 220px;
+    max-height: 320px;
+  }
+}
+
+@media (max-width: 600px) {
+  .three-dynamic-cards-section {
+    padding: 16px 0;
+  }
+  .three-dynamic-cards-container {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 12px;
+  }
+  .three-dynamic-card {
+    min-width: 180px;
+    max-width: 220px;
+  }
+  .three-dynamic-card-img-wrapper {
+    min-height: 120px;
+    height: 120px;
+    max-height: 180px;
+  }
+  .three-dynamic-card-img-wrapper img {
+    min-height: 120px;
+    max-height: 180px;
+  }
+  .three-dynamic-card-label {
+    font-size: 0.95rem;
+    padding: 6px 16px;
+  }
+}

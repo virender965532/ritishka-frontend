@@ -33,10 +33,11 @@ const Routing = () => {
   const { pathname } = location;
   const isAdminRoute = pathname.startsWith('/admin');
   const isCustomerRoute = pathname.startsWith('/portal');
+  const isLoginRoute = pathname.startsWith('/login') || pathname.startsWith('/resetPassword') || pathname.startsWith('/signup');
 
   return (
     <>
-      {!isAdminRoute && !isCustomerRoute && <Header />}
+      {!isAdminRoute && !isCustomerRoute && !isLoginRoute && <Header />}
       {isAdminRoute && !isCustomerRoute && <AdminHeader />}
       {isAdminRoute && !isCustomerRoute && <AdminSidebar />}
       {/* {!isAdminRoute && isCustomerRoute && <CustomerHeader />} */}
@@ -67,7 +68,8 @@ const Routing = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/product/:slug" element={<ProductDetails />} />
-          <Route path="/loginSignUp" element={<Authentication />} />
+          <Route path="/login" element={<Authentication />} />
+          <Route path="/signup" element={<Authentication />} />
           <Route path="/resetPassword" element={<ResetPass />} />
           <Route path="/BlogDetails" element={<BlogDetails />} />
           <Route path="/terms" element={<TermsConditions />} />
@@ -75,7 +77,7 @@ const Routing = () => {
           <Route path="*" element={<NotFound />} />
 
         </Routes>
-        {!isAdminRoute && !isCustomerRoute && <Footer />}
+        {!isAdminRoute && !isCustomerRoute && !isLoginRoute && <Footer />}
         {isAdminRoute && !isCustomerRoute && <AdminFooter />}
         {/* {!isAdminRoute && isCustomerRoute && <CustomerFooter />} */}
     </>

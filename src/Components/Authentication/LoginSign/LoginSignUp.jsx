@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./LoginSignUp.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const LoginSignUp = () => {
   const [activeTab, setActiveTab] = useState("tabButton1");
+  const location = useLocation();
+
+  useEffect(() => {
+    const path = location.pathname.toLowerCase();
+    if (path.endsWith("/signup")) {
+      setActiveTab("tabButton2");
+    } else if (path.endsWith("/login")) {
+      setActiveTab("tabButton1");
+    } else {
+      setActiveTab("tabButton1"); // default to login
+    }
+  }, [location.pathname]);
 
   const handleTab = (tab) => {
     setActiveTab(tab);
@@ -65,19 +77,20 @@ const LoginSignUp = () => {
                   <input type="text" placeholder="Username *" required />
                   <input type="email" placeholder="Email address *" required />
                   <input type="password" placeholder="Password *" required />
-                  <p>
-                    Your personal data will be used to support your experience
-                    throughout this website, to manage access to your account,
-                    and for other purposes described in our
-                    <Link
-                      to="/terms"
-                      style={{ textDecoration: "none", color: "#c32929" }}
-                    >
-                      {" "}
-                      privacy policy
-                    </Link>
-                    .
-                  </p>
+                  <div className="loginSignUpForgetPass">
+                      <label>
+                      <input type="checkbox" className="brandRadio" required/>
+                      <p>
+                        I accept that I have read & understood the{" "}
+                        <Link
+                          to="/terms"
+                          style={{ textDecoration: "none", color: "#c32929" }}    
+                        >{" "}
+                          privacy policy
+                        </Link>.
+                      </p>
+                    </label>
+                  </div>
                   <button>Register</button>
                 </form>
               </div>

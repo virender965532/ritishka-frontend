@@ -1,0 +1,24 @@
+.dashboard-container {
+  display: inline-block;
+  max-width: 80%;
+  margin: 12px 12px;
+  width: 80%;
+  padding: 12px 12px;
+  position: absolute;
+  height: 534px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #ffffff;
+}
+
+.dashboard-section {
+  padding: 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 20px;
+  display: flex;
+}

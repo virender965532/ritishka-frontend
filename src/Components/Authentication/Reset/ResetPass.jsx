@@ -17,7 +17,7 @@ const ResetPass = () => {
         </div>
         <p>
           Back to{" "}
-          <Link to="/loginSignUp">
+          <Link to="/login">
             <span>Login</span>
           </Link>
         </p>

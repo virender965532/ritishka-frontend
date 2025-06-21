@@ -52,7 +52,7 @@ const HotSellerProducts = () => {
     });
   };
 
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = useSelector((state) => state?.cart?.items);
 
   const handleAddToCart = (product) => {
     const productInCart = cartItems.find(

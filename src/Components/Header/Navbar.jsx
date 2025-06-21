@@ -17,12 +17,22 @@ import { FaPinterest } from "react-icons/fa";
 import Badge from "@mui/material/Badge";
 import { NAVBAR_LINKS } from "../../Constants/Constants"; // <-- Import your links
 import { fetchCategories } from "../../api/api"; // <-- Add this import, adjust path as needed
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/authSlice"; // <-- Adjust the import path as needed
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const cart = useSelector((state) => state.cart);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navbarLinks, setNavbarLinks] = useState(NAVBAR_LINKS);
   const [isSticky, setIsSticky] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -119,7 +129,7 @@ const Navbar = () => {
           </Link>
           <Link to="/cart" onClick={scrollToTop}>
             <Badge
-              badgeContent={cart.items.length === 0 ? "0" : cart.items.length}
+              badgeContent={cart?.items.length === 0 ? "0" : cart?.items.length}
               color="primary"
               anchorOrigin={{
                 vertical: "bottom",
@@ -148,7 +158,7 @@ const Navbar = () => {
           </div>
           <Link to="/cart">
             <Badge
-              badgeContent={cart.items.length === 0 ? "0" : cart.items.length}
+              badgeContent={cart?.items.length === 0 ? "0" : cart?.items.length}
               color="primary"
               anchorOrigin={{
                 vertical: "bottom",

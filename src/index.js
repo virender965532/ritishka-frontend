@@ -4,7 +4,20 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import store from "./App/store";
+
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { save, load } from "redux-localstorage-simple";
+import rootReducer from "./redux/reducers/rootReducer";
+import * as serviceWorker from "./serviceWorker";
+
+import { composeWithDevTools } from "redux-devtools-extension";
+
+const store = createStore(
+  rootReducer,
+  load(),
+  composeWithDevTools(applyMiddleware(thunk, save()))
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,3 +32,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+serviceWorker.unregister();

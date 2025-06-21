@@ -27,13 +27,15 @@ import HeroSection from "../Pages/admin/HeroSection";
 import PackingBoxSection from "../Pages/admin/PackingBoxSection";
 import ThreeDynamicCardSection from "../Pages/admin/ThreeDynamicCardSection";
 import DynamicCardSection from "../Pages/admin/DynamicCardSection";
+import Dashboard from "../Pages/admin/Dashboard";
+import PrivateRoute from "./PrivateRoute";
 
 const Routing = () => {
   const location = useLocation();
   const { pathname } = location;
   const isAdminRoute = pathname.startsWith('/admin');
   const isCustomerRoute = pathname.startsWith('/portal');
-  const isLoginRoute = pathname.startsWith('/login') || pathname.startsWith('/resetPassword') || pathname.startsWith('/signup');
+  const isLoginRoute = pathname.startsWith('/login') || pathname.startsWith('/reset-password') || pathname.startsWith('/signup');
 
   return (
     <>
@@ -48,18 +50,19 @@ const Routing = () => {
           <Route path="/profile" element={<CustomerProfile />} />  */}
 
            {/* Admin Routes */}
-          <Route path="/admin/categories" element={<Category />} />          
-          <Route path="/admin/subcategories" element={<Subcategory />} />
-          <Route path="/admin/manage-collections" element={<Collection />} />
-          <Route path="/admin/manage-occasions" element={<Occasion />} />
-          <Route path="/admin/manage-tags" element={<Tag />} />
-          <Route path="/admin/manage-colours" element={<Color />} />     
-          <Route path="/admin/manage-products" element={<Products />} />     
-          <Route path="/admin/pages/hero" element={<HeroSection />} />     
-          <Route path="/admin/pages/packing-box" element={<PackingBoxSection />} />     
-          <Route path="/admin/pages/offer" element={<HeroSection />} />     
-          <Route path="/admin/pages/fresh" element={<DynamicCardSection />} />     
-          <Route path="/admin/pages/3-box" element={<ThreeDynamicCardSection />} />     
+          <Route path="/admin/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />          
+          <Route path="/admin/categories" element={<PrivateRoute><Category /></PrivateRoute>} />          
+          <Route path="/admin/subcategories" element={<PrivateRoute><Subcategory /></PrivateRoute>} />
+          <Route path="/admin/manage-collections" element={<PrivateRoute><Collection /></PrivateRoute>} />
+          <Route path="/admin/manage-occasions" element={<PrivateRoute><Occasion /></PrivateRoute>} />
+          <Route path="/admin/manage-tags" element={<PrivateRoute><Tag /></PrivateRoute>} />
+          <Route path="/admin/manage-colours" element={<PrivateRoute><Color /></PrivateRoute>} />     
+          <Route path="/admin/manage-products" element={<PrivateRoute><Products /></PrivateRoute>} />     
+          <Route path="/admin/pages/hero" element={<PrivateRoute><HeroSection /></PrivateRoute>} />     
+          <Route path="/admin/pages/packing-box" element={<PrivateRoute><PackingBoxSection /></PrivateRoute>} />     
+          <Route path="/admin/pages/offer" element={<PrivateRoute><HeroSection /></PrivateRoute>} />     
+          <Route path="/admin/pages/fresh" element={<PrivateRoute><DynamicCardSection /></PrivateRoute>} />     
+          <Route path="/admin/pages/3-box" element={<PrivateRoute><ThreeDynamicCardSection /></PrivateRoute>} />     
 
           {/* Public Website Routes */}
           <Route path="/" element={<Home />} />
@@ -70,7 +73,7 @@ const Routing = () => {
           <Route path="/product/:slug" element={<ProductDetails />} />
           <Route path="/login" element={<Authentication />} />
           <Route path="/signup" element={<Authentication />} />
-          <Route path="/resetPassword" element={<ResetPass />} />
+          <Route path="/reset-password" element={<ResetPass />} />
           <Route path="/BlogDetails" element={<BlogDetails />} />
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/cart" element={<ShoppingCart />} />

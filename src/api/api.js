@@ -72,3 +72,7 @@ export const fetchDynamicCards = () => axios.get(`${API_BASE}/pages/dynamic-card
 export const createDynamicCard = (data) => axios.post(`${API_BASE}/pages/dynamic-card`, data);
 export const updateDynamicCard = (id, data) => axios.put(`${API_BASE}/pages/dynamic-card/${id}`, data);
 export const deleteDynamicCard = (id) => axios.delete(`${API_BASE}/pages/dynamic-card/${id}`);
+
+// Auth APIs
+export const loginUser = (data) => axios.post(`${API_BASE}/auth/login`, data);
+export const signupUser = (data) => axios.post(`${API_BASE}/auth/signup`, data);

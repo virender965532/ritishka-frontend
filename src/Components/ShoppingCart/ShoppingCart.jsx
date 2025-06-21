@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import success from "../../Assets/success.png";
 
 const ShoppingCart = () => {
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = useSelector((state) => state?.cart?.items);
   const dispatch = useDispatch();
 
   const [activeTab, setActiveTab] = useState("cartTab1");

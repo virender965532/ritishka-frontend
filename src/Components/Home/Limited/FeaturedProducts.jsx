@@ -52,10 +52,10 @@ const FeaturedProducts = () => {
     });
   };
 
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = useSelector((state) => state?.cart?.items);
 
   const handleAddToCart = (product) => {
-    const productInCart = cartItems.find(
+    const productInCart = cartItems?.find(
       (item) => item.productID === product.productID
     );
 

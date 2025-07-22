@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./Navbar.css";
 import { useSelector } from "react-redux";
 import logo from "../../Assets/logo.png";
@@ -43,31 +43,26 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const res = await fetchCategories();
-        const categories = res.data || [];
-        const categoryLinks = categories?.filter(cat => cat?.isactive).sort((a,b)=> a.name.localeCompare(b.name)).map(cat => ({
-          label: cat.name,
-          to: `/shop?category=${cat.slug || cat.name.toLowerCase()}`
-        }));
-
-        // Clone and update the categories dropdown
-        const updatedLinks = navbarLinks.map(link =>
-          link.label === "Categories"
-            ? { ...link, children: categoryLinks }
-            : link
-        );
-        setNavbarLinks(updatedLinks);
-      } catch (err) {
-        console.error("Failed to fetch categories:", err);
-        // Optionally handle error, e.g., show a notification
-      }
-    };
-    getCategories();
-    // eslint-disable-next-line
-  }, []);
+  useMemo(() => {
+      const fetchData = async () => {
+        try {
+          const res = await fetchCategories({ page: 1, limit: 10, search: "" });
+          let cats = res.data.categories || [];
+          cats = cats.filter((cat) => cat.isactive);
+          cats.sort((a, b) => a.name.localeCompare(b.name));
+          cats = cats.map(cat => ({
+            label: cat.name,
+            to: `/shop?category=${cat.slug || cat.name.toLowerCase()}`
+          }));
+          setNavbarLinks(prevLinks => prevLinks.map(link =>
+            link.label === "Categories" ? { ...link, children: cats } : link
+          ));
+        } catch (error) {
+          console.error("Error fetching categories:", error);
+        }
+      };
+      fetchData();
+    }, []); 
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);

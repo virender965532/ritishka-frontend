@@ -15,7 +15,7 @@
   background-color: #ffffff;
 }
 
-/* Subcategory section styling */
+/* Section styling */
 .subcategory-section {
   padding: 20px;
   background-color: #ffffff;
@@ -64,7 +64,7 @@
   background-color: #0056b3;
 }
 
-/* Subcategory table styling */
+/* Table styling */
 .subcategory-table {
   width: 100%;
   border-collapse: collapse;
@@ -97,7 +97,7 @@
   padding-right: 75px !important;
 }
 
-/* Subcategory form container styling */
+/* Form header */
 .subcategory-form-header {
   display: grid;
   place-items: center;
@@ -123,10 +123,11 @@
   color: #333333;
 }
 
-/* Subcategory form grid layout */
+/* Grid layout */
 .subcategory-grid {
   display: grid;
   gap: 16px;
+  min-width: 100%;
 }
 
 .subcategory-grid-cols-1 {
@@ -141,14 +142,14 @@
   align-items: center;
 }
 
-/* Subcategory label styling */
+/* Label styling */
 .subcategory-label {
   font-size: 14px;
   font-weight: 500;
   color: #555555;
 }
 
-/* Subcategory input and textarea styling */
+/* Input and textarea styling */
 .subcategory-input,
 .subcategory-textarea {
   border: 1px solid #cccccc;
@@ -171,14 +172,14 @@
   min-height: 80px;
 }
 
-/* Subcategory checkbox styling */
+/* Checkbox styling */
 .subcategory-checkbox {
   width: 20px;
   height: 20px;
   margin-right: 8px;
 }
 
-/* Subcategory button container styling */
+/* Button container */
 .subcategory-flex {
   display: flex;
 }
@@ -195,7 +196,7 @@
   margin-top: 24px;
 }
 
-/* Subcategory button styling */
+/* Button styling */
 .subcategory-button {
   padding: 10px 16px;
   font-size: 14px;
@@ -233,24 +234,37 @@
   background-color: #c82333;
 }
 
-/* Subcategory active status styling */
+/* Active status styling */
 .subcategory-active-status {
   border-radius: 50px;
-  width: 100px;
+  width: 80px;
   height: 27px;
   display: block;
-  margin-left: -25px;
+  margin-left: -20px;
   text-align: center;
   padding-top: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+  background-color: #28a745;
+  line-height: 2;
 }
 
 .subcategory-bg-green-500 {
   background: #28a745;
   color: #ffffff;
+  border-radius: 6px;
+  padding: 2px 0px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-block;
 }
 
 .subcategory-bg-green-500:hover {
   background: #218838;
+  transition: background-color 0.3s ease;
 }
 
 .subcategory-bg-red-500 {
@@ -262,55 +276,6 @@
   background: #c82333;
 }
 
-.subcategory-table-header-actions {
-  text-align: right !important;
-  padding-right: 75px !important;
-}
-
-.subcategory-action-buttons-container {
-  float: right;
-}
-
-/* Dropdown styling for Select Category */
-.subcategory-select-category {
-  width: 100%;
-  padding: 8px 12px;
-  font-size: 14px;
-  border: 1px solid #cccccc;
-  border-radius: 6px;
-  background-color: #ffffff;
-  color: #333333;
-  box-sizing: border-box;
-  appearance: none;
-  cursor: pointer;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.subcategory-select-category:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
-}
-
-.subcategory-select-category option {
-  font-size: 14px;
-  color: #333333;
-  background-color: #ffffff;
-  padding: 8px;
-}
-
-/* Dropdown container styling */
-.subcategory-select-category-container {
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.subcategory-select-category-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #555555;
-}
-
 .subcategory-action-buttons button {
   background-color: #007bff;
   color: #ffffff;
@@ -319,24 +284,226 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-left: 10px;
-}
-
-.subcategory-table-header-actions {
-  text-align: right !important;
-  padding-right: 75px !important;
+  padding: 8px 12px;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .subcategory-action-buttons-container {
   float: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  width: calc(100% - 40px);
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #ffffff;
 }
 
-.subcategory-action-buttons button {
-  padding: 5px 10px;
+/* Search input */
+.subcategory-search-input {
+  padding: 8px 12px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 300px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  color: #333333;
+  outline: none;
+  box-shadow: none;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%;
+}
+
+.subcategory-search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+  outline: none;
+  background-color: #ffffff;
+  color: #333333;
+}
+
+/* Pagination controls */
+.subcategory-pagination-controls {
+  margin-top: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.subcategory-pagination-button {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 20px;
   background-color: #007bff;
   color: #ffffff;
   border: none;
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.subcategory-pagination-button:hover {
+  background-color: #0056b3;
+}
+
+.subcategory-pagination-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  color: #666666;
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.subcategory-pagination-info {
+  color: #333333;
+  text-align: center;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5;
+}
+
+/* Popup overlay */
+.subcategory-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 1;
+}
+
+.subcategory-popup-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 500px;
+  max-width: 90%;
+  text-align: center;
+  position: relative;
+  color: #333333;
+  opacity: 1;
+}
+
+.subcategory-popup-message {
+  font-size: 16px;
+  color: #333333;
+  margin-bottom: 20px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.subcategory-popup-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 10px;
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  max-width: 100%;
+  width: auto;
+  text-align: center;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.subcategory-popup-button-confirm {
+  background-color: #28a745;
+  color: #ffffff;
+  line-height: 1.5;
+}
+
+.subcategory-popup-button-confirm:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0.9;
+}
+
+.subcategory-popup-button-cancel {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+.subcategory-popup-button-cancel:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0.9;
+}
+
+/* Select Category dropdown styling in subcategory form */
+.subcategory-select-category-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555555;
+  margin-bottom: 4px;
+  display: block;
+  min-width: 50%;
+}
+
+.subcategory-select-category {
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  min-width: 50%;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  color: #333333;
+  transition: border-color 0.3s ease;
+  margin-bottom: 8px;
+}
+
+.subcategory-select-category:focus {
+  border-color: #007bff;
+  outline: none;
+  background-color: #ffffff;
+  color: #333333;
+}
+
+/* Optional: container for label and select */
+.subcategory-select-category-container {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  width: 50%;
+  margin-bottom: 16px;
 }

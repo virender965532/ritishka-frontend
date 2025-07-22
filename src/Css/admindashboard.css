@@ -1,3 +1,8 @@
+:root {
+  --main-pink: #d4a452;
+  --accent-brown: #ffffff;
+}
+
 .dashboard-container {
   display: inline-block;
   max-width: 80%;
@@ -13,12 +18,189 @@
   border-radius: 8px;
   background-color: #ffffff;
   color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  text-transform: unset;
 }
 
+
 .dashboard-section {
-  padding: 20px;
+  /* padding: 20px; */
   background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 20px;
+  /* border-bottom: 1px solid #e0e0e0; */
+  /* margin-bottom: 20px; */
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+.dashboard-header {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--accent-brown);
+  text-align: center;
+  margin-bottom: 24px;
+  background: var(--main-pink);
+  border-radius: 8px;
+  padding: 18px 0;
+  box-shadow: 0 2px 8px rgba(166, 124, 82, 0.08);
+}
+
+.dashboard-section-header {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333333;
+  text-transform: unset;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+.dashboard-section-header h2 {
+  color: var(--accent-brown);
+  font-size: 22px;
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+
+.dashboard-section-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.dashboard-section-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  min-width: 100%;
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.dashboard-section-card {
+  background-color: var(--main-pink);
+  border: 1.5px solid var(--accent-brown);
+  border-radius: 12px;
+  padding: 28px 18px;
+  box-shadow: 0 2px 8px rgba(166, 124, 82, 0.08);
+  text-align: center;
+  color: var(--accent-brown);
+  font-family: 'Arial', sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.2s;
+  min-width: 140px;
+  height:100px;
+  width: 140px;
+  min-height:100px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+.dashboard-section-card:hover {
+  box-shadow: 0 6px 18px rgba(166, 124, 82, 0.18);
+  transform: translateY(-4px) scale(1.03);
+}
+
+.dashboard-section-card h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: var(--accent-brown);
+  text-align: center;
+}
+
+.dashboard-section-card p {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .dashboard-section-cards {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  .dashboard-section-card {
+    padding: 20px 10px;
+    font-size: 15px;
+    min-width: 140px;
+    height:100px;
+    width: 140px;
+    min-height:100px;
+    text-align: center;
+    padding-bottom: 20px;
+    p {
+      color: #ffffff;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-header {
+    font-size: 20px;
+    padding: 10px 0;
+  }
+  .dashboard-section-header h2 {
+    font-size: 16px;
+  }
+  .dashboard-section-cards {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    min-width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  .dashboard-section-card {
+    padding: 14px 6px;
+    font-size: 14px;
+    min-width: 140px;
+    height:100px;
+    width: 140px;
+    min-height:100px;
+    text-align: center;
+    padding-bottom: 20px;
+    p {
+      color: #ffffff;
+    }
+  }
 }

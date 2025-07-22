@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createCategory, updateCategory } from "./../../api/api";
 import { toast } from "react-hot-toast";
 
-const CategoryForm = ({ selected, onSave, showCreateForm = false, handleshowcreateForm }) => {
+const CategoryForm = ({ selected, onSave, showCreateForm = false, handleshowcreateForm, user }) => {
   const [form, setForm] = useState({
     name: "",
     title: "",
@@ -39,6 +39,7 @@ const CategoryForm = ({ selected, onSave, showCreateForm = false, handleshowcrea
     formData.append("description", form.description);
     formData.append("isactive", form.isactive);
     if (form.image) formData.append("image", form.image);
+    if (user?._id) formData.append("userId", user._id);
 
     try {
       var message = "";

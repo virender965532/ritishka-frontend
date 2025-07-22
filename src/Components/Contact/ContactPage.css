@@ -1,3 +1,345 @@
+.jewellery-contact-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff8e1 0%, #f3e5ab 100%);
+  padding: 0;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+}
+
+.jewellery-contact-container {
+  max-width: 1100px;
+  margin: 40px auto 0 auto;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(224, 185, 115, 0.15);
+  padding: 40px 30px 50px 30px;
+}
+
+.jewellery-contact-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.jewellery-contact-header h2 {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.gold-text {
+  color: #e0b973;
+  letter-spacing: 2px;
+}
+
+.jewellery-contact-header p {
+  color: #7c6f57;
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
+.jewellery-contact-content {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.jewellery-contact-details {
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.jewellery-map-wrapper {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(224, 185, 115, 0.13);
+}
+
+.jewellery-address-card {
+  background: #fff8e1;
+  border: 1.5px solid #e0b973;
+  border-radius: 16px;
+  padding: 28px 24px;
+  box-shadow: 0 2px 8px rgba(224, 185, 115, 0.08);
+}
+
+.jewellery-address-card h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #bfa14a;
+  margin-bottom: 10px;
+}
+
+.jewellery-address-card p {
+  color: #7c6f57;
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.icon {
+  color: #e0b973;
+  margin-right: 6px;
+  font-size: 18px;
+}
+
+.jewellery-divider {
+  border-top: 1px solid #e0b973;
+  margin: 18px 0 12px 0;
+}
+
+.jewellery-socials {
+  display: flex;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.jewellery-socials img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s;
+}
+
+.jewellery-socials img:hover {
+  transform: scale(1.15);
+}
+
+.jewellery-contact-form {
+  flex: 1.2;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(224, 185, 115, 0.08);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.jewellery-contact-form h3 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.jewellery-contact-form input,
+.jewellery-contact-form textarea {
+  padding: 14px 16px;
+  border: 1.5px solid #e0b973;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #fff8e1;
+  color: #7c6f57;
+  transition: border 0.2s;
+  outline: none;
+}
+
+.jewellery-contact-form input:focus,
+.jewellery-contact-form textarea:focus {
+  border: 1.5px solid #bfa14a;
+}
+
+.input-error {
+  border: 1.5px solid #d32f2f !important;
+  background: #fff0f0;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 13px;
+  margin-top: 4px;
+  margin-bottom: 0;
+  display: block;
+}
+
+.success {
+  color: #388e3c;
+  background: #e8f5e9;
+  border: 1.5px solid #388e3c;
+  padding: 12px;
+  margin-top: 18px;
+  border-radius: 6px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.gold-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #e0b973 0%, #bfa14a 100%);
+  color: #fff;
+  border: none;
+  padding: 16px 0;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 2px 8px rgba(224, 185, 115, 0.13);
+  transition: background 0.2s, color 0.2s;
+}
+
+.gold-btn:hover {
+  background: linear-gradient(90deg, #bfa14a 0%, #e0b973 100%);
+  color: #fff8e1;
+}
+
+.contact-full-bg {
+  width: 100%;
+  min-height: 100%;
+  background: #ffebc6;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+}
+
+.contact-map-large {
+  width: 97%;
+  max-width: 97%;
+  margin: auto auto;
+  padding: auto auto;
+}
+
+.contact-details-large {
+  width: 97%;
+  max-width: 97%;
+  text-align: center;
+  background: #fff;
+  /* padding: 32px 0 12px 0; */
+  border-bottom: 3px solid #ffebc6;
+  margin: auto auto;
+  padding: auto auto;
+  background-color: #ffebc6;
+}
+
+.contact-form-large {
+  width: 97%;
+  max-width: 97%;
+  background: #ffebc6;
+  /* padding: 48px 0 64px 0; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto auto;
+  padding: auto auto;
+}
+
+.contact-form-large form {
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(247, 228, 192, 0.13);
+  padding: 40px 32px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  border: 2px solid #ffebc6;
+}
+
+.form-group-large {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-form-large input,
+.contact-form-large textarea {
+  padding: 18px 20px;
+  border: 2px solid #ffebc6;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  background: #fffdf7;
+  color: #7c6f57;
+  transition: border 0.2s;
+  outline: none;
+  width: 100%;
+  resize: none;
+}
+
+.contact-form-large input:focus,
+.contact-form-large textarea:focus {
+  border: 2px solid #bfa14a;
+}
+
+.input-error {
+  border: 2px solid #d32f2f !important;
+  background: #fff0f0;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 15px;
+  margin-top: 2px;
+  margin-bottom: 0;
+  display: block;
+}
+
+.success-large {
+  color: #388e3c;
+  background: #e8f5e9;
+  border: 2px solid #388e3c;
+  padding: 18px;
+  margin-top: 24px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .jewellery-contact-content {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .jewellery-contact-form,
+  .jewellery-contact-details {
+    width: 100%;
+    padding: 0;
+  }
+  .jewellery-contact-container {
+    padding: 24px 8px 32px 8px;
+  }
+  .contact-details-large,
+  .contact-form-large,
+  .contact-map-large {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .contact-form-large form {
+    padding: 24px 8px 18px 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .jewellery-contact-header h2 {
+    font-size: 28px;
+  }
+  .jewellery-contact-header p {
+    font-size: 15px;
+  }
+  .jewellery-address-card {
+    padding: 18px 10px;
+  }
+  .jewellery-contact-form {
+    padding: 18px 10px;
+  }
+  .contact-details-large h1 {
+    font-size: 2rem !important;
+  }
+  .contact-form-large form {
+    padding: 12px 2vw 12px 2vw;
+  }
+}
+
 .contactSection h2 {
   font-size: 35px;
   font-weight: 700;

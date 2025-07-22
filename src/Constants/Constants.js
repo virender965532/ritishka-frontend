@@ -101,3 +101,37 @@ export const BANNER_DATA = [
     link: "/shop",
   }
 ];
+
+export const MENU = [
+    { title: 'Dashboard', path: '/admin/dashboard', breadcrumb: 'Home' },
+    {
+      title: 'Manage Products',
+      children: [{ title: 'Manage Products', path: '/admin/manage-products', breadcrumb: 'products' }]
+    },
+    {
+      title: 'Manage Categories',
+      children: [
+        { title: 'Categories', path: '/admin/categories', breadcrumb: 'categories' },
+        { title: 'Subcategories', path: '/admin/subcategories', breadcrumb: 'subcategories' }
+      ]
+    },
+    {
+      title: 'Management Metadata',
+      children: [
+        { title: 'Manage Collections', path: '/admin/manage-collections', breadcrumb: 'collections' },
+        { title: 'Manage Occasions', path: '/admin/manage-occasions', breadcrumb: 'occasions' },
+        { title: 'Manage Tags', path: '/admin/manage-tags', breadcrumb: 'tags' },
+        { title: 'Manage Colours', path: '/admin/manage-colours', breadcrumb: 'colours' },
+      ]
+    },
+    {
+      title: 'Manage Pages',
+      children: [
+        { title: 'Hero Page Section', path: '/admin/pages/hero', breadcrumb: 'hero' },
+        { title: 'Packing Box Section', path: '/admin/pages/packing-box', breadcrumb: 'packing-box' },
+        { title: 'Fresh Section', path: '/admin/pages/fresh', breadcrumb: 'fresh' },
+        { title: '3 Box Section', path: '/admin/pages/3-box', breadcrumb: '3-box' }
+        
+      ]
+    }
+  ];

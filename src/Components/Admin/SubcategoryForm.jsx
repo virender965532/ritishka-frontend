@@ -2,21 +2,21 @@ import React, { useState, useEffect } from "react";
 import { createSubcategory, updateSubcategory, fetchCategories } from "./../../api/api";
 import { toast } from "react-hot-toast";
 
-const SubcategoryForm = ({ selected, onSave, showCreateForm = false, handleshowcreateForm }) => {
+const SubcategoryForm = ({ selected, onSave, showCreateForm = false, handleshowcreateForm, user }) => {
   const [form, setForm] = useState({
     name: "",
     title: "",
     category: "",
     description: "",
-    image: null, // Change to handle file input
+    image: null,
     isactive: true,
   });
 
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    if (selected) setForm({...selected, category: selected.category_id});
-    fetchCategories().then((res) => setCategories(res.data));
+    if (selected) setForm({ ...selected, category: selected.category_id });
+    fetchCategories().then((res) => setCategories(res?.data?.categories || []));
   }, [selected]);
 
   const handleChange = (e) => {
@@ -44,16 +44,17 @@ const SubcategoryForm = ({ selected, onSave, showCreateForm = false, handleshowc
     formData.append("description", form.description);
     formData.append("isactive", form.isactive);
     if (form.image) formData.append("image", form.image);
-    if(form.category) formData.append("category_id", form.category);
+    if (form.category) formData.append("category_id", form.category);
+    if (user?._id) formData.append("userId", user._id);
 
     try {
       var message = "";
       if (selected) {
         await updateSubcategory(selected._id, formData);
-        message = `Category updated successfully!`;
+        message = `Subcategory updated successfully!`;
       } else {
         await createSubcategory(formData);
-        message = `Category created successfully!`;
+        message = `Subcategory created successfully!`;
       }
       toast.success(`${message}`, {
         duration: 2000,
@@ -70,7 +71,7 @@ const SubcategoryForm = ({ selected, onSave, showCreateForm = false, handleshowc
       toast.error(
         error.response?.data?.error ||
           error.response?.data?.message ||
-          "An error occurred while saving the Category.",
+          "An error occurred while saving the Subcategory.",
         {
           duration: 2000,
           style: {
@@ -121,7 +122,7 @@ const SubcategoryForm = ({ selected, onSave, showCreateForm = false, handleshowc
                 >
                   <option value="">Select a Category</option>
                   {categories.map((cat) => (
-                    <option key={cat._id} selected={cat?._id == selected?.category_id} value={cat._id}>
+                    <option key={cat._id} value={cat._id}>
                       {cat.name}
                     </option>
                   ))}
@@ -216,8 +217,10 @@ const SubcategoryForm = ({ selected, onSave, showCreateForm = false, handleshowc
                 onClick={() =>
                   setForm({
                     name: "",
+                    title: "",
                     category: "",
                     description: "",
+                    image: null,
                     isactive: true,
                   })
                 }

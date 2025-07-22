@@ -44,15 +44,15 @@ const ProductForm = ({ selected, onSave, showCreateForm = false, handleshowcreat
   useEffect(() => {
     const loadData = async () => {
       const [catRes, subcatRes, tagRes, collectionRes, occasionRes, colorRes] = await Promise.all([
-        fetchCategories(),
-        fetchSubcategories(),
+        fetchCategories({page: 1, limit: 100}),
+        fetchSubcategories({page: 1, limit: 100}),
         fetchTags(),
         fetchCollections(),
         fetchOccasions(),
         fetchColors(),
       ]);
-      setCategories(catRes.data);
-      setSubcategories(subcatRes.data);
+      setCategories(catRes?.data?.categories || []);
+      setSubcategories(subcatRes?.data?.subcategories || []);
       setTags(tagRes.data);
       setCollections(collectionRes.data);
       setOccasions(occasionRes.data);

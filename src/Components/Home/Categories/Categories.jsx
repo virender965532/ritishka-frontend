@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { fetchCategories } from "../../../api/api";
 import "./categories.css";
 import { Link } from "react-router-dom";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    fetchCategories()
-      .then((res) => {
-        let cats = res.data || [];
+  useMemo(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetchCategories({ page: 1, limit: 10, search: "" });
+        let cats = res.data.categories || [];
         cats = cats.filter((cat) => cat.isactive);
         cats.sort((a, b) => a.name.localeCompare(b.name));
         setCategories(cats);
-      })
-      .catch(() => setCategories([]));
-  }, []);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchData();
+  }, []); 
 
   return (
     <section className="categories-section">
@@ -26,7 +29,7 @@ const Categories = () => {
         <ul className="categories-list">
           {categories.map((cat) => (
             <li className="category-item" key={cat._id}>
-              <Link to={`/categories/${cat.slug || cat.name.toLowerCase()}`}
+              <Link to={`/shop?category=${cat.name || cat.name.toLowerCase()}`}
                 aria-label="homepage" className="category-link">
                 <img
                   alt={cat.name}
@@ -45,7 +48,7 @@ const Categories = () => {
           <ul className="categories-list-mobile">
             {categories.map((cat) => (
               <li className="category-item-mobile" key={cat._id}>
-                <Link to={`/categories/${cat.slug || cat.name.toLowerCase()}`}
+                <Link to={`/shop?category=${cat.name || cat.name.toLowerCase()}`}
                   aria-label="homepage" className="category-link-mobile">
                   <img
                     alt={cat.name}

@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 // import StoreData from "../../../Data/StoreData";
 
 import { FiHeart } from "react-icons/fi";
-// import { FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaCartPlus } from "react-icons/fa";
 
@@ -127,9 +127,9 @@ const FeaturedProducts = () => {
                 spaceBetween: 24,
               },
               1024: {
-                slidesPerView: 4,
-                slidesPerGroup: 1,
-                spaceBetween: 30,
+                slidesPerView: 5,//5
+                slidesPerGroup: 1,//1
+                spaceBetween: 30,//30
               },
             }}
           >
@@ -170,9 +170,23 @@ const FeaturedProducts = () => {
                       </div>
                       <div className="productNameInfo">
                         <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
-                          <h5>{product?.title}</h5>
+                        <>
+                          {product?.brand && (<h3>{product?.brand}</h3>)}
+                          {product?.title && (<h5>{product?.title}</h5>)}
+                        </>
                         </Link>
-                        <p>${product?.price}</p>
+                        {product?.price && (
+                          <>
+                          <div className="productPriceInfo">
+                          <span className={`` + (product?.discountedPrice ? "productPriceStrikeOut" : "productPrice")}>
+                            <p>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.price || 0)}</p>
+                          </span>
+                          {product?.discountedPrice && (<span className="productPrice">
+                            <p>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.discountedPrice || 0)}</p>
+                          </span>)}
+                        </div>
+                          </>
+                        )}
                         {/* <div className="productRatingReviews">
                           <div className="productRatingStar">
                             <FaStar color="#FEC78A" size={10} />

@@ -184,11 +184,12 @@ const Product = () => {
             <div className="productBreadcrumb">
               <div className="breadcrumbLink">
                 <Link to="/">Home</Link>&nbsp;/&nbsp;
-                <Link to="/shop">The Shop</Link>
+                <Link to="/shop">Shop</Link>
               </div>
             </div>
             <div className="productName">
-              <h1>{product?.title || ''}</h1>
+              <h1>{product?.brand || ''}</h1>
+              <h2>{product?.title || ''}</h2>
             </div>
             {/* <div className="productRating">
               <FaStar color="#FEC78A" size={10} />
@@ -199,7 +200,7 @@ const Product = () => {
               <p>8k+ reviews</p>
             </div> */}
             <div className="productPrice">
-              <h3>${product?.price}</h3>
+              <h3>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.price)}</h3>
             </div>
             <div className="productDescription">
               <p>{product?.description  || ''}</p>

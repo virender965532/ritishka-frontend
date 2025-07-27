@@ -30,7 +30,7 @@
   position: relative;
   padding-left: 50px;
   color: #c32929;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: 500;
 }
 
@@ -48,7 +48,7 @@
 
 .dealTimeContent h3 {
   font-size: 70px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .dealTimeContent h3 span {
@@ -60,7 +60,7 @@
 }
 
 .dealTimeLink a {
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   text-decoration: none;
   color: black;
   font-weight: 500;
@@ -106,7 +106,7 @@
 .dealTimeDigit p {
   font-size: 16px;
   font-weight: 700;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   color: #767676;
 }
 

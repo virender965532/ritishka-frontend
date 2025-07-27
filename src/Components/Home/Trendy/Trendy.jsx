@@ -127,7 +127,7 @@ const Trendy = () => {
                     {activeTab === `tab${index}` && (
                       <>
                         <div className="trendyMainContainer">
-                          {productTagData?.length > 0 && productTagData?.filter((el) => el.tags?.includes(tag?._id)).map((product) => (
+                          {productTagData?.length > 0 && productTagData?.filter((el) => el.tags?.some((tagId) => tagId?._id === tag?._id)).map((product) => (
                             <div className="trendyProductContainer" key={product._id}>
                               <div className="trendyProductImages">
                                 <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
@@ -167,14 +167,34 @@ const Trendy = () => {
                                 </div>
                                 <div className="trendyProductNameInfo">
                                   <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
-                                    <h5>{product?.title || ''}</h5>
+                                  <>
+                                    {product?.brand && (<h3>{product?.brand}</h3>)}
+                                    {product?.title && (<h5>{product?.title}</h5>)}
+                                  </>
                                   </Link>
-
-                                  <p>${product?.price}</p>
-                                  <div className="trendyProductRatingReviews">
-                                    <div className="trendyProductRatingStar">
-                                    </div>
+                                  {product?.price && (
+                                    <>
+                                    <div className="productPriceInfo">
+                                    <span className={`` + (product?.discountedPrice ? "productPriceStrikeOut" : "productPrice")}>
+                                      <p>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.price || 0)}</p>
+                                    </span>
+                                    {product?.discountedPrice && (<span className="productPrice">
+                                      <p>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.discountedPrice || 0)}</p>
+                                    </span>)}
                                   </div>
+                                    </>
+                                  )}
+                                  {/* <div className="productRatingReviews">
+                                    <div className="productRatingStar">
+                                      <FaStar color="#FEC78A" size={10} />
+                                      <FaStar color="#FEC78A" size={10} />
+                                      <FaStar color="#FEC78A" size={10} />
+                                      <FaStar color="#FEC78A" size={10} />
+                                      <FaStar color="#FEC78A" size={10} />
+                                    </div>
+          
+                                    <span>{product.productReviews}</span>
+                                  </div> */}
                                 </div>  
                               </div>
                             </div>

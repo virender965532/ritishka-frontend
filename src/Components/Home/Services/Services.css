@@ -16,7 +16,7 @@
 
 .services h3 {
   text-align: center;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: 500;
 }
 

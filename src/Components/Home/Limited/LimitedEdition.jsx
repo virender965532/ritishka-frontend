@@ -127,7 +127,7 @@ const LimitedEdition = () => {
                 spaceBetween: 24,
               },
               1024: {
-                slidesPerView: 4,
+                slidesPerView: 5,
                 slidesPerGroup: 1,
                 spaceBetween: 30,
               },
@@ -170,9 +170,23 @@ const LimitedEdition = () => {
                       </div>
                       <div className="productNameInfo">
                         <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
-                          <h5>{product?.title}</h5>
+                        <>
+                          {product?.brand && (<h3>{product?.brand}</h3>)}
+                          {product?.title && (<h5>{product?.title}</h5>)}
+                        </>
                         </Link>
-                        <p>${product?.price}</p>
+                        {product?.price && (
+                          <>
+                          <div className="productPriceInfo">
+                          <span className={`` + (product?.discountedPrice ? "productPriceStrikeOut" : "productPrice")}>
+                            <p>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.price || 0)}</p>
+                          </span>
+                          {product?.discountedPrice && (<span className="productPrice">
+                            <p>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.discountedPrice || 0)}</p>
+                          </span>)}
+                        </div>
+                          </>
+                        )}
                         {/* <div className="productRatingReviews">
                           <div className="productRatingStar">
                             <FaStar color="#FEC78A" size={10} />

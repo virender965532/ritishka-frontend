@@ -151,7 +151,7 @@ const Footer = () => {
             with ❤️
           </p>
           <div className="footerLangCurrency">
-            <div className="footerLang">
+            {/* <div className="footerLang">
               <p>Language</p>
               <select name="language" id="language">
                 <option value="english">United States | English</option>
@@ -168,7 +168,7 @@ const Footer = () => {
                 <option value="EUR">€ EUR</option>
                 <option value="GBP">£ GBP</option>
               </select>
-            </div>
+            </div> */}
           </div>
         </div>
       </footer>

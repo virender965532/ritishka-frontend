@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import "./HeroSection.css";
-import { Model } from "../../Model/Model";
 import { Link } from "react-router-dom";
 import { fetchHeroSections } from "../../../api/api";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
@@ -12,7 +9,6 @@ const SLIDE_INTERVAL = 3000; // 3 seconds for better UX
 const HeroSection = () => {
   const [heroProducts, setHeroProducts] = useState([]);
   const [current, setCurrent] = useState(0);
-  const [productColor, setProductColor] = useState("");
   const timeoutRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -20,9 +16,6 @@ const HeroSection = () => {
     fetchHeroSections().then((res) => {
       const active = (res.data || []).filter((item) => item.isactive);
       setHeroProducts(active);
-      if (active.length > 0) {
-        setProductColor(active[0].defaultColor);
-      }
     });
   }, []);
 
@@ -40,25 +33,17 @@ const HeroSection = () => {
     if (heroProducts.length === 0) return;
     const next = (current + 1) % heroProducts.length;
     setCurrent(next);
-    setProductColor(heroProducts[next].defaultColor);
   };
 
   const goToPrev = () => {
     if (heroProducts.length === 0) return;
     const prev = (current - 1 + heroProducts.length) % heroProducts.length;
     setCurrent(prev);
-    setProductColor(heroProducts[prev].defaultColor);
-  };
-
-  // Change color for current product
-  const changeColor = (color) => {
-    setProductColor(color);
   };
 
   // Manual slide via dots
   const goToSlide = (idx) => {
     setCurrent(idx);
-    setProductColor(heroProducts[idx].defaultColor);
     clearTimeout(timeoutRef.current);
   };
 
@@ -104,45 +89,14 @@ const HeroSection = () => {
         </div>
       </div>
       <div className="sectionright">
-        <Canvas
-          className="canvasModel"
-          camera={{ position: [0, 5, 15], fov: 50 }}
-        >
-          <ambientLight intensity={0.5} />
-          <directionalLight
-            position={[10, 10, 5]}
-            intensity={2.5}
-            color={"white"}
+        <div className="heroImage">
+          {/* <img src={product.image} alt={product.title} /> */}
+          <img
+            alt={product.title}
+            className="heroImage-img"
+            src={`${process.env.REACT_APP_BACKEND_URL}${product.image}`}
+            loading="lazy"
           />
-          <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            minAzimuthAngle={-Infinity}
-            maxAzimuthAngle={Infinity}
-            maxPolarAngle={Math.PI / 2}
-            minPolarAngle={Math.PI / 2}
-          />
-          <Model color={productColor} modelPath={product.modelPath} />
-        </Canvas>
-        <div className="heroColorBtn">
-          {product.colors &&
-            product.colors.map((color) => (
-              <button
-                key={color}
-                onClick={() => changeColor(color)}
-                style={{ backgroundColor: color }}
-              ></button>
-            ))}
-        </div>
-        {/* Dots navigation */}
-        <div className="heroSliderDots">
-          {heroProducts.map((_, idx) => (
-            <span
-              key={idx}
-              className={`dot${idx === current ? " active" : ""}`}
-              onClick={() => goToSlide(idx)}
-            ></span>
-          ))}
         </div>
       </div>
       <button

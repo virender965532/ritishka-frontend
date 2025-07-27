@@ -35,7 +35,7 @@
   font-weight: 500;
   padding: 20px 140px;
   transition: background-color 0.3s;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 @media screen and (max-width: 1210px) {

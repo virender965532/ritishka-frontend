@@ -232,7 +232,7 @@
   text-align: center;
   line-height: 1.5;
   text-decoration: none;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: 600;
   letter-spacing: 0.05em;
   box-sizing: border-box;

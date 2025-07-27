@@ -6,9 +6,7 @@ const defaultForm = {
   name: "",
   title: "",
   subtitle: "",
-  modelPath: "",
-  defaultColor: "",
-  colors: [],
+  image: "",
   link: "",
   isactive: true
 };
@@ -16,6 +14,7 @@ const defaultForm = {
 const HeroSectionForm = ({ selected, onSave, showCreateForm = false, handleShowCreateForm }) => {
   const [form, setForm] = useState(defaultForm);
   const [colorInput, setColorInput] = useState("");
+  const [imgFile, setImgFile] = useState(null);
 
   useEffect(() => {
     if (selected) setForm(selected);
@@ -27,29 +26,21 @@ const HeroSectionForm = ({ selected, onSave, showCreateForm = false, handleShowC
     setForm({ ...form, [name]: type === "checkbox" ? checked : value });
   };
 
-  const handleColorAdd = () => {
-    if (colorInput && !form.colors.includes(colorInput)) {
-      setForm({ ...form, colors: [...form.colors, colorInput] });
-      setColorInput("");
-    }
-  };
-
-  const handleColorRemove = (color) => {
-    setForm({ ...form, colors: form.colors.filter((c) => c !== color) });
+  const handleFileChange = (e) => {
+    setImgFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      name: form.name,
-      title: form.title,
-      subtitle: form.subtitle,
-      modelPath: form.modelPath,
-      defaultColor: form.defaultColor,
-      colors: form.colors,
-      link: form.link,
-      isactive: form.isactive
-    };
+    const data = new FormData();
+    data.append("name", form.name);
+    data.append("title", form.title);
+    data.append("subtitle", form.subtitle);
+    data.append("link", form.link);
+    data.append("isactive", form.isactive);
+    if (imgFile) {
+      data.append("image", imgFile);
+    }
     try {
       let message = "";
       if (selected && selected._id) {
@@ -122,29 +113,8 @@ const HeroSectionForm = ({ selected, onSave, showCreateForm = false, handleShowC
                   <input className="category-input" name="subtitle" value={form.subtitle} onChange={handleChange} placeholder="Subtitle" required />
                 </div>
                 <div className="category-grid category-grid-cols-2 category-items-center">
-                  <label className="category-label" htmlFor="modelPath">Model Path</label>
-                  <input className="category-input" name="modelPath" value={form.modelPath} onChange={handleChange} placeholder="/shirt_baked_2.glb" required />
-                </div>
-                <div className="category-grid category-grid-cols-2 category-items-center">
-                  <label className="category-label" htmlFor="defaultColor">Default Color</label>
-                  <input className="category-input" name="defaultColor" value={form.defaultColor} onChange={handleChange} placeholder="#353933" required />
-                </div>
-                <div className="category-grid category-grid-cols-2 category-items-center">
-                  <label className="category-label">Colors</label>
-                  <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
-                    <div style={{display: 'flex', gap: 8, flexWrap: 'wrap'}}>
-                      {form.colors.map((color, idx) => (
-                        <span key={idx} style={{background: color, color: '#fff', padding: '4px 10px', borderRadius: 6, marginRight: 4, display: 'flex', alignItems: 'center'}}>
-                          {color}
-                          <button type="button" style={{marginLeft: 6, background: 'none', border: 'none', color: '#c82333', cursor: 'pointer'}} onClick={() => handleColorRemove(color)}>x</button>
-                        </span>
-                      ))}
-                    </div>
-                    <div style={{display: 'flex', gap: 8}}>
-                      <input className="category-input" value={colorInput} onChange={e => setColorInput(e.target.value)} placeholder="#color or color name" />
-                      <button type="button" className="category-button" onClick={handleColorAdd}>Add</button>
-                    </div>
-                  </div>
+                  <label className="category-label" htmlFor="img">Image</label>
+                  <input className="category-input" type="file" name="img" accept="image/*" onChange={handleFileChange} />
                 </div>
                 <div className="category-grid category-grid-cols-2 category-items-center">
                   <label className="category-label" htmlFor="link">Link</label>

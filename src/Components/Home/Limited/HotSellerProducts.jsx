@@ -127,7 +127,7 @@ const HotSellerProducts = () => {
                 spaceBetween: 24,
               },
               1024: {
-                slidesPerView: 4,
+                slidesPerView: 5,
                 slidesPerGroup: 1,
                 spaceBetween: 30,
               },
@@ -138,9 +138,17 @@ const HotSellerProducts = () => {
                 <SwiperSlide key={product?._id}>
                   <div className="lpContainer">
                     <div className="lpImageContainer">
-                      <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
+                      <Link
+                        to={
+                          product?.slug ? `/product/` + product?.slug : "/shop"
+                        }
+                        onClick={scrollToTop}
+                      >
                         <img
-                          src={`${process.env.REACT_APP_BACKEND_URL}` + product?.images[0]}
+                          src={
+                            `${process.env.REACT_APP_BACKEND_URL}` +
+                            product?.images[0]
+                          }
                           alt={product?.title}
                           className="lpImage"
                         />
@@ -161,29 +169,67 @@ const HotSellerProducts = () => {
                         <FiHeart
                           onClick={() => handleWishlistClick(product?._id)}
                           style={{
-                            color: wishList[product?._id]
-                              ? "red"
-                              : "#767676",
+                            color: wishList[product?._id] ? "red" : "#767676",
                             cursor: "pointer",
                           }}
                         />
                       </div>
                       <div className="productNameInfo">
-                        <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
-                          <h5>{product?.title}</h5>
+                        <Link
+                          to={
+                            product?.slug
+                              ? `/product/` + product?.slug
+                              : "/shop"
+                          }
+                          onClick={scrollToTop}
+                        >
+                          <>
+                            {product?.brand && <h3>{product?.brand}</h3>}
+                            {product?.title && <h5>{product?.title}</h5>}
+                          </>
                         </Link>
-                        <p>${product?.price}</p>
+                        {product?.price && (
+                          <>
+                            <div className="productPriceInfo">
+                              <span
+                                className={
+                                  `` +
+                                  (product?.discountedPrice
+                                    ? "productPriceStrikeOut"
+                                    : "productPrice")
+                                }
+                              >
+                                <p>
+                                  {new Intl.NumberFormat("en-IN", {
+                                    style: "currency",
+                                    currency: "INR",
+                                  }).format(product?.price || 0)}
+                                </p>
+                              </span>
+                              {product?.discountedPrice && (
+                                <span className="productPrice">
+                                  <p>
+                                    {new Intl.NumberFormat("en-IN", {
+                                      style: "currency",
+                                      currency: "INR",
+                                    }).format(product?.discountedPrice || 0)}
+                                  </p>
+                                </span>
+                              )}
+                            </div>
+                          </>
+                        )}
                         {/* <div className="productRatingReviews">
-                          <div className="productRatingStar">
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                          </div>
+                              <div className="productRatingStar">
+                                <FaStar color="#FEC78A" size={10} />
+                                <FaStar color="#FEC78A" size={10} />
+                                <FaStar color="#FEC78A" size={10} />
+                                <FaStar color="#FEC78A" size={10} />
+                                <FaStar color="#FEC78A" size={10} />
+                              </div>
 
-                          <span>{product.productReviews}</span>
-                        </div> */}
+                              <span>{product.productReviews}</span>
+                            </div> */}
                       </div>
                     </div>
                   </div>

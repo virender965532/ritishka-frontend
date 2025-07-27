@@ -13,7 +13,6 @@ import {
   fetchCollections,
   fetchOccasions,
   fetchTags,
-  fetchColors,
 } from "./../../../api/api";
 
 const GOLD = "#ffebc6";
@@ -49,7 +48,6 @@ const ShopDetails = () => {
   const [allCollections, setAllCollections] = useState([]);
   const [allOccasions, setAllOccasions] = useState([]);
   const [allTags, setAllTags] = useState([]);
-  const [allColors, setAllColors] = useState([]);
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -85,13 +83,11 @@ const ShopDetails = () => {
       fetchCollections(),
       fetchOccasions(),
       fetchTags(),
-      fetchColors(),
     ]).then(([cat, col, occ, tag, color]) => {
-      setAllCategories(cat.data || []);
+      setAllCategories(cat.data?.categories || []);
       setAllCollections(col.data || []);
       setAllOccasions(occ.data || []);
       setAllTags(tag.data || []);
-      setAllColors(color.data || []);
     });
     // eslint-disable-next-line
   }, []);
@@ -103,8 +99,7 @@ const ShopDetails = () => {
       allCategories.length &&
       allCollections.length &&
       allOccasions.length &&
-      allTags.length &&
-      allColors.length
+      allTags.length
     ) {
       setFilters((prev) => ({
         ...prev,
@@ -112,7 +107,6 @@ const ShopDetails = () => {
         collection: getIdsFromNames(query.get("collection") || "", allCollections),
         occasion: getIdsFromNames(query.get("occasion") || "", allOccasions),
         tag: getIdsFromNames(query.get("tag") || "", allTags),
-        color: getIdsFromNames(query.get("color") || "", allColors),
       }));
       setFiltersInitialized(true);
     }
@@ -122,7 +116,6 @@ const ShopDetails = () => {
     allCollections,
     allOccasions,
     allTags,
-    allColors,
     filtersInitialized,
   ]);
 
@@ -156,15 +149,9 @@ const ShopDetails = () => {
         "tag",
         getNamesFromIds(filters.tag, allTags).join(",")
       );
-    if (filters.color.length)
-      params.set(
-        "color",
-        getNamesFromIds(filters.color, allColors).join(",")
-      );
-
     navigate({ search: params.toString() }, { replace: true });
     // eslint-disable-next-line
-  }, [filters, sort, page, allCategories, allCollections, allOccasions, allTags, allColors, filtersInitialized]);
+  }, [filters, sort, page, allCategories, allCollections, allOccasions, allTags, filtersInitialized]);
 
   // When sending to API, always use IDs from state
   useEffect(() => {
@@ -408,29 +395,6 @@ const ShopDetails = () => {
                 ))}
               </div>
             </div>
-            <div className="jewel-filter-group">
-              <label className="jewel-filter-label">Color</label>
-              <div className="jewel-multiselect">
-                {allColors.map((color) => (
-                  <label key={color._id} className="jewel-multiselect-label">
-                    <input
-                      type="checkbox"
-                      checked={filters.color.includes(color._id)}
-                      onChange={() => handleMultiSelect("color", color._id)}
-                    />
-                    <span
-                      className="jewel-color-dot"
-                      style={{
-                        background: color.hex || color.name,
-                        border: "1px solid #ccc",
-                        marginRight: 6,
-                      }}
-                    ></span>
-                    {color.name}
-                  </label>
-                ))}
-              </div>
-            </div>
             <button
               className="jewel-filter-clear"
               onClick={clearFilters}
@@ -452,9 +416,6 @@ const ShopDetails = () => {
             ))}
             {getNames(filters.tag, allTags).map((name) => (
               <span key={name}>Tag: {name}</span>
-            ))}
-            {getNames(filters.color, allColors).map((name) => (
-              <span key={name}>Color: {name}</span>
             ))}
           </div>
         </aside>
@@ -502,7 +463,7 @@ const ShopDetails = () => {
                     </div>
                     <div className="jewel-product-info">
                       <div className="jewel-product-category">
-                        {product?.category?.name || ""}
+                        {product?.brand || ""}
                       </div>
                       <Link
                         to={product?.slug ? `/product/` + product?.slug : "/shop"}
@@ -513,10 +474,10 @@ const ShopDetails = () => {
                       </Link>
                       <div className="jewel-product-price">
                         <span className="jewel-product-original">
-                          ₹{product?.price}
+                          {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.price)}
                         </span>
                         <span className="jewel-product-discount">
-                          ₹{discounted}
+                          {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(discounted)}
                         </span>
                       </div>
                       <button

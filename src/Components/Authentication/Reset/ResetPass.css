@@ -43,7 +43,7 @@
   color: white;
   border: none;
   cursor: pointer;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: 600;
 }
 

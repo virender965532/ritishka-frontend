@@ -24,7 +24,7 @@
 .blogDetailsMetaData span {
   color: #767676;
   font-size: 14px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .blogDetailsFeaturedImg img {

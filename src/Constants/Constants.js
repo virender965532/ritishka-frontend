@@ -121,7 +121,6 @@ export const MENU = [
         { title: 'Manage Collections', path: '/admin/manage-collections', breadcrumb: 'collections' },
         { title: 'Manage Occasions', path: '/admin/manage-occasions', breadcrumb: 'occasions' },
         { title: 'Manage Tags', path: '/admin/manage-tags', breadcrumb: 'tags' },
-        { title: 'Manage Colours', path: '/admin/manage-colours', breadcrumb: 'colours' },
       ]
     },
     {

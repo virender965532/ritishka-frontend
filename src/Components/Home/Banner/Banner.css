@@ -33,7 +33,7 @@
 
 .bannerh6 {
   color: var(--color, white);
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: 600;
   font-size: 17px;
 }
@@ -46,7 +46,7 @@
 
 .bannerh5 {
   font-size: 15px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: 600;
 }
 

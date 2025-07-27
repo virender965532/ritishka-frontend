@@ -7,7 +7,7 @@
 .shoppingCartSection h2 {
   font-size: 35px;
   font-weight: 700;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   margin-bottom: 40px;
 }
 
@@ -56,7 +56,7 @@
 .shoppingCartTabsNumber h3 {
   font-size: 18px;
   font-weight: 500;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .shoppingCartTabsNumber p {
@@ -118,7 +118,7 @@
   font-weight: 500;
   padding: 10px 0;
   border-bottom: 1px solid #e4e4e4;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   padding: 20px 10px;
 }
 
@@ -193,7 +193,7 @@
   font-weight: 500;
   font-size: 18px;
   padding: 20px 10px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .shoppingCartEmpty button {
@@ -202,7 +202,7 @@
   padding: 10px 20px;
   border: none;
   cursor: pointer;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: 600;
 }
 
@@ -226,7 +226,7 @@
 .shoppingBagTotal h3 {
   font-size: 16px;
   font-weight: 600;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   margin-left: 7px;
 }
 
@@ -245,7 +245,7 @@
   font-size: 14px;
   font-weight: 500;
   border-bottom: 1px solid #e4e4e4;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   padding: 20px 10px;
 }
 
@@ -267,7 +267,7 @@
   padding: 20px 10px;
   border: none;
   cursor: pointer;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: 600;
 }
 
@@ -308,7 +308,7 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .shopCartFooterbutton {
@@ -319,7 +319,7 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .shoppingBagTableMobile {
@@ -342,7 +342,7 @@
 .checkoutDetailsSection h4 {
   font-size: 20px;
   font-weight: 500;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   margin-bottom: 20px;
 }
 
@@ -403,7 +403,7 @@
 
 .checkoutDetailsFormCheck label p {
   font-size: 14px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .checkoutDetailsFormCheck input {
@@ -460,7 +460,7 @@
 .checkoutTotalContainer h3 {
   font-size: 16px;
   font-weight: 500;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   margin-bottom: 20px;
 }
 
@@ -474,7 +474,7 @@
   font-size: 14px;
   font-weight: 500;
   border-bottom: 1px solid #e4e4e4;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   padding: 10px 0;
 }
 
@@ -497,7 +497,7 @@
   text-align: left;
   font-size: 14px;
   font-weight: 500;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   padding: 10px 0;
 }
 
@@ -590,7 +590,7 @@
   padding: 20px 10px;
   border: none;
   cursor: pointer;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: 600;
 }
 
@@ -679,7 +679,7 @@
 .orderTotalContainer h3 {
   font-size: 16px;
   font-weight: 500;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   padding: 30px 40px;
 }
 
@@ -697,7 +697,7 @@
   font-size: 14px;
   font-weight: 500;
   border-bottom: 1px solid #e4e4e4;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   padding: 10px 0;
 }
 
@@ -725,7 +725,7 @@
   text-align: left;
   font-size: 14px;
   font-weight: 500;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   padding: 10px 0;
 }
 

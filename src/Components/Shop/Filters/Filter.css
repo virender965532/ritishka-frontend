@@ -12,7 +12,7 @@
 .filterHeading {
   font-size: 18px;
   font-weight: 600;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .filterCategories p {
@@ -100,7 +100,7 @@
   border: 2px solid #e4e4e4;
   outline: none;
   font-size: 14px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .brandList {

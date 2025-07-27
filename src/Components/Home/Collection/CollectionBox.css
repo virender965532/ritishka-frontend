@@ -94,12 +94,12 @@
 /* text in box style */
 
 .col-p {
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-size: 15px;
 }
 
 .col-h3 {
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-size: 26px;
   font-weight: 500;
 }
@@ -110,7 +110,7 @@
 
 .collection h5 {
   font-size: 14px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: 500;
 }
 

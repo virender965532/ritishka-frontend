@@ -40,7 +40,7 @@ export const updateColor = (id, data) => axios.put(`${API_BASE}/colors/${id}`, d
 export const deleteColor = (id) => axios.delete(`${API_BASE}/colors/${id}`);
 
 // Product APIs
-export const fetchProducts = () => axios.get(`${API_BASE}/products`);
+export const fetchProducts = (params = {}) => axios.get(`${API_BASE}/products`, { params });
 export const createProduct = (data) => axios.post(`${API_BASE}/products`, data);
 export const updateProduct = (id, data) => axios.put(`${API_BASE}/products/${id}`, data);
 export const deleteProduct = (id) => axios.delete(`${API_BASE}/products/${id}`);

@@ -52,6 +52,13 @@ const Product = () => {
     fetchProductBySlug();
   }, []);
 
+  useEffect(() => {
+    if (product) {
+      const maxQuantity = product?.maxQuantity || 20;
+      setMaxQuantity(maxQuantity);
+    }
+  }, [product]);
+
 
   const prevImg = () => {
     setCurrentImg(currentImg === 0 ? product?.images?.length - 1 : currentImg - 1);
@@ -64,14 +71,56 @@ const Product = () => {
   // Product Quantity
 
   const [quantity, setQuantity] = useState(1);
+  const [maxQuantity, setMaxQuantity] = useState(20);
+  const [quantityError, setQuantityError] = useState(false);
 
   const increment = () => {
-    setQuantity(quantity + 1);
+    if (quantity < maxQuantity) {
+      setQuantity(quantity + 1);
+    } else {
+      if (quantityError) {
+        return;
+      }
+      toast.error(`Maximum quantity of ${maxQuantity} reached`, {
+        duration: 2000,
+        style: {
+          backgroundColor: "#ff4b4b",
+          color: "white",
+        },
+        iconTheme: {
+          primary: "#fff",
+          secondary: "#ff4b4b",
+        },
+      });
+      setQuantityError(true);
+      setTimeout(() => {
+        setQuantityError(false);
+      }, 2000);
+    }
   };
 
   const decrement = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
+    } else {
+      if (quantityError) {
+        return;
+      }
+        toast.error("Quantity cannot be less than 1", {
+          duration: 2000,
+          style: {
+            backgroundColor: "#ff4b4b",
+            color: "white",
+        },
+        iconTheme: {
+          primary: "#fff",
+          secondary: "#ff4b4b",
+        },
+      });
+      setQuantityError(true);
+      setTimeout(() => {
+        setQuantityError(false);
+      }, 2000);
     }
   };
 
@@ -90,26 +139,8 @@ const Product = () => {
     setClicked(!clicked);
   };
 
-  // Product Sizes
-
-  const sizes = ["XS", "S", "M", "L", "XL"];
-  const sizesFullName = [
-    "Extra Small",
-    "Small",
-    "Medium",
-    "Large",
-    "Extra Large",
-  ];
-  const [selectSize, setSelectSize] = useState("S");
-
-  // Product Colors
-
   const [highlightedColor, setHighlightedColor] = useState("#C8393D");
-  const colors = ["#222222", "#C8393D", "#E4E4E4"];
-  const colorsName = ["Black", "Red", "Grey"];
-
-  // Product Detail to Redux
-
+  
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state?.cart?.items);
@@ -184,11 +215,12 @@ const Product = () => {
             <div className="productBreadcrumb">
               <div className="breadcrumbLink">
                 <Link to="/">Home</Link>&nbsp;/&nbsp;
-                <Link to="/shop">Shop</Link>
+                <Link to="/shop">Shop</Link>&nbsp;/&nbsp;
+                <p>{product?.title || ''}</p>
               </div>
             </div>
             <div className="productName">
-              <h1>{product?.brand || ''}</h1>
+              <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>{product?.brand || ''}</h1>
               <h2>{product?.title || ''}</h2>
             </div>
             {/* <div className="productRating">
@@ -203,40 +235,18 @@ const Product = () => {
               <h3>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.price)}</h3>
             </div>
             <div className="productDescription">
+              <p>{product?.shortDescription  || ''}</p>
+            </div>
+            <div className="productDescription">
               <p>{product?.description  || ''}</p>
             </div>
             <div className="productSizeColor">
-              {/* <div className="productSize">
-                <p>Sizes</p>
-                <div className="sizeBtn">
-                  {sizes.map((size, index) => (
-                    <Tooltip
-                      key={size}
-                      title={sizesFullName[index]}
-                      placement="top"
-                      TransitionComponent={Zoom}
-                      enterTouchDelay={0}
-                      arrow
-                    >
-                      <button
-                        style={{
-                          borderColor: selectSize === size ? "#000" : "#e0e0e0",
-                        }}
-                        onClick={() => setSelectSize(size)}
-                      >
-                        {size}
-                      </button>
-                    </Tooltip>
-                  ))}
-                </div>
-              </div> */}
               <div className="productColor">
                 <p>Color</p>
                 <div className="colorBtn">
-                  {colors.map((color, index) => (
+                  {product?.colors?.map((color) => (
                     <Tooltip
                       key={color}
-                      title={colorsName[index]}
                       placement="top"
                       enterTouchDelay={0}
                       TransitionComponent={Zoom}
@@ -273,9 +283,9 @@ const Product = () => {
                 />
                 <button onClick={increment}>+</button>
               </div>
-              <div className="productCartBtn">
+              {/* <div className="productCartBtn">
                 <button onClick={handleAddToCart}>Add to Cart</button>
-              </div>
+              </div> */}
             </div>
             <div className="productWishShare">
               <div className="productWishList">
@@ -284,10 +294,13 @@ const Product = () => {
                   <p>Add to Wishlist</p>
                 </button>
               </div>
-              <div className="productShare">
+              <div className="productCartBtn">
+                <button onClick={handleAddToCart}>Add to Cart</button>
+              </div>
+              {/* <div className="productShare">
                 <PiShareNetworkLight size={22} />
                 <p>Share</p>
-              </div>
+              </div> */}
             </div>
             <div className="productTags">
               <p>

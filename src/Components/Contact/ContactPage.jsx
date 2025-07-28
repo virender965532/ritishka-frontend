@@ -43,7 +43,7 @@ const ContactPage = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        to: "ritishkasilver@gmail.com",
+        to: "care@ritishka.in",
         subject: "New Contact Form Submission",
         html,
       }),
@@ -75,7 +75,7 @@ const ContactPage = () => {
           A-79/16 Baba Colony Burari, Delhi, India 110084
         </div>
         <div style={{ fontSize: "1.3rem", color: "#7c6f57", marginBottom: 8 }}>
-          <span style={{ fontWeight: 700 }}>Email:</span> ritishkasilver@gmail.com
+          <span style={{ fontWeight: 700 }}>Email:</span> care@ritishka.in
         </div>
         <div style={{ fontSize: "1.3rem", color: "#7c6f57", marginBottom: 24 }}>
           <span style={{ fontWeight: 700 }}>Phone:</span> +91 9716620018

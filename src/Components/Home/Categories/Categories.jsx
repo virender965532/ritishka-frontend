@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { fetchCategories } from "../../../api/api";
+import { getImageUrl } from "../../../utils/imageUtils";
 import "./categories.css";
 import { Link } from "react-router-dom";
 
@@ -34,7 +35,7 @@ const Categories = () => {
                 <img
                   alt={cat.name}
                   className="category-img"
-                  src={`${process.env.REACT_APP_BACKEND_URL}` + cat?.image}
+                  src={getImageUrl(cat?.image)}
                   loading="lazy"
                 />
                 <div className="category-title">{cat.name}</div>
@@ -53,7 +54,7 @@ const Categories = () => {
                   <img
                     alt={cat.name}
                     className="category-img-mobile"
-                    src={`${process.env.REACT_APP_BACKEND_URL}` + cat?.image}
+                    src={getImageUrl(cat?.image)}
                     loading="lazy"
                   />
                   <div className="category-title-mobile">{cat.name}</div>

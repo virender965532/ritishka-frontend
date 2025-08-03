@@ -39,7 +39,7 @@ const ContactPage = () => {
         <div style="font-size:13px;color:#bfa14a;">Sanjay and Company | A-79/16 Baba Colony Burari, Delhi, India 110084</div>
       </div>
     `;
-    return fetch(`${process.env.REACT_APP_BACKEND_URL}/api/send-email`, {
+    return fetch(`/api/send-email`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./dynamiccards.css";
 import { fetchDynamicCards } from "../../../api/api";
+import { getImageUrl } from "../../../utils/imageUtils";
 
 const DynamicCards = () => {
   const [cards, setCards] = useState([]);
@@ -23,28 +24,28 @@ const DynamicCards = () => {
       <h2 className="dynamic-cards-title">Fresh on Ritishka</h2>
       <div className="dynamic-cards-grid-mobile">
         <div className="main-card-mobile">
-          <a href={mainCard.link}>
-            <img src={`${process.env.REACT_APP_BACKEND_URL}${mainCard.img}`} alt={mainCard.alt} className="main-img-mobile" loading="lazy" />
+          <a href={mainCard?.link ? mainCard?.link : '#'}>
+            <img src={getImageUrl(mainCard?.img)} alt={mainCard?.alt} className="main-img-mobile" loading="lazy" />
           </a>
         </div>
         <div className="side-cards-mobile">
           {cards.map((card, idx) => (
-            <a href={card.link} key={idx} className="side-card-mobile">
-              <img src={`${process.env.REACT_APP_BACKEND_URL}${card.img}`} alt={card.alt} className="side-img-mobile" loading="lazy" />
+            <a href={card?.link ? card?.link : '#'} key={idx} className="side-card-mobile">
+              <img src={getImageUrl(card?.img)} alt={card?.alt} className="side-img-mobile" loading="lazy" />
             </a>
           ))}
         </div>
       </div>
       <div className="dynamic-cards-grid-desktop">
         <div className="main-card-desktop">
-          <a href={mainCard.link}>
-            <img src={`${process.env.REACT_APP_BACKEND_URL}${mainCard.img}`} alt={mainCard.alt} className="main-img-desktop" loading="lazy" />
+          <a href={mainCard?.link ? mainCard?.link : '#'}>
+            <img src={getImageUrl(mainCard?.img)} alt={mainCard?.alt} className="main-img-desktop" loading="lazy" />
           </a>
         </div>
         <div className="side-cards-desktop">
           {cards.map((card, idx) => (
-            <a href={card.link} key={idx} className="side-card-desktop">
-              <img src={`${process.env.REACT_APP_BACKEND_URL}${card.img}`} alt={card.alt} className="side-img-desktop" loading="lazy" />
+            <a href={card?.link ? card?.link : '#'} key={idx} className="side-card-desktop">
+              <img src={getImageUrl(card?.img)} alt={card?.alt} className="side-img-desktop" loading="lazy" />
             </a>
           ))}
         </div>

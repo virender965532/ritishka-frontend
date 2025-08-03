@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Instagram.css";
 import { ProductTypes } from "./../../../api/api";
+import { getImageUrl } from "../../../utils/imageUtils";
 
 const Instagram = () => {
   const [products, setProducts] = useState([]);
@@ -22,7 +23,7 @@ const Instagram = () => {
               return (
                 <>
                   <div className="instagramtile">
-                    <img src={`${process.env.REACT_APP_BACKEND_URL}` + product?.images[0]} alt="" />
+                    <img src={getImageUrl(product?.images[0])} alt="" />
                   </div>
                 </>
               )

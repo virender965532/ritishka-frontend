@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ThreeDynamicCardForm from './ThreeDynamicCardForm';
 import { fetchThreeDynamicCards, deleteThreeDynamicCard } from '../../api/api';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const ThreeDynamicCardList = () => {
   const [cards, setCards] = useState([]);
@@ -70,7 +71,7 @@ const ThreeDynamicCardList = () => {
             <tr key={card._id || idx}>
               <td>
                 {card.img && (
-                  <img src={`${process.env.REACT_APP_BACKEND_URL}${card.img}`} alt={card.alt} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8 }} />
+                  <img src={getImageUrl(card.img)} alt={card.alt} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8 }} />
                 )}
               </td>
               <td>{truncate(card.alt)}</td>

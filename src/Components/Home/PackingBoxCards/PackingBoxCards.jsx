@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./PackingBoxCards.css";
 import { fetchPackingBoxSections } from "../../../api/api";
+import { getImageUrl } from "../../../utils/imageUtils";
 
 const PackingBoxCards = () => {
   const [cards, setCards] = useState([]);
@@ -29,7 +30,7 @@ const PackingBoxCards = () => {
             rel="noopener noreferrer"
           >
             <div className="packing-box-card-img-wrapper">
-              <img src={`${process.env.REACT_APP_BACKEND_URL}${card.img}`} alt={card.alt} loading="lazy" />
+              <img src={getImageUrl(card.img)} alt={card.alt} loading="lazy" />
             </div>
             <div className="packing-box-card-content">
               <h3>{card.title}</h3>

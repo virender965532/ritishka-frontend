@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./HeroSection.css";
 import { Link } from "react-router-dom";
 import { fetchHeroSections } from "../../../api/api";
+import { getImageUrl } from "../../../utils/imageUtils";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 const SLIDE_INTERVAL = 3000; // 3 seconds for better UX
@@ -94,7 +95,7 @@ const HeroSection = () => {
           <img
             alt={product.title}
             className="heroImage-img"
-            src={`${process.env.REACT_APP_BACKEND_URL}${product.image}`}
+            src={getImageUrl(product.image)}
             loading="lazy"
           />
         </div>

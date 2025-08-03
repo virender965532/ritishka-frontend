@@ -4,6 +4,7 @@ import Zoom from "@mui/material/Zoom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../Features/Cart/cartSlice";
+import { getImageUrl } from "../../../utils/imageUtils";
 
 import product1 from "../../../Assets/ProductDetail/productdetail-1.jpg";
 import product2 from "../../../Assets/ProductDetail/productdetail-2.jpg";
@@ -192,15 +193,15 @@ const Product = () => {
         <div className="productShowCase">
           <div className="productGallery">
             <div className="productThumb">
-              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[0] : `#`} onClick={() => setCurrentImg(0)} alt="" />
-              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[1] : `#`} onClick={() => setCurrentImg(1)} alt="" />
-              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[2] : `#`} onClick={() => setCurrentImg(2)} alt="" />
-              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[3] : `#`} onClick={() => setCurrentImg(3)} alt="" />
-              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[4] : `#`} onClick={() => setCurrentImg(4)} alt="" />
-              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[5] : `#`} onClick={() => setCurrentImg(5)} alt="" />
+              <img src={product?.images ? getImageUrl(product?.images[0]) : `#`} onClick={() => setCurrentImg(0)} alt="" />
+              <img src={product?.images ? getImageUrl(product?.images[1]) : `#`} onClick={() => setCurrentImg(1)} alt="" />
+              <img src={product?.images ? getImageUrl(product?.images[2]) : `#`} onClick={() => setCurrentImg(2)} alt="" />
+              <img src={product?.images ? getImageUrl(product?.images[3]) : `#`} onClick={() => setCurrentImg(3)} alt="" />
+              <img src={product?.images ? getImageUrl(product?.images[4]) : `#`} onClick={() => setCurrentImg(4)} alt="" />
+              <img src={product?.images ? getImageUrl(product?.images[5]) : `#`} onClick={() => setCurrentImg(5)} alt="" />
             </div>
             <div className="productFullImg">
-              <img src={product?.images ? `${process.env.REACT_APP_BACKEND_URL}` + product?.images[currentImg] : `#`} alt="" />
+              <img src={product?.images ? getImageUrl(product?.images[currentImg]) : `#`} alt="" />
               <div className="buttonsGroup">
                 <button onClick={prevImg} className="directionBtn">
                   <GoChevronLeft size={18} />

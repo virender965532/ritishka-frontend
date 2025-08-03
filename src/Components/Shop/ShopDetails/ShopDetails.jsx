@@ -431,13 +431,13 @@ const ShopDetails = () => {
                         to={product?.slug ? `/product/` + product?.slug : "/shop"}
                       >
                         <img
-                          src={`${process.env.REACT_APP_BACKEND_URL}${product?.images[0]}`}
+                          src={`${product?.images[0]}`}
                           alt={product?.title}
                           className="jewel-product-img"
                         />
                         {product?.images[1] && (
                           <img
-                            src={`${process.env.REACT_APP_BACKEND_URL}${product?.images[1]}`}
+                            src={`${product?.images[1]}`}
                             alt={product?.title}
                             className="jewel-product-img-back"
                           />

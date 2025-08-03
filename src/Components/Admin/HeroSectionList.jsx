@@ -72,7 +72,7 @@ const HeroSectionList = () => {
             <tr key={section._id || idx}>
               <td>
                 {section.image && (
-                  <img src={`${process.env.REACT_APP_BACKEND_URL}${section.image}`} alt={section.name} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8 }} />
+                  <img src={`${section.image}`} alt={section.name} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8 }} />
                 )}
               </td>
               <td>{truncate(section.name)}</td>

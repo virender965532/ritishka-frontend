@@ -72,7 +72,7 @@ const PackingBoxSectionList = () => {
             <tr key={section._id || idx}>
               <td>
                 {section.img && (
-                  <img src={`${process.env.REACT_APP_BACKEND_URL}${section.img}`} alt={section.alt} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8 }} />
+                  <img src={`${section.img}`} alt={section.alt} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8 }} />
                 )}
               </td>
               <td>{truncate(section.title)}</td>

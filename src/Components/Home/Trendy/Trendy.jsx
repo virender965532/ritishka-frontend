@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Trendy.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../Features/Cart/cartSlice";
+import { getImageUrl } from "../../../utils/imageUtils";
 import { Link } from "react-router-dom";
 import { FiHeart } from "react-icons/fi";
 import { FaCartPlus } from "react-icons/fa";
@@ -132,12 +133,12 @@ const Trendy = () => {
                               <div className="trendyProductImages">
                                 <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
                                   <img
-                                    src={`${process.env.REACT_APP_BACKEND_URL}` + product?.images[0]}
+                                    src={getImageUrl(product?.images[0])}
                                     alt=""
                                     className="trendyProduct_front"
                                   />
                                   <img
-                                    src={`${process.env.REACT_APP_BACKEND_URL}` + product?.images[1]}
+                                    src={product?.images[1]}
                                     alt=""
                                     className="trendyProduct_back"
                                   />

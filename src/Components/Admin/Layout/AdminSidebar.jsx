@@ -32,7 +32,7 @@ const AdminSidebar = () => {
       <aside className="admin-sidebar">
         <div className="sidebar-user">
           <img
-            src={`${process.env.REACT_APP_BACKEND_URL}${
+            src={`${
               userDetail?.profilePicture || "/images/user/user.png"
             }`}
             alt="User"

@@ -1,6 +1,14 @@
 .productSection {
   padding: 0 160px;
   margin-top: 30px;
+  /* display: flex;
+  gap: 60px;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; */
 }
 
 .productShowCase {
@@ -245,12 +253,21 @@
   gap: 20px;
   align-items: center;
   margin-bottom: 20px;
+  /* width: 100%;
+  border-radius: 6px;
+  border: 2px solid #815505; */
 }
 
 .productQuantity {
   display: flex;
-  border: 2px solid #e0e0e0;
-  padding: 0 10px;
+  width: 100%;
+  /* padding: 0 10px; */
+  border-radius: 5px;
+  align-items: center;
+  height: 57px;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .productQuantity button {
@@ -259,6 +276,11 @@
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
+  /* transition: all 0.3s ease;
+  outline: none; */
+  /* width: 25%;
+  height: 100%;
+  background-color: #ffebc6; */
 }
 
 .productQuantity input {
@@ -267,23 +289,55 @@
   text-align: center;
   border: none;
   outline: none;
+  font-size: 16px;
+  color: black;
+  background-color: transparent;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: none;
+  border-radius: 0;
+  background-color: white;
+  font-family: inherit;
+  font-weight: 500;
+  /* width:50% */
 }
 
 .productCartBtn button {
   padding: 20px 110px;
-  background-color: black;
-  color: white;
   font-weight: 600;
   /* text-transform: uppercase; */
   border: none;
   cursor: pointer;
   white-space: nowrap;
+  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  width: 100%;
+  max-width: 300px;
+  text-decoration: none;
+  position: relative;
+  background: #aa8136;
+  color: white;
 }
 
 .productWishShare {
   display: flex;
   gap: 30px;
   margin-bottom: 25px;
+}
+.productWishList {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* text-transform: uppercase; */
+  font-size: 13px;
+  font-weight: 500;
+  position: relative;
 }
 
 .productWishList button {
@@ -294,6 +348,25 @@
   gap: 10px;
   outline: none;
   position: relative;
+  padding: 20px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  color: black;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  width: 200px;
+  max-width: 200px;
+  justify-content: center;
+  text-transform: uppercase;
+  background: #f0f0f0;
+  color: black;
+  font-family: inherit;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
 .productWishList button::after {
@@ -302,17 +375,21 @@
   left: 0;
   bottom: -10px;
   width: 0;
-  border-bottom: 2px solid black;
-  transition: width 0.3s ease;
 }
 
 .productWishList button:hover::after {
-  width: 50%;
+  width: 100%;
+  height: 2px;
+  transform: scaleX(1.05);
 }
 
 .productWishList button p {
-  /* text-transform: uppercase; */
   font-weight: 500;
+  font-size: 13px;
+  color: black;
+  font-family: inherit;
+  font-weight: 500;
+  
 }
 
 .productShare {
@@ -323,6 +400,18 @@
   font-size: 13px;
   font-weight: 500;
   position: relative;
+  color: black;
+  text-decoration: none;
+  padding: 10px 20px;
+  background: #f0f0f0;
+  color: black;
+  width: 150px;
+  max-width: 150px;
+  justify-content: center;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  
 }
 
 .productShare::after {
@@ -330,9 +419,6 @@
   position: absolute;
   left: 0;
   bottom: -10px;
-  width: 0;
-  border-bottom: 2px solid black;
-  transition: width 0.3s ease;
 }
 
 .productShare:hover::after {
@@ -343,16 +429,32 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
 }
 
 .productTags p {
   font-size: 13px;
   color: black;
+  font-weight: 500;
+  margin-bottom: 10px;
+  font-family: inherit;
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-family: inherit;
+  font-weight: 500;
 }
 
 .productTags span {
   font-size: 13px;
   color: #767676;
+  font-weight: 400;
+  font-family: inherit;
 }
 
 /* Responsive CSS */

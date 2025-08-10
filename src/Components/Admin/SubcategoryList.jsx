@@ -108,7 +108,7 @@ const SubcategoryList = ({ containerRef }) => {
               <td>
                 {subcat?.image && (
                   <img
-                    src={`${process.env.REACT_APP_BACKEND_URL}${subcat?.image}`}
+                    src={`${subcat?.image}`}
                     alt={subcat?.name}
                     className="subcategory-image"
                     style={{ width: '80px', height: '80px', borderRadius: '10px' }}

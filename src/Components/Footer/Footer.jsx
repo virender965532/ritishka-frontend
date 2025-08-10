@@ -37,7 +37,7 @@ const Footer = () => {
             <p>A-79/16 Baba Colony Burari Delhi 110084</p>
 
             <div className="footer_address">
-              <strong> ritishkasilver@gmail.com </strong>
+              <strong> care@ritishka.in </strong>
               <strong> +91 9716620018 </strong>
             </div>
 

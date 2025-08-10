@@ -8,6 +8,7 @@ import {
   fetchCollections,
   fetchOccasions,
 } from "./../../api/api";
+import { getImageUrl } from "../../utils/imageUtils";
 import toast from "react-hot-toast";
 
 const ProductForm = ({
@@ -322,7 +323,7 @@ const ProductForm = ({
                   {form.images.map((image, index) => (
                     <div key={index} className="image-preview" style={{ display: "inline-grid" }}>
                       <img
-                        src={image instanceof File ? URL.createObjectURL(image) : `${process.env.REACT_APP_BACKEND_URL}${image}`}
+                        src={getImageUrl(image)}
                         alt={`Preview ${index}`}
                         style={{ width: "100px", height: "100px", objectFit: "cover", marginRight: "10px" }}
                       />

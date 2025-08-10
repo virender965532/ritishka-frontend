@@ -133,7 +133,7 @@ const ProductList = ({ containerRef }) => {
                       {product?.images?.map((image, index) => {
                         return (
                           <img key={index}
-                            src={`${process.env.REACT_APP_BACKEND_URL}${image}`}
+                            src={`${image}`}
                             alt={product?.title}
                             className="product-image"
                             style={{ width: '50px', height: '50px', borderRadius: '10px', marginRight: '5px' }}

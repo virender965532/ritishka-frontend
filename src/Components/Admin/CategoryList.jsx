@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment'; // Add this import
 import { fetchCategories, deleteCategory } from './../../api/api';
+import { getImageUrl } from '../../utils/imageUtils';
 import CategoryForm from './CategoryForm';
 import { useSelector } from 'react-redux';
 
@@ -98,7 +99,7 @@ const CategoryList = ({ containerRef }) => {
               <td>
                 {cat?.image && (
                   <img
-                    src={`${process.env.REACT_APP_BACKEND_URL}${cat?.image}`}
+                    src={getImageUrl(cat?.image)}
                     alt={cat?.name}
                     className="category-image"
                     style={{ width: '80px', height: '80px', borderRadius: '10px' }}

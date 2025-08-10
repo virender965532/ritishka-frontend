@@ -124,11 +124,16 @@
 @media (max-width: 600px) {
   .three-dynamic-cards-section {
     padding: 16px 0;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
   }
   .three-dynamic-cards-container {
     flex-wrap: nowrap;
     overflow-x: auto;
     gap: 12px;
+    width: 95%;
+    max-width: 95%;
   }
   .three-dynamic-card {
     min-width: 180px;

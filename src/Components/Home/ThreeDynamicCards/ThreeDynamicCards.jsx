@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ThreeDynamicCards.css";
 import { fetchThreeDynamicCards } from "../../../api/api";
+import { getImageUrl } from "../../../utils/imageUtils";
 
 const ThreeDynamicCards = () => {
   const [cards, setCards] = useState([]);
@@ -26,7 +27,7 @@ const ThreeDynamicCards = () => {
           >
             <div className="three-dynamic-card-img-wrapper">
               <img
-                src={`${process.env.REACT_APP_BACKEND_URL}${card.img}`}
+                src={getImageUrl(card.img)}
                 alt={card.alt}
                 loading="lazy"
               />

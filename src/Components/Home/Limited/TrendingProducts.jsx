@@ -3,6 +3,7 @@ import "./LimitedEdition.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../Features/Cart/cartSlice";
+import { getImageUrl } from "../../../utils/imageUtils";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -140,7 +141,7 @@ const TrendingProducts = () => {
                     <div className="lpImageContainer">
                       <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>
                         <img
-                          src={`${process.env.REACT_APP_BACKEND_URL}` + product?.images[0]}
+                          src={getImageUrl(product?.images[0])}
                           alt={product?.title}
                           className="lpImage"
                         />

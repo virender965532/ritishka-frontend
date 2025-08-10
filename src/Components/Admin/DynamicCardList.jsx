@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DynamicCardForm from './DynamicCardForm';
 import { fetchDynamicCards, deleteDynamicCard } from '../../api/api';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const DynamicCardList = () => {
   const [cards, setCards] = useState([]);
@@ -71,7 +72,7 @@ const DynamicCardList = () => {
             <tr key={card._id || idx}>
               <td>
                 {card.img && (
-                  <img src={`${process.env.REACT_APP_BACKEND_URL}${card.img}`} alt={card.alt} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8 }} />
+                  <img src={getImageUrl(card.img)} alt={card.alt} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8 }} />
                 )}
               </td>
               <td>{truncate(card.alt)}</td>

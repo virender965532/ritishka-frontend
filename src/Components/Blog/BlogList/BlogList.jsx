@@ -3,6 +3,7 @@ import React from "react";
 import "./BlogList.css";
 
 import BlogData from "../../../Data/BlogData";
+import { getImageUrl } from "../../../utils/imageUtils";
 import { Link } from "react-router-dom";
 
 const BlogList = () => {
@@ -33,7 +34,7 @@ const BlogList = () => {
           {BlogData.map((blogPost) => (
             <div className="blogPost">
               <div className="blogPostThumb">
-                <img src={blogPost.blogThumbnail} alt="blogPost" />
+                <img src={getImageUrl(blogPost.blogThumbnail)} alt="blogPost" />
               </div>
               <div className="blogPostContent">
                 <div className="blogPostContentDate">

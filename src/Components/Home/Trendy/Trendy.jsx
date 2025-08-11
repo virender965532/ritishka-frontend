@@ -138,7 +138,7 @@ const Trendy = () => {
                                     className="trendyProduct_front"
                                   />
                                   <img
-                                    src={product?.images[1]}
+                                    src={getImageUrl(product?.images[1])}
                                     alt=""
                                     className="trendyProduct_back"
                                   />

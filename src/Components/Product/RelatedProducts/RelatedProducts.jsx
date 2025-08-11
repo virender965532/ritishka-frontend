@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 
 import StoreData from "../../../Data/StoreData";
+import { getImageUrl } from "../../../utils/imageUtils";
 
 import { FiHeart } from "react-icons/fi";
 import { FaStar } from "react-icons/fa";
@@ -79,12 +80,12 @@ const RelatedProducts = () => {
                   <div className="rpContainer">
                     <div className="rpImages" onClick={scrollToTop}>
                       <img
-                        src={product.frontImg}
+                        src={getImageUrl(product.frontImg)}
                         alt={product.productName}
                         className="rpFrontImg"
                       />
                       <img
-                        src={product.backImg}
+                        src={getImageUrl(product.backImg)}
                         className="rpBackImg"
                         alt={product.productName}
                       />

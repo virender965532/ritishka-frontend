@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { fetchSubcategories, deleteSubcategory, fetchCategories } from "./../../api/api";
 import SubcategoryForm from "./SubcategoryForm";
 import { useSelector } from 'react-redux';
+import { getImageUrl } from '../../utils/imageUtils';
 
 function stripHtml(html) {
   const tmp = document.createElement("DIV");
@@ -108,7 +109,7 @@ const SubcategoryList = ({ containerRef }) => {
               <td>
                 {subcat?.image && (
                   <img
-                    src={`${subcat?.image}`}
+                    src={getImageUrl(subcat?.image)}
                     alt={subcat?.name}
                     className="subcategory-image"
                     style={{ width: '80px', height: '80px', borderRadius: '10px' }}

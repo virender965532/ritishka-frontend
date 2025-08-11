@@ -7,6 +7,7 @@ import { FiHeart } from "react-icons/fi";
 import { FaCartPlus } from "react-icons/fa";
 import RcSlider from "rc-slider";
 import "rc-slider/assets/index.css";
+import { getImageUrl } from "../../../utils/imageUtils";
 import {
   filterProducts,
   fetchCategories,
@@ -431,13 +432,13 @@ const ShopDetails = () => {
                         to={product?.slug ? `/product/` + product?.slug : "/shop"}
                       >
                         <img
-                          src={`${product?.images[0]}`}
+                          src={getImageUrl(product?.images[0])}
                           alt={product?.title}
                           className="jewel-product-img"
                         />
                         {product?.images[1] && (
                           <img
-                            src={`${product?.images[1]}`}
+                            src={getImageUrl(product?.images[1])}
                             alt={product?.title}
                             className="jewel-product-img-back"
                           />

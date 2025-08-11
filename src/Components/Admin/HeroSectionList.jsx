@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HeroSectionForm from './HeroSectionForm';
 import { fetchHeroSections, deleteHeroSection } from '../../api/api';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const HeroSectionList = () => {
   const [heroSections, setHeroSections] = useState([]);
@@ -72,7 +73,7 @@ const HeroSectionList = () => {
             <tr key={section._id || idx}>
               <td>
                 {section.image && (
-                  <img src={`${section.image}`} alt={section.name} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8 }} />
+                  <img src={getImageUrl(section.image)} alt={section.name} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8 }} />
                 )}
               </td>
               <td>{truncate(section.name)}</td>

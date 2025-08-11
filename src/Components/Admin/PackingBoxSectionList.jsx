@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PackingBoxSectionForm from './PackingBoxSectionForm';
 import { fetchPackingBoxSections, deletePackingBoxSection } from '../../api/api';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const PackingBoxSectionList = () => {
   const [sections, setSections] = useState([]);
@@ -72,7 +73,7 @@ const PackingBoxSectionList = () => {
             <tr key={section._id || idx}>
               <td>
                 {section.img && (
-                  <img src={`${section.img}`} alt={section.alt} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8 }} />
+                  <img src={getImageUrl(section.img)} alt={section.alt} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8 }} />
                 )}
               </td>
               <td>{truncate(section.title)}</td>

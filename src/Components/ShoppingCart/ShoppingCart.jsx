@@ -12,6 +12,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 import success from "../../Assets/success.png";
+import { getImageUrl } from "../../utils/imageUtils";
 
 const ShoppingCart = () => {
   const cartItems = useSelector((state) => state?.cart?.items);
@@ -144,7 +145,7 @@ const ShoppingCart = () => {
                             <td data-label="Product">
                               <div className="shoppingBagTableImg">
                                 <Link to="/product" onClick={scrollToTop}>
-                                  <img src={item.frontImg} alt="" />
+                                  <img src={getImageUrl(item.frontImg)} alt="" />
                                 </Link>
                               </div>
                             </td>
@@ -278,7 +279,7 @@ const ShoppingCart = () => {
                             <div className="shoppingBagTableMobileItems">
                               <div className="shoppingBagTableMobileItemsImg">
                                 <Link to="/product" onClick={scrollToTop}>
-                                  <img src={item.frontImg} alt="" />
+                                  <img src={getImageUrl(item.frontImg)} alt="" />
                                 </Link>
                               </div>
                               <div className="shoppingBagTableMobileItemsDetail">

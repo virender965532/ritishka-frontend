@@ -24,21 +24,21 @@ const Categories = () => {
   return (
     <section className="categories-section">
       <h2>
-        <span className="categories-title">Explore Our Categories</span> 
+        <span className="categories-header">Explore Our Categories</span> 
       </h2>
       <div className="categories-desktop">
         <ul className="categories-list">
           {categories.map((cat) => (
-            <li className="category-item" key={cat._id}>
+            <li className="categories-item" key={cat._id}>
               <Link to={`/shop?category=${cat.name || cat.name.toLowerCase()}`}
-                aria-label="homepage" className="category-link">
+                aria-label="homepage" className="categories-link">
                 <img
                   alt={cat.name}
-                  className="category-img"
+                  className="categories-img"
                   src={getImageUrl(cat?.image)}
                   loading="lazy"
                 />
-                <div className="category-title">{cat.name}</div>
+                <div className="categories-title">{cat.name}</div>
               </Link>
             </li>
           ))}
@@ -48,16 +48,16 @@ const Categories = () => {
         <div className="categories-scroll">
           <ul className="categories-list-mobile">
             {categories.map((cat) => (
-              <li className="category-item-mobile" key={cat._id}>
+              <li className="categories-item-mobile" key={cat._id}>
                 <Link to={`/shop?category=${cat.name || cat.name.toLowerCase()}`}
-                  aria-label="homepage" className="category-link-mobile">
+                  aria-label="homepage" className="categories-link-mobile">
                   <img
                     alt={cat.name}
-                    className="category-img-mobile"
+                    className="categories-img-mobile"
                     src={getImageUrl(cat?.image)}
                     loading="lazy"
                   />
-                  <div className="category-title-mobile">{cat.name}</div>
+                  <div className="categories-title-mobile">{cat.name}</div>
                 </Link>
               </li>
             ))}

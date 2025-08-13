@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 160px;
+  padding: 10px 160px;
   position: relative;
   z-index: 10;
   background-color: white;
@@ -32,13 +32,13 @@
 
 .logoContainer img {
   background: none !important;
-  width: 200px;
-  height: auto;
+  width: 125px;
+  height: 50px;
 }
 
 .navBar.sticky .logoContainer img {
-  width: 150px;
-  height: auto;
+  width: 125px;
+  height: 50px;
 }
 
 .linkContainer ul {
@@ -103,16 +103,24 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 60px;
+    padding: 10px 30px;
     position: relative;
     z-index: 10;
     background-color: white;
+  }
+  .logoContainer img {
+    width: 125px;
+    height: 50px;
   }
 }
 
 @media screen and (max-width: 450px) {
   .mobile-nav {
-    padding: 20px 15px;
+    padding: 10px 15px;
+  }
+  .logoContainer img {
+    width: 125px;
+    height: 50px;
   }
 }
 

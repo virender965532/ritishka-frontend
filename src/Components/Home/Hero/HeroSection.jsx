@@ -67,6 +67,48 @@ const HeroSection = () => {
 
   const product = heroProducts[current];
 
+  // return (
+  //   <div
+  //     className="heroMain"
+  //     onMouseEnter={() => setIsPaused(true)}
+  //     onMouseLeave={() => setIsPaused(false)}
+  //   >
+  //     <button
+  //       className="heroArrow left"
+  //       onClick={goToPrev}
+  //       aria-label="Previous Slide"
+  //     >
+  //       <IoIosArrowBack />
+  //     </button>
+  //     <div className="sectionleft">
+  //       <h1>{product.title}</h1>
+  //       <span>{product.subtitle}</span>
+  //       <div className="heroLink">
+  //         <Link to={product.link} onClick={scrollToTop}>
+  //           <h5>Discover More</h5>
+  //         </Link>
+  //       </div>
+  //     </div>
+  //     <div className="sectionright">
+  //       <div className="heroImage">
+  //         {/* <img src={product.image} alt={product.title} /> */}
+  //         <img
+  //           alt={product.title}
+  //           className="heroImage-img"
+  //           src={getImageUrl(product.image)}
+  //           loading="lazy"
+  //         />
+  //       </div>
+  //     </div>
+  //     <button
+  //       className="heroArrow right"
+  //       onClick={goToNext}
+  //       aria-label="Next Slide"
+  //     >
+  //       <IoIosArrowForward />
+  //     </button>
+  //   </div>
+  // );
   return (
     <div
       className="heroMain"
@@ -80,25 +122,15 @@ const HeroSection = () => {
       >
         <IoIosArrowBack />
       </button>
-      <div className="sectionleft">
-        <h1>{product.title}</h1>
-        <span>{product.subtitle}</span>
-        <div className="heroLink">
-          <Link to={product.link} onClick={scrollToTop}>
-            <h5>Discover More</h5>
-          </Link>
-        </div>
-      </div>
-      <div className="sectionright">
         <div className="heroImage">
-          {/* <img src={product.image} alt={product.title} /> */}
+        <Link to={product?.link}>
           <img
             alt={product.title}
             className="heroImage-img"
             src={getImageUrl(product.image)}
             loading="lazy"
           />
-        </div>
+          </Link>
       </div>
       <button
         className="heroArrow right"

@@ -323,7 +323,7 @@ const ProductForm = ({
                   {form.images.map((image, index) => (
                     <div key={index} className="image-preview" style={{ display: "inline-grid" }}>
                       <img
-                        src={getImageUrl(image)}
+                        src={image instanceof File ? URL.createObjectURL(image) : getImageUrl(image)}
                         alt={`Preview ${index}`}
                         style={{ width: "100px", height: "100px", objectFit: "cover", marginRight: "10px" }}
                       />

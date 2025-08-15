@@ -11,6 +11,7 @@ import {
 } from './../../api/api';
 import ProductForm from './ProductForm';
 import { useSelector } from 'react-redux';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const ProductList = ({ containerRef }) => {
   const [products, setProducts] = useState([]);
@@ -133,7 +134,7 @@ const ProductList = ({ containerRef }) => {
                       {product?.images?.map((image, index) => {
                         return (
                           <img key={index}
-                            src={`${image}`}
+                            src={`${getImageUrl(image)}`}
                             alt={product?.title}
                             className="product-image"
                             style={{ width: '50px', height: '50px', borderRadius: '10px', marginRight: '5px' }}

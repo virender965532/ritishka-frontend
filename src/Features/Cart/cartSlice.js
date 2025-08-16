@@ -13,45 +13,45 @@ const cartSlice = createSlice({
   reducers: {
     addToCart(state, action) {
       const product = action.payload;
-      const existingItem = state.items.find(
-        (item) => item.productID === product.productID
+      const existingItem = (state?.items || []).find(
+        (item) => item?._id === product?._id
       );
       if (existingItem) {
         if (existingItem.quantity < MAX_QUANTITY) {
           existingItem.quantity += 1;
-          state.totalAmount += product.productPrice;
+          state.totalAmount += product.discountedPrice;
         }
       } else {
         state.items.push({ ...product, quantity: 1 });
-        state.totalAmount += product.productPrice;
+        state.totalAmount += product.discountedPrice;
       }
     },
     updateQuantity(state, action) {
-      const { productID, quantity } = action.payload;
-      const itemToUpdate = state.items.find(
-        (item) => item.productID === productID
+      const { _id, quantity } = action.payload;
+      const itemToUpdate = (state.items || []).find(
+        (item) => item?._id === _id
       );
       if (itemToUpdate) {
         const difference = quantity - itemToUpdate.quantity;
         if (quantity <= MAX_QUANTITY) {
           itemToUpdate.quantity = quantity;
-          state.totalAmount += difference * itemToUpdate.productPrice;
+          state.totalAmount += difference * itemToUpdate.discountedPrice;
         } else {
           itemToUpdate.quantity = MAX_QUANTITY;
           state.totalAmount +=
-            (MAX_QUANTITY - itemToUpdate.quantity) * itemToUpdate.productPrice;
+            (MAX_QUANTITY - itemToUpdate.quantity) * itemToUpdate.discountedPrice;
         }
       }
     },
     removeFromCart(state, action) {
-      const productId = action.payload;
-      const itemToRemove = state.items.find(
-        (item) => item.productID === productId
+      const _id = action.payload;
+      const itemToRemove = (state.items || []).find(
+        (item) => item._id === _id
       );
       if (itemToRemove) {
-        state.totalAmount -= itemToRemove.productPrice * itemToRemove.quantity;
-        state.items = state.items.filter(
-          (item) => item.productID !== productId
+        state.totalAmount -= itemToRemove.discountedPrice * itemToRemove.quantity;
+        state.items = (state.items || []).filter(
+          (item) => item?._id !== _id
         );
       }
     },

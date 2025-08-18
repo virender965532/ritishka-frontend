@@ -149,7 +149,7 @@ const ShoppingCart = () => {
                         <th>Price</th>
                         <th>Discount</th>
                         <th>Discount Price</th>
-                        <th></th>
+                        <th>Delete</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -249,14 +249,7 @@ const ShoppingCart = () => {
                       )}
                     </tbody>
                     <tfoot>
-                      <th
-                        colSpan="6"
-                        className="shopCartFooter"
-                        style={{
-                          borderBottom: "none",
-                          padding: "20px 0px",
-                        }}
-                      >
+                      <th colSpan="7" className="shopCartFooter">
                         {cartItems.length > 0 && (
                           <div className="shopCartFooterContainer">
                             <form>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ShoppingCart.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -15,11 +15,29 @@ import success from "../../Assets/success.png";
 import { getImageUrl } from "../../utils/imageUtils";
 
 const ShoppingCart = () => {
-  const cartItems = useSelector((state) => state?.cart?.items);
+  const cartData = useSelector((state) => state?.cartData);
+  const [cartItems, setCartItems] = useState(cartData || []);
   const dispatch = useDispatch();
-
   const [activeTab, setActiveTab] = useState("cartTab1");
   const [payments, setPayments] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [discountedPrice, setDiscountedPrice] = useState(0);
+
+  useEffect(() => {
+    if (cartData) {
+      let totalPriceTemp = 0;
+      let discountedPriceTemp = 0;
+      cartData.forEach((item) => {
+        if (item) {
+          totalPriceTemp += item?.price * item?.quantity;
+          discountedPriceTemp += item?.discountedPrice * item?.quantity;
+        }
+      });
+      setCartItems(cartData);
+      setTotalPrice(totalPriceTemp);
+      setDiscountedPrice(discountedPriceTemp);
+    }
+  }, [cartData]);
 
   const handleTabClick = (tab) => {
     if (tab === "cartTab1" || cartItems.length > 0) {
@@ -27,13 +45,11 @@ const ShoppingCart = () => {
     }
   };
 
-  const handleQuantityChange = (productId, quantity) => {
+  const handleQuantityChange = (_id, quantity) => {
     if (quantity >= 1 && quantity <= 20) {
-      dispatch(updateQuantity({ productID: productId, quantity: quantity }));
+      dispatch(updateQuantity({ _id: _id, quantity: quantity }));
     }
   };
-
-  const totalPrice = useSelector(selectCartTotalAmount);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -82,7 +98,6 @@ const ShoppingCart = () => {
               }}
             >
               <div className="shoppingCartTabsNumber">
-                <h3>01</h3>
                 <div className="shoppingCartTabsHeading">
                   <h3>Shopping Bag</h3>
                   <p>Manage Your Items List</p>
@@ -98,7 +113,6 @@ const ShoppingCart = () => {
               disabled={cartItems.length === 0}
             >
               <div className="shoppingCartTabsNumber">
-                <h3>02</h3>
                 <div className="shoppingCartTabsHeading">
                   <h3>Shipping and Checkout</h3>
                   <p>Checkout Your Items List</p>
@@ -113,7 +127,6 @@ const ShoppingCart = () => {
               disabled={cartItems.length === 0 || payments === false}
             >
               <div className="shoppingCartTabsNumber">
-                <h3>03</h3>
                 <div className="shoppingCartTabsHeading">
                   <h3>Confirmation</h3>
                   <p>Review And Submit Your Order</p>
@@ -130,67 +143,51 @@ const ShoppingCart = () => {
                   <table className="shoppingBagTable">
                     <thead>
                       <tr>
-                        <th>Product</th>
-                        <th></th>
-                        <th>Price</th>
+                        <th>Images</th>
+                        <th>Name</th>
                         <th>Quantity</th>
-                        <th>Subtotal</th>
-                        <th></th>
+                        <th>Price</th>
+                        <th>Discount</th>
+                        <th>Discount Price</th>
+                        <th>Delete</th>
                       </tr>
                     </thead>
                     <tbody>
                       {cartItems.length > 0 ? (
                         cartItems.map((item) => (
-                          <tr key={item.productID}>
+                          <tr key={item?._id}>
                             <td data-label="Product">
                               <div className="shoppingBagTableImg">
-                                <Link to="/product" onClick={scrollToTop}>
-                                  <img src={getImageUrl(item.frontImg)} alt="" />
+                                <Link to={`/product/${item?.slug}`} onClick={scrollToTop}>
+                                  <img src={getImageUrl(item?.images[0])} alt="" />
                                 </Link>
                               </div>
                             </td>
                             <td data-label="">
                               <div className="shoppingBagTableProductDetail">
-                                <Link to="/product" onClick={scrollToTop}>
-                                  <h4>{item.productName}</h4>
+                                <Link to={`/product/${item?.slug}`} onClick={scrollToTop}>
+                                  <h4>{item?.title}</h4>
                                 </Link>
-                                <p>{item.productReviews}</p>
+                                {/* <p>{item.productReviews}</p> */}
                               </div>
-                            </td>
-                            <td
-                              data-label="Price"
-                              style={{ textAlign: "center" }}
-                            >
-                              ${item.productPrice}
                             </td>
                             <td data-label="Quantity">
                               <div className="ShoppingBagTableQuantity">
                                 <button
                                   onClick={() =>
                                     handleQuantityChange(
-                                      item.productID,
+                                      item?._id,
                                       item.quantity - 1
                                     )
                                   }
                                 >
                                   -
                                 </button>
-                                <input
-                                  type="text"
-                                  min="1"
-                                  max="20"
-                                  value={item.quantity}
-                                  onChange={(e) =>
-                                    handleQuantityChange(
-                                      item.productID,
-                                      parseInt(e.target.value)
-                                    )
-                                  }
-                                />
+                                <p>{item?.quantity}</p>
                                 <button
                                   onClick={() =>
                                     handleQuantityChange(
-                                      item.productID,
+                                      item?._id,
                                       item.quantity + 1
                                     )
                                   }
@@ -206,7 +203,27 @@ const ShoppingCart = () => {
                                   fontWeight: "500",
                                 }}
                               >
-                                ${item.quantity * item.productPrice}
+                                {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format((item.quantity * item.price) || 0)}
+                              </p>
+                            </td>
+                            <td data-label="Subtotal">
+                              <p
+                                style={{
+                                  textAlign: "center",
+                                  fontWeight: "500",
+                                }}
+                              >
+                                {item?.discount > 0  ? `${item?.discount}%` : '-'}
+                              </p>
+                            </td>
+                            <td data-label="Subtotal">
+                              <p
+                                style={{
+                                  textAlign: "center",
+                                  fontWeight: "500",
+                                }}
+                              >
+                                {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format((item.quantity * item.discountedPrice) || 0)}
                               </p>
                             </td>
                             <td data-label="">
@@ -232,14 +249,7 @@ const ShoppingCart = () => {
                       )}
                     </tbody>
                     <tfoot>
-                      <th
-                        colSpan="6"
-                        className="shopCartFooter"
-                        style={{
-                          borderBottom: "none",
-                          padding: "20px 0px",
-                        }}
-                      >
+                      <th colSpan="7" className="shopCartFooter">
                         {cartItems.length > 0 && (
                           <div className="shopCartFooterContainer">
                             <form>

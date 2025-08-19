@@ -1,46 +1,43 @@
 import React, { useState, useEffect } from "react";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
-
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../Features/Cart/cartSlice";
+import { addToWishList, removeFromWishList } from "../../../Features/Wishlist/wishListSlice";
 import { getImageUrl } from "../../../utils/imageUtils";
-
-import product1 from "../../../Assets/ProductDetail/productdetail-1.jpg";
-import product2 from "../../../Assets/ProductDetail/productdetail-2.jpg";
-import product3 from "../../../Assets/ProductDetail/productdetail-3.jpg";
-import product4 from "../../../Assets/ProductDetail/productdetail-4.jpg";
-
 import { GoChevronLeft } from "react-icons/go";
 import { GoChevronRight } from "react-icons/go";
-import { FaStar } from "react-icons/fa";
+// import { FaStar } from "react-icons/fa";
 import { FiHeart } from "react-icons/fi";
-import { PiShareNetworkLight } from "react-icons/pi";
-
+// import { PiShareNetworkLight } from "react-icons/pi";
 import { Link } from "react-router-dom";
-
 import toast from "react-hot-toast";
-
 import "./Product.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { ProductBySlug } from "./../../../api/api";
-import Subcategory from './../../../Pages/admin/Subcategory';
+// import Subcategory from './../../../Pages/admin/Subcategory';
 
 const Product = () => {
   // Product images Gallery
 
   const { slug } = useParams();
   const navigate = useNavigate();
+  const wishlistData = useSelector((state) => state?.wishlistData);
+  const cartData = useSelector((state) => state?.cartData);
+  const [highlightedColor, setHighlightedColor] = useState("");
+  const dispatch = useDispatch();
+  const [wishlistItems, setWishlistItems] = useState(wishlistData || []);
+  const [cartItems, setCartItems] = useState(cartData || []);
 
   React.useEffect(() => {
     if (!slug) {
       navigate("/");
     }
   }, [slug, navigate]);
-  const productImg = [product1, product2, product3, product4];
   const [currentImg, setCurrentImg] = useState(0);
   const [product, setProduct] = useState([]);
-  
+  const [clicked, setClicked] = useState(false);
+
   const fetchProductBySlug = () => ProductBySlug(slug).then((res) => {
         if (!res?.data) {
           navigate("/");
@@ -54,12 +51,40 @@ const Product = () => {
   }, []);
 
   useEffect(() => {
-    if (product) {
-      const maxQuantity = product?.maxQuantity || 20;
-      setMaxQuantity(maxQuantity);
+    if(product?.colors?.length > 0 ){
+      const defaultColor = product?.colors[0]
+      setHighlightedColor(defaultColor);
     }
   }, [product]);
 
+  useEffect(()=>{
+    if(product && wishlistItems){
+      const productInWishlist = (wishlistItems || []).find(item => item._id === product._id);
+      setWishlistItems((prev) => {
+        if (productInWishlist) {
+          return prev.map(item =>
+            item._id === product._id ? { ...item, quantity: 1 } : item
+          );
+        }
+        return prev;
+      });
+      setClicked(!!productInWishlist);
+    }
+  }, [wishlistItems, product])
+
+  useEffect(()=>{
+    if(product && cartItems){
+      const productInCart = (cartItems || []).find(item => item._id === product._id);
+      setCartItems((prev) => {
+        if (productInCart) {
+          return prev.map(item =>
+            item._id === product._id ? { ...item, quantity: 1 } : item
+          );
+        }
+        return prev;
+      });
+    }
+  }, [cartItems, product])
 
   const prevImg = () => {
     setCurrentImg(currentImg === 0 ? product?.images?.length - 1 : currentImg - 1);
@@ -69,97 +94,108 @@ const Product = () => {
     setCurrentImg(currentImg === product?.images?.length - 1 ? 0 : currentImg + 1);
   };
 
-  // Product Quantity
+  // const increment = () => {
+  //   if (quantity < maxQuantity) {
+  //     setQuantity(quantity + 1);
+  //   } else {
+  //     if (quantityError) {
+  //       return;
+  //     }
+  //     toast.error(`Maximum quantity of ${maxQuantity} reached`, {
+  //       duration: 2000,
+  //       style: {
+  //         backgroundColor: "#ff4b4b",
+  //         color: "white",
+  //       },
+  //       iconTheme: {
+  //         primary: "#fff",
+  //         secondary: "#ff4b4b",
+  //       },
+  //     });
+  //     setQuantityError(true);
+  //     setTimeout(() => {
+  //       setQuantityError(false);
+  //     }, 2000);
+  //   }
+  // };
 
-  const [quantity, setQuantity] = useState(1);
-  const [maxQuantity, setMaxQuantity] = useState(20);
-  const [quantityError, setQuantityError] = useState(false);
+  // const decrement = () => {
+  //   if (quantity > 1) {
+  //     setQuantity(quantity - 1);
+  //   } else {
+  //     if (quantityError) {
+  //       return;
+  //     }
+  //       toast.error("Quantity cannot be less than 1", {
+  //         duration: 2000,
+  //         style: {
+  //           backgroundColor: "#ff4b4b",
+  //           color: "white",
+  //       },
+  //       iconTheme: {
+  //         primary: "#fff",
+  //         secondary: "#ff4b4b",
+  //       },
+  //     });
+  //     setQuantityError(true);
+  //     setTimeout(() => {
+  //       setQuantityError(false);
+  //     }, 2000);
+  //   }
+  // };
 
-  const increment = () => {
-    if (quantity < maxQuantity) {
-      setQuantity(quantity + 1);
-    } else {
-      if (quantityError) {
-        return;
+  // const handleInputChange = (event) => {
+  //   const value = parseInt(event.target.value);
+  //   if (!isNaN(value) && value > 0) {
+  //     setQuantity(value);
+  //   }
+  // };
+
+  const handleWishClick = () => {
+    setClicked(!clicked);
+    const productInWishlist = (wishlistItems || []).find(item => item._id === product._id);
+    if (!clicked) {
+      if (!productInWishlist) {
+        dispatch(addToWishList(product));
+        setWishlistItems((prev) => [...prev, product]);
+        toast.success("Added to wishlist!", {
+          duration: 2000,
+          style: {
+            backgroundColor: "#07bc0c",
+            color: "white",
+          },
+          iconTheme: {
+            primary: "#fff",
+            secondary: "#07bc0c",
+          },
+        });
       }
-      toast.error(`Maximum quantity of ${maxQuantity} reached`, {
-        duration: 2000,
-        style: {
-          backgroundColor: "#ff4b4b",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#ff4b4b",
-        },
-      });
-      setQuantityError(true);
-      setTimeout(() => {
-        setQuantityError(false);
-      }, 2000);
-    }
-  };
-
-  const decrement = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
     } else {
-      if (quantityError) {
-        return;
-      }
-        toast.error("Quantity cannot be less than 1", {
+      if (productInWishlist) {
+        dispatch(removeFromWishList(product));
+        setWishlistItems((prev) => prev.filter(item => item._id !== product._id));
+        toast.error("Removed from wishlist!", {
           duration: 2000,
           style: {
             backgroundColor: "#ff4b4b",
             color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#ff4b4b",
-        },
-      });
-      setQuantityError(true);
-      setTimeout(() => {
-        setQuantityError(false);
-      }, 2000);
+          },
+          iconTheme: {
+            primary: "#fff",
+            secondary: "#ff4b4b",
+          },
+        });
+      }
     }
   };
-
-  const handleInputChange = (event) => {
-    const value = parseInt(event.target.value);
-    if (!isNaN(value) && value > 0) {
-      setQuantity(value);
-    }
-  };
-
-  // Product WishList
-
-  const [clicked, setClicked] = useState(false);
-
-  const handleWishClick = () => {
-    setClicked(!clicked);
-  };
-
-  const [highlightedColor, setHighlightedColor] = useState("#C8393D");
-  
-  const dispatch = useDispatch();
-
-  const cartItems = useSelector((state) => state?.cart?.items);
 
   const handleAddToCart = () => {
-    const productDetails = {
-      productID: 14,
-      productName: "Lightweight Puffer Jacket",
-      productPrice: 90,
-      frontImg: productImg[0],
-      productReviews: "8k+ reviews",
-    };
-
-    const productInCart = cartItems.find(
-      (item) => item.productID === productDetails.productID
+    const productDetails = {...product, highlightedColor: highlightedColor, quantity: 1};
+    const productInCart = (cartItems || []).find(
+      (item) => item?._id === productDetails?._id
     );
 
-    if (productInCart && productInCart.quantity >= 20) {
+    if (productInCart && productInCart.quantity >= 500) {
       toast.error("Product limit reached", {
         duration: 2000,
         style: {
@@ -273,20 +309,6 @@ const Product = () => {
                   ))}
                 </div>
               </div>
-            </div>
-            <div className="productCartQuantity">
-              <div className="productQuantity">
-                <button onClick={decrement}>-</button>
-                <input
-                  type="text"
-                  value={quantity}
-                  onChange={handleInputChange}
-                />
-                <button onClick={increment}>+</button>
-              </div>
-              {/* <div className="productCartBtn">
-                <button onClick={handleAddToCart}>Add to Cart</button>
-              </div> */}
             </div>
             <div className="productWishShare">
               <div className="productWishList">

@@ -1,6 +1,6 @@
-export const ADD_TO_WISHLIST = "ADD_TO_WISHLIST";
-export const DELETE_FROM_WISHLIST = "DELETE_FROM_WISHLIST";
-export const DELETE_ALL_FROM_WISHLIST = "DELETE_ALL_FROM_WISHLIST";
+export const ADD_TO_WISHLIST = "wishlist/addToWishList";
+export const DELETE_FROM_WISHLIST = "wishlist/removeFromWishList";
+export const DELETE_ALL_FROM_WISHLIST = "wishlist/removeAllFromWishList";
 
 // add to wishlist
 export const addToWishlist = (item, addToast) => {

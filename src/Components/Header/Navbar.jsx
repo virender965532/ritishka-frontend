@@ -22,7 +22,10 @@ import { logout } from "../../store/authSlice"; // <-- Adjust the import path as
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const cart = useSelector((state) => state.cart);
+  const wishlistData = useSelector((state) => state?.wishlistData);
+  const cartData = useSelector((state) => state?.cartData);
+  const [wishlistItems, setWishlistItems] = useState(wishlistData || []);
+  const [cartItems, setCartItems] = useState(cartData || []);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navbarLinks, setNavbarLinks] = useState(NAVBAR_LINKS);
   const [isSticky, setIsSticky] = useState(false);
@@ -63,6 +66,15 @@ const Navbar = () => {
       };
       fetchData();
     }, []); 
+
+  useEffect(() => {
+    if (wishlistData) {
+      setWishlistItems(wishlistData || []);
+    }
+    if (cartData) {
+      setCartItems(cartData || []);
+    }
+  }, [wishlistData, cartData]);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -123,8 +135,9 @@ const Navbar = () => {
             <FaRegUser size={22} />
           </Link>
           <Link to="/cart" onClick={scrollToTop}>
+          {cartItems?.length > 0 && (
             <Badge
-              badgeContent={cart?.items.length === 0 ? "0" : cart?.items.length}
+              badgeContent={cartItems?.length === 0 ? "0" : cartItems?.length}
               color="primary"
               anchorOrigin={{
                 vertical: "bottom",
@@ -132,9 +145,23 @@ const Navbar = () => {
               }}
             >
               <RiShoppingBagLine size={22} />
-            </Badge>
+            </Badge>)}
+            {cartItems?.length === 0 && <RiShoppingBagLine size={22} />}
           </Link>
-          <FiHeart size={22} onClick={scrollToTop} />
+          <Link to="/wishlist" onClick={scrollToTop}>
+            {wishlistItems?.length > 0 && (
+              <Badge
+                badgeContent={wishlistItems?.length === 0 ? "0" : wishlistItems?.length}
+                color="primary"
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+              }}
+            >
+              <FiHeart size={22} onClick={scrollToTop} />
+            </Badge>)}
+            {wishlistItems?.length === 0 && <FiHeart size={22} />}
+          </Link>
         </div>
       </nav>
 
@@ -152,8 +179,9 @@ const Navbar = () => {
             </Link>
           </div>
           <Link to="/cart">
+          {cartItems?.length > 0 && (
             <Badge
-              badgeContent={cart?.items.length === 0 ? "0" : cart?.items.length}
+              badgeContent={cartItems?.length === 0 ? "0" : cartItems?.length}
               color="primary"
               anchorOrigin={{
                 vertical: "bottom",
@@ -161,7 +189,22 @@ const Navbar = () => {
               }}
             >
               <RiShoppingBagLine size={22} color="black" />
-            </Badge>
+            </Badge>)}
+            {cartItems?.length === 0 && <RiShoppingBagLine size={22} />}
+          </Link>
+          <Link to="/wishlist">
+            {wishlistItems?.length > 0 && (
+              <Badge
+                badgeContent={wishlistItems?.length === 0 ? "0" : wishlistItems?.length}
+                color="primary"
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+              }}
+            >
+              <FiHeart size={22} color="black" />
+            </Badge>)}
+            {wishlistItems?.length === 0 && <FiHeart size={22} />}
           </Link>
         </div>
         <div className={`mobile-menu ${mobileMenuOpen ? "open" : ""}`}>

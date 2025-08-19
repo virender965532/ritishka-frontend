@@ -20,8 +20,9 @@ const wishlistReducer = (state = initState, action) => {
       return wishlistItems;
     }
   }
-
+  console.log("Current wishlist items:", action, wishlistItems);
   if (action.type === DELETE_FROM_WISHLIST) {
+    console.log("Deleting from wishlist", wishlistItems, product);
     const remainingItems = (wishlistItems, product) =>
       wishlistItems.filter(wishlistItem => wishlistItem.id !== product.id);
     return remainingItems(wishlistItems, product);

@@ -16,7 +16,7 @@ const Instagram = () => {
   return (
     <>
       <div className="instagram">
-        <h2>@UOMO</h2>
+        <h2>Collections For Your Loved</h2>
         <div className="instagramTiles">
           {
             products.length > 0 &&  products.map((product) => {

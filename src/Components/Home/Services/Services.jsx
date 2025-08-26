@@ -12,17 +12,17 @@ const Services = () => {
         <div className="serviceBox">
           <FaCartFlatbedSuitcase size={50} style={{ marginBottom: "20px" }} />
           <h3>Fast And Free Delivery</h3>
-          <p>Free delivery for all orders over {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(600 || 0)}</p>
+          <p>Free delivery for all orders over {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(499 || 0)}</p>
         </div>
         <div className="serviceBox">
           <TfiHeadphoneAlt size={50} style={{ marginBottom: "20px" }} />
-          <h3>24/7 Customer Support</h3>
-          <p>Friendly 24/7 customer support</p>
+          <h3> Customer Support</h3>
+          <p>Friendly customer support</p>
         </div>
         <div className="serviceBox">
           <RiShieldCheckLine size={50} style={{ marginBottom: "20px" }} />
           <h3>Money Back Guarantee</h3>
-          <p>We return money within 30 days</p>
+          <p>We return money within 15 days</p>
         </div>
       </div>
     </>

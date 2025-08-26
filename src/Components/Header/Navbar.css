@@ -8,7 +8,7 @@
   background-color: white;
   position: sticky;
   top: 0;
-  box-shadow: 0 10px 33px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 33px rgba(0, 0, 0, 0.2);
 }
 
 .navBar.sticky {
@@ -32,13 +32,13 @@
 
 .logoContainer img {
   background: none !important;
-  width: 125px;
-  height: 50px;
+  width: 160px;
+  height: 60px;
 }
 
 .navBar.sticky .logoContainer img {
-  width: 125px;
-  height: 50px;
+  width: 160px;
+  height: 60px;
 }
 
 .linkContainer ul {

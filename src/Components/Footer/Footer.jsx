@@ -70,9 +70,9 @@ const Footer = () => {
                 <li>
                   <Link to="/blog">Blog</Link>
                 </li>
-                {/* <li>
-                  <Link to="/contact">Contact Us</Link>
-                </li> */}
+                <li>
+                  <Link to="/">Jewellery Care </Link>
+                </li>
               </ul>
             </div>
           </div>

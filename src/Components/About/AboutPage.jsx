@@ -179,7 +179,7 @@ function AboutPage() {
                 "Earrings",
                 "Necklaces",
                 "Toe Rings",
-                "Kids’ Jewellery",
+                "Kids Jewellery",
                 "Anklets",
                 "Chains",
                 "Gifts",

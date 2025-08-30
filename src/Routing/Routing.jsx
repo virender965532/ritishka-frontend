@@ -29,6 +29,7 @@ import ThreeDynamicCardSection from "../Pages/admin/ThreeDynamicCardSection";
 import DynamicCardSection from "../Pages/admin/DynamicCardSection";
 import Dashboard from "../Pages/admin/Dashboard";
 import PrivateRoute from "./PrivateRoute";
+import Care from '../Pages/Care';
 
 const Routing = () => {
   const location = useLocation();
@@ -77,6 +78,7 @@ const Routing = () => {
           <Route path="/BlogDetails" element={<BlogDetails />} />
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/cart" element={<ShoppingCart />} />
+          <Route path="/care" element={<Care/>}/>
           <Route path="*" element={<NotFound />} />
 
         </Routes>

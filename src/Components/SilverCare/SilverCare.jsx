@@ -1,9 +1,11 @@
 import React from 'react'
 
-const SilverCare = () => {
+function SilverCare () {
   return (
-    <div>SilverCare</div>
-  )
-}
+    <>
+      <p>silvercare</p>
+    </>
+  );
+};
 
-export default SilverCare
+export default SilverCare;

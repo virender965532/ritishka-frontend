@@ -30,6 +30,9 @@ import DynamicCardSection from "../Pages/admin/DynamicCardSection";
 import Dashboard from "../Pages/admin/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import Care from '../Pages/Care';
+import Policy from "../Pages/Policy";
+import RefundPolicy from "../Pages/RefundPolicy";
+import Careers from "../Pages/Careers";
 
 const Routing = () => {
   const location = useLocation();
@@ -79,6 +82,9 @@ const Routing = () => {
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/cart" element={<ShoppingCart />} />
           <Route path="/care" element={<Care/>}/>
+          <Route path="/policy" element={<Policy/>}/>
+          <Route path="/RefundPolicy" element={<RefundPolicy/>}/>
+          <Route path="/Careers" element={<Careers/>}/>
           <Route path="*" element={<NotFound />} />
 
         </Routes>

@@ -1,6 +1,6 @@
 import React from "react";
 import "./Footer.css";
-// import logo from "../../Assets/logo.png";
+import logo from "../../Assets/logo.png";
 import paymentIcon from "../../Assets/paymentIcon.png";
 import { FaFacebookF } from "react-icons/fa";
 // import { FaXTwitter } from "react-icons/fa6";
@@ -30,26 +30,37 @@ const Footer = () => {
       <footer className="footer">
         <div className="footer__container">
           <div className="footer_left">
-            {/* <div className="footer_logo_container">
+            <div className="footer_logo_container">
               <img src={logo} alt="" Z />
-            </div> */}
+            </div>
             <div className="footer_content">
-              <h5>Sanjay And Company</h5>
+              {/* <h5>Sanjay And Company</h5> */}
             </div>
            <p>BIS : HM/C - 9716620018</p>
-            <p>Address: A-79/16 Baba Colony Burari Delhi 110084</p>
+            {/* <p>Address: A-79/16 Baba Colony Burari Delhi 110084</p> */}
             
 
             <div className="footer_address">
-              <strong> Email : care@ritishka.in </strong>
+              <strong> Email : ritishkasilver@gmail.com </strong>
               <strong> Call : +91-8595220018 </strong>
             </div>
 
             <div className="social_links">
+              <a href="http://facebook.com/ritishkasilver" target="blank" rel="noopener noreferrer"
+                  style={{ color: "#1877f2" }}
+      >
               <FaFacebookF />
+              </a>
+              
               {/* <FaXTwitter /> */}
-              <FaInstagram />
+              <a href="http://instagram.com/ritishkasilver" target="blank" rel="noopener noreferrer"
+                  style={{ color: "#e4405f" }}>
+                <FaInstagram />
+                </a>
+              <a href="http://youtube.com" target="blank" rel="noopener noreferrer"
+                  style={{ color: "#e4405f" }}>
               <FaYoutube />
+              </a>
               {/* <FaPinterest /> */}
             </div>
           </div>
@@ -65,7 +76,7 @@ const Footer = () => {
                   <Link to="/contact">Contact Us</Link>
                 </li>
                 <li>
-                  <Link to="*">Careers</Link>
+                  <Link to="/Careers">Careers</Link>
                 </li>
                 <li>
                   <Link to="/blog">Blog</Link>
@@ -109,13 +120,13 @@ const Footer = () => {
                   <Link to="/loginSignUp">Return & Exchange</Link>
                 </li>
                 <li>
-                  <Link to="/Services">Shipping & Handling</Link>
+                  <Link to="/RefundPolicy">Refund & Returns Policy</Link>
                 </li>
                 <li>
-                  <Link to="/terms">Privacy Policy</Link>
+                  <Link to="/policy">Privacy Policy</Link>
                 </li>
                 <li>
-                  <Link to="/blog">Terms of Service</Link>
+                  <Link to="/terms">Terms of Service</Link>
                 </li>
                 {/* <li>
                   <Link to="/">Gift Card</Link>

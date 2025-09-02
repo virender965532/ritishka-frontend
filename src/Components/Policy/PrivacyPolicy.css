@@ -1,0 +1,142 @@
+/* === Base Container === */
+.privacy-container {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.7;
+  color: #2c2c2c;
+  padding: 25px;
+  max-width: 850px;
+  margin: 0 auto;
+  background: #fafafa;
+}
+
+/* === Headings === */
+.privacy-title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #1a1a1a;
+}
+
+.privacy-subtitle {
+  text-align: center;
+  color: #555;
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+
+.privacy-date {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+/* === Sections === */
+section {
+  /* background: #f9f9f9; */
+  /* border: 1px solid #eee; */
+  /* border-radius: 12px; */
+  padding: 18px 20px;
+  margin-bottom: 22px;
+  /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); */
+}
+
+section h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #1e3a8a; /* soft blue */
+  /* border-left: 4px solid #2563eb; */
+  padding-left: 10px;
+}
+
+/* === Lists === */
+ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+ul li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+/* === Address === */
+address {
+  font-style: normal;
+  line-height: 1.6;
+}
+
+/* === Links === */
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* === Footer === */
+.privacy-footer {
+  margin-top: 25px;
+  text-align: center;
+  color: #666;
+  font-size: 13px;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}
+
+/* -------------------- Responsive Styles -------------------- */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .privacy-container {
+    padding: 20px;
+  }
+
+  .privacy-title {
+    font-size: 26px;
+  }
+
+  section h2 {
+    font-size: 18px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .privacy-container {
+    padding: 15px;
+  }
+
+  .privacy-title {
+    font-size: 22px;
+  }
+
+  .privacy-subtitle {
+    font-size: 14px;
+  }
+
+  .privacy-date {
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+
+  section {
+    padding: 15px;
+    margin-bottom: 18px;
+  }
+
+  section h2 {
+    font-size: 16px;
+  }
+
+  ul li {
+    margin-bottom: 6px;
+  }
+
+  .privacy-footer {
+    font-size: 12px;
+  }
+}

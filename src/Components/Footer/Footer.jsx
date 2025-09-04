@@ -66,7 +66,7 @@ const Footer = () => {
           </div>
 
           <div className="footer_content">
-            <h5>About Us</h5>
+            <h5>USEFUL LINKS</h5>
             <div className="links_container">
               <ul onClick={scrollToTop}>
                 <li>
@@ -88,7 +88,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="footer_content">
-            <h5>Shop</h5>
+            <h5>SHOP BY</h5>
             <div className="links_container">
               <ul onClick={scrollToTop}>
                 <li>
@@ -110,17 +110,17 @@ const Footer = () => {
             </div>
           </div>
           <div className="footer_content">
-            <h5>Customer Services</h5>
+            <h5>CUSTOMER SUPPORT</h5>
             <div className="links_container">
               <ul onClick={scrollToTop}>
                 <li>
                   <Link to="/loginSignUp">Track Your Order</Link>
                 </li>
                 <li>
-                  <Link to="/loginSignUp">Return & Exchange</Link>
+                  <Link to="/RefundPolicy">Refund & Returns Policy</Link>
                 </li>
                 <li>
-                  <Link to="/RefundPolicy">Refund & Returns Policy</Link>
+                  <Link to="/shipping">Shipping Policy</Link>
                 </li>
                 <li>
                   <Link to="/policy">Privacy Policy</Link>

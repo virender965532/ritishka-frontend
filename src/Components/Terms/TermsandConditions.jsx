@@ -14,126 +14,182 @@ import "./TermsandConditions.css";
 const TermsandConditions = () => {
   return (
     <>
-     <main className="tos-wrap">
-      <header className="tos-hero">
-        <h1>Terms of Service</h1>
-        <p>
-          Welcome to <strong>Ritishka</strong> (“we,” “our,” “us”). These Terms
-          of Service govern the use of our website, services, and purchase of
-          products from <strong>Sanjay and Company</strong> (A-79/16 Baba Colony,
-          Burari, Delhi – 110084).
-        </p>
-        {/* <p className="tos-meta">Last Updated: {lastUpdated}</p> */}
-      </header>
+     <div className="terms-container">
+      <h1 className="terms-heading">Terms and Conditions</h1>
 
-      <p className="tos-note">
-        By accessing or using our website, you agree to these Terms of Service.
-        If you do not agree, you may not use our services.
+      <p className="terms-paragraph">
+        Welcome to "Ritishka" These Terms and Conditions govern your use of our
+        website and the purchase of any products from us. By accessing or using
+        our website, you agree to be bound by these Terms and Conditions. Please
+        read them carefully.
       </p>
 
-      <Section title="1. General Information">
-        <ul>
-          <li><strong>Brand Name:</strong> Ritishka</li>
-          <li><strong>Company Name:</strong> Sanjay and Company</li>
-          <li><strong>Email:</strong> ritishkasilver@gmail.com</li>
-          <li><strong>Phone:</strong> +91 85955220018</li>
-          <li><strong>Address:</strong> A-79/16 Baba Colony, Burari, Delhi – 110084</li>
-          <li><strong>Business Type:</strong> E-commerce Silver Jewellery</li>
-        </ul>
-      </Section>
+      <h2 className="terms-subHeading">1. General</h2>
+      <ul className="terms-list">
+        <li>
+          <span className="bold">Agreement to Terms:</span> By using this
+          website, you agree to comply with and be bound by these Terms and
+          Conditions and our Privacy Policy. If you do not agree to these terms,
+          you should not use this website.
+        </li>
+        <li>
+          <span className="bold">Modifications:</span> We, ritishka operated by Sanjay and Company,
+          reserve the right to modify these Terms and Conditions at any time
+          without prior notice. Your continued use of the website after any such
+          changes constitutes your acceptance of the new Terms.
+        </li>
+        <li>
+          <span className="bold">Eligibility:</span> By placing an order, you
+          warrant that you are at least 18 years old or have a parent or
+          guardian's consent to do so.
+        </li>
+      </ul>
 
-      <Section title="2. Eligibility">
-        <p>
-          You must be at least 18 years old to purchase products from our
-          website. By placing an order, you confirm that you are legally capable
-          of entering into binding contracts.
-        </p>
-      </Section>
+      <h2 className="terms-subHeading">2. Products and Services</h2>
+      <ul className="terms-list">
+        <li>
+          <span className="bold">Product Information:</span> We strive to ensure
+          that all product descriptions, photographs, and pricing information
+          for our 925 silver jewellery are accurate. However, we do not
+          guarantee that the information is error-free, complete, or current. We
+          reserve the right to correct any errors, inaccuracies, or omissions at
+          any time.
+        </li>
+        <li>
+          <span className="bold">Pricing:</span> All prices are in Indian Rupees
+          (INR) and are subject to change without notice. Prices listed on the
+          website do not include shipping fees or applicable taxes, which will
+          be calculated and added to your total at checkout.
+        </li>
+        <li>
+          <span className="bold">Availability:</span> All products are subject
+          to availability. We reserve the right to limit the quantity of
+          products we supply and to refuse an order for any reason.
+        </li>
+      </ul>
 
-      <Section title="3. Products & Services">
-        <ul>
-          <li>We deal in 925 Sterling Silver Jewellery & Rose-Plated Silver Jewellery.</li>
-          <li>Products include rings, bracelets, pendants, earrings, necklaces, toe rings, anklets, chains, and kids’ jewellery.</li>
-          <li>Descriptions, images, and pricing may change without notice.</li>
-        </ul>
-      </Section>
+      <h2 className="terms-subHeading">3. Orders and Payments</h2>
+      <ul className="terms-list">
+        <li>
+          <span className="bold">Order Acceptance:</span> Your order is an
+          offer to buy a product. We will confirm our acceptance of your order
+          by sending you an email confirmation. The contract for the purchase of
+          a product will be formed when we send you the confirmation email.
+        </li>
+        <li>
+          <span className="bold">Payment:</span> We accept various payment
+          methods, including credit cards, debit cards, and net banking. You
+          agree to provide current, complete, and accurate purchase and account
+          information. You agree to promptly update your account information so
+          we can complete your transactions and contact you as needed.
+        </li>
+        <li>
+          <span className="bold">Security:</span> We use a secure third-party
+          payment processor to handle all transactions. We do not store your
+          credit card or sensitive financial information.
+        </li>
+      </ul>
 
-      <Section title="4. Orders & Payments">
-        <ul>
-          <li>All orders are subject to acceptance and availability.</li>
-          <li>Prices are shown in INR (₹) and may include/exclude taxes as displayed at checkout.</li>
-          <li>Payments must be made via secure payment gateways on our site.</li>
-        </ul>
-      </Section>
+      <h2 className="terms-subHeading">4. Shipping and Delivery</h2>
+      <ul className="terms-list">
+        <li>
+          <span className="bold">Shipping:</span> We will ship your order to the
+          address you provide. Shipping times are estimates and may vary. We are
+          not responsible for delays caused by the shipping carrier.
+        </li>
+        <li>
+          <span className="bold">Risk of Loss:</span> The risk of loss and title
+          for all products purchased from us pass to you upon our delivery to
+          the shipping carrier.
+        </li>
+      </ul>
 
-      <Section title="5. Shipping & Delivery">
-        <ul>
-          <li>Orders are processed and shipped within the mentioned timelines.</li>
-          <li>Delivery times vary by location.</li>
-          <li>We are not responsible for courier delays or unforeseen circumstances.</li>
-        </ul>
-      </Section>
+      <h2 className="terms-subHeading">5. Returns and Refunds</h2>
+      <ul className="terms-list">
+        <li>
+          <span className="bold">Return Policy:</span> We offer a 7-day return
+          policy on most products. To be eligible for a return, your item must
+          be unused, in the same condition that you received it, and in its
+          original packaging. Please note that personalized or final sale items
+          are not eligible for a return.
+        </li>
+        <li>
+          <span className="bold">Refunds:</span> Once we receive and inspect
+          your returned item, we will notify you of the approval or rejection of
+          your refund. If approved, your refund will be processed, and a credit
+          will automatically be applied to your original method of payment
+          within a certain number of days.
+        </li>
+        <li>
+          <span className="bold">Return Shipping:</span> You will be responsible
+          for paying for your own shipping costs for returning your item.
+          Shipping costs are non-refundable.
+        </li>
+      </ul>
 
-      <Section title="6. Returns & Refunds">
-        <ul>
-          <li>See our Return & Refund Policy for details.</li>
-          <li>Products must be unused, in original packaging, and returned within the return period.</li>
-          <li>Refunds (if approved) are processed via the original payment method.</li>
-        </ul>
-      </Section>
+      <h2 className="terms-subHeading">6. Intellectual Property</h2>
+      <ul className="terms-list">
+        <li>
+          <span className="bold">Copyright:</span> All content on this website,
+          including text, graphics, logos, images, and software, is the property
+          of Sanjay and Company or its content suppliers and is protected by
+          Indian and international copyright laws.
+        </li>
+        <li>
+          <span className="bold">Trademarks:</span> The Ritishka name and logo,
+          and other trademarks, service marks, and logos used and displayed on
+          this site are registered and unregistered trademarks of Sanjay and
+          Company.
+        </li>
+      </ul>
 
-      <Section title="7. User Responsibilities">
-        <ul>
-          <li>Do not misuse our services or website.</li>
-          <li>Do not engage in fraudulent or unlawful activities.</li>
-          <li>Do not copy or exploit any part of the site without permission.</li>
-        </ul>
-      </Section>
+      <h2 className="terms-subHeading">7. Limitation of Liability</h2>
+      <ul className="terms-list">
+        <li>
+          <span className="bold">Disclaimer:</span> Our website and products are
+          provided on an "as-is" and "as-available" basis. We make no
+          representations or warranties of any kind, express or implied, as to
+          the operation of the site or the information, content, materials, or
+          products included on this site.
+        </li>
+        <li>
+          <span className="bold">Limitation:</span> To the full extent
+          permissible by applicable law, Sanjay and Company will not be liable
+          for any damages of any kind arising from the use of this site or from
+          any products purchased from this site.
+        </li>
+      </ul>
 
-      <Section title="8. Intellectual Property">
-        <p>
-          All content (logos, text, designs, and product photos) is the property
-          of Ritishka (Sanjay and Company) and protected by law.
-        </p>
-      </Section>
+      <h2 className="terms-subHeading">8. Governing Law and Jurisdiction</h2>
+      <p className="terms-paragraph">
+        These Terms and Conditions are governed by and construed in accordance
+        with the laws of Delhi, India, without regard to its conflict of law
+        provisions. Any legal action or proceeding related to this website shall
+        be brought exclusively in the courts of Delhi.
+      </p>
 
-      <Section title="9. Limitation of Liability">
-        <ul>
-          <li>We are not liable for indirect or consequential damages.</li>
-          <li>Our liability will not exceed the amount you paid for the product.</li>
-        </ul>
-      </Section>
+      <h2 className="terms-subHeading">9. Contact Information</h2>
+      <ul className="terms-list">
+        <li>
+          <span className="bold">Company Name:</span> Sanjay and Company
+        </li>
+        <li>
+          <span className="bold">Phone No.:</span> 8595220018
+        </li>
+        <li>
+          <span className="bold">Address:</span> A-79/16 Baba Colony, Burari,
+          Delhi 110084
+        </li>
+        <li>
+          <span className="bold">Website:</span> Ritishka.in
+        </li>
+      </ul>
 
-      <Section title="10. Privacy Policy">
-        <p>Your use of our website is also governed by our Privacy Policy.</p>
-      </Section>
+      <p className="terms-paragraph">
+        <span className="bold">Effective Date:</span> September 4, 2025
+      </p>
+    </div>
 
-      <Section title="11. Changes to Terms">
-        <p>
-          We may update these Terms of Service at any time. The latest version
-          will always appear on this page.
-        </p>
-      </Section>
-
-      <Section title="12. Governing Law">
-        <p>
-          These Terms are governed by Indian law. Disputes are subject to Delhi
-          courts only.
-        </p>
-      </Section>
-
-      <Section title="13. Contact Information">
-        <ul>
-          <li><strong>Email:</strong> ritishkasilver@gmail.com</li>
-          <li><strong>Phone:</strong> +91 85955220018</li>
-          <li><strong>Address:</strong> A-79/16 Baba Colony, Burari, Delhi – 110084</li>
-        </ul>
-      </Section>
-
-      <footer className="tos-foot">
-        © {new Date().getFullYear()} Ritishka (Sanjay and Company). All rights reserved.
-      </footer>
-    </main>
     </>
   );
 };

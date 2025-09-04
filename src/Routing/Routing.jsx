@@ -33,6 +33,7 @@ import Care from '../Pages/Care';
 import Policy from "../Pages/Policy";
 import RefundPolicy from "../Pages/RefundPolicy";
 import Careers from "../Pages/Careers";
+import ShippingPolicy from "../Components/Shipping/ShippingPolicy";
 
 const Routing = () => {
   const location = useLocation();
@@ -85,6 +86,7 @@ const Routing = () => {
           <Route path="/policy" element={<Policy/>}/>
           <Route path="/RefundPolicy" element={<RefundPolicy/>}/>
           <Route path="/Careers" element={<Careers/>}/>
+          <Route path="/Shipping" element={<ShippingPolicy/>}/>
           <Route path="*" element={<NotFound />} />
 
         </Routes>

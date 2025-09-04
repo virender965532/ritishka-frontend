@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 160px;
+  padding: 20px 160px;
   position: relative;
   z-index: 10;
   background-color: white;
@@ -33,12 +33,12 @@
 .logoContainer img {
   background: none !important;
   width: 160px;
-  height: 60px;
+  height: 40px;
 }
 
 .navBar.sticky .logoContainer img {
   width: 160px;
-  height: 60px;
+  height: 40px;
 }
 
 .linkContainer ul {

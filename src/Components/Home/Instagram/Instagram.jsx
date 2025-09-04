@@ -21,9 +21,9 @@ const Instagram = () => {
       <div className="instagramTiles">
         {products.length > 0 &&
           products.map((product) => (
-            <div className="instagramtile" key={product.id}>
+            <div className="instagramtile" key={product.slug}>
               {/* ✅ backticks use karo */}
-              <Link to={`/shop/${product.id}`}>
+              <Link to={`/shop/${product.slug}`}>
                 <img
                   src={getImageUrl(product?.images[0])}
                   alt={product?.name || "product"}

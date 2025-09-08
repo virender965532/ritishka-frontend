@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import "./AboutPage.css";
+import { fetchCategories } from "../../api/api";
 
 
 function AboutPage() {
+  const [categories, setCategories] = useState([]);
+  useMemo(() => {
+      const fetchData = async () => {
+        try {
+          const res = await fetchCategories({ page: 1, limit: 10, search: "" });
+          let cats = res.data.categories || [];
+          cats = cats.filter((cat) => cat.isactive);
+          cats.sort((a, b) => a.name.localeCompare(b.name));
+          setCategories(cats);
+        } catch (error) {
+          console.error("Error fetching categories:", error);
+        }
+      };
+      fetchData();
+    }, []); 
   return (
     <>
       <section
@@ -19,6 +35,7 @@ function AboutPage() {
             style={{
               textAlign: "center",
               fontSize: "32px",
+              lineHeight: "1.3",
               marginBottom: "20px",
               color: "#c39e8a",
             }}
@@ -48,14 +65,7 @@ function AboutPage() {
               marginBottom: "50px",
             }}
           >
-            <div
-              style={{
-                background: "#fff",
-                padding: "25px",
-                borderRadius: "10px",
-                boxShadow: "0 4px 14px rgba(0,0,0,0.06)",
-              }}
-            >
+            <div className="about-text mission">
               <h2 style={{ color: "#c39e8a", marginTop: 0 }}>Our Mission</h2>
               <p>
                 At Ritishka, our mission is to make{" "}
@@ -65,14 +75,7 @@ function AboutPage() {
               </p>
             </div>
 
-            <div
-              style={{
-                background: "#fff",
-                padding: "25px",
-                borderRadius: "10px",
-                boxShadow: "0 4px 14px rgba(0,0,0,0.06)",
-              }}
-            >
+            <div className="about-text vision">
               <h2 style={{ color: "#c39e8a", marginTop: 0 }}>Our Vision</h2>
               <p>
                 Our vision is to be a trusted jewellery brand that stands for
@@ -83,15 +86,7 @@ function AboutPage() {
           </div>
 
           {/* Who Are We */}
-          <div
-            style={{
-              marginBottom: "50px",
-              background: "#fff",
-              padding: "25px",
-              borderRadius: "10px",
-              boxShadow: "0 4px 14px rgba(0,0,0,0.06)",
-            }}
-          >
+          <div className="about-text who-are-we">
             <h2 style={{ color: "#c39e8a", marginTop: 0 }}>Who Are We?</h2>
             <p>
               We are <strong>Ritishka</strong>, an e-commerce jewellery brand
@@ -106,14 +101,7 @@ function AboutPage() {
             <h2 style={{ textAlign: "center", color: "#c39e8a" }}>
               Why Choose Ritishka?
             </h2>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(220px,1fr))",
-                gap: "20px",
-                marginTop: "25px",
-              }}
-            >
+            <div className="about-text why-ritishka">
               {[
                 {
                   title: "Authenticity",
@@ -134,12 +122,7 @@ function AboutPage() {
               ].map((item, idx) => (
                 <div
                   key={idx}
-                  style={{
-                    background: "#fff",
-                    padding: "20px",
-                    borderRadius: "10px",
-                    boxShadow: "0 4px 14px rgba(0,0,0,0.05)",
-                  }}
+                  className="why-ritishka-item about-text"
                 >
                   <h3 style={{ marginTop: 0, color: "#333" }}>✔ {item.title}</h3>
                   <p>{item.desc}</p>
@@ -172,19 +155,7 @@ function AboutPage() {
                 marginTop: "20px",
               }}
             >
-              {[
-                "Rings",
-                "Bracelets",
-                "Pendants",
-                "Earrings",
-                "Necklaces",
-                "Toe Rings",
-                "Kids Jewellery",
-                "Anklets",
-                "Chains",
-                "Gifts",
-                "Coins",
-              ].map((product, idx) => (
+              {categories.map((Category, idx) => (
                 <span
                   key={idx}
                   style={{
@@ -193,7 +164,7 @@ function AboutPage() {
                     borderRadius: "25px",
                   }}
                 >
-                  {product}
+                  {Category?.name}
                 </span>
               ))}
             </div>

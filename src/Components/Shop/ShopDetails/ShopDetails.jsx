@@ -84,13 +84,14 @@ const ShopDetails = () => {
       fetchCollections(),
       fetchOccasions(),
       fetchTags(),
-    ]).then(([cat, col, occ, tag, color]) => {
+    ]).then(([cat, col, occ, tag]) => {
       setAllCategories(cat.data?.categories || []);
       setAllCollections(col.data || []);
       setAllOccasions(occ.data || []);
       setAllTags(tag.data || []);
+    }).catch((err) => {
+      console.error("Error fetching filter options:", err);
     });
-    // eslint-disable-next-line
   }, []);
 
   // Parse filters from URL (names, not IDs) when filter options are loaded
@@ -168,11 +169,13 @@ const ShopDetails = () => {
       tag: filters.tag,
       color: filters.color,
     }).then((res) => {
+      console.log("Filtered products:", res?.data);
       setProducts(res?.data?.products || []);
       setCurrentPage(res?.data?.currentPage || 1);
       setTotalPages(res?.data?.totalPages || 1);
+    }).catch((err) => {
+      console.error("Error fetching filtered products:", err);
     });
-    // eslint-disable-next-line
   }, [filters, sort, page, filtersInitialized]);
 
   // Handlers

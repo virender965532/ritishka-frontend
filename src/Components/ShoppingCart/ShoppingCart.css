@@ -203,7 +203,7 @@
   cursor: pointer;
   font-size: 18px;
   width: 100px;
-  padding: 0 10px;
+  padding: 0 0;
   color: #bfa046;
   font-weight: bold;
   transition: color 0.2s;
@@ -215,7 +215,7 @@
   cursor: pointer;
   font-size: 18px;
   width: 100px;
-  padding: 0 10px;
+  padding: 0;
   font-weight: bold;
   transition: color 0.2s;
 }
@@ -991,4 +991,63 @@
   .shopCartFooterContainer form button {
     padding: 0 5px;
   }
+}
+
+
+.orderCompleteSection {
+  padding: 30px;
+  text-align: center;
+}
+
+.orderCompleteMessage img {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+.orderInfo {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.orderInfo div {
+  background: #f9f9f9;
+  padding: 15px 25px;
+  border-radius: 10px;
+}
+
+.orderInfo p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.orderInfo h4 {
+  font-weight: 600;
+}
+
+.orderTotalContainer {
+  margin-top: 30px;
+}
+
+.orderTotalContainer table {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.orderTotalContainer th,
+.orderTotalContainer td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.orderThankYou {
+  margin-top: 20px;
+  font-size: 15px;
+  color: #555;
 }

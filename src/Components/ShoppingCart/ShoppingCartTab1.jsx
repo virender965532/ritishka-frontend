@@ -11,6 +11,7 @@ const ShoppingCartTab1 = ({
   removeItem,
   handleTabClick,
   scrollToTop,
+  discountedPrice,
 }) => {
   return (
     <div className="shoppingBagSection">
@@ -38,6 +39,7 @@ const ShoppingCartTab1 = ({
           totalPrice={totalPrice}
           cartItems={cartItems}
           handleTabClick={handleTabClick}
+          discountedPrice={discountedPrice}
         />
       </div>
     </div>

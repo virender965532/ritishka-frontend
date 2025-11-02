@@ -120,7 +120,7 @@ const ShoppingCartTab2 = ({
       </div>
 
       <div className="checkoutPaymentSection">
-        <div className="flex flex-col gap-6 mb-6 !w-full h-[300px]">
+        <div className="flex flex-col gap-6 mb-6 !w-full">
           <CartTotals
             totalPrice={totalPrice}
             cartItems={cartItems}

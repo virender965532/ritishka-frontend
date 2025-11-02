@@ -9,16 +9,17 @@ const CartTotals = ({
   cartItems,
   handleTabClick,
   hideCheckoutButton = false,
+  discountedPrice = 0
 }) => {
   return (
-    <div className="shoppingBagTotal !w-full h-[400px] flex flex-col gap-4 relative p-4 border-[#7c5e10] rounded-md border-[3px] bg-[#fffbe9] text-[#7c5e10]">
+    <div className="shoppingBagTotal !w-full h-auto flex flex-col gap-4 relative p-4 border-[#7c5e10] rounded-md border-[3px] bg-[#fffbe9] text-[#7c5e10]">
       <h3 className="flex flex-row items-center justify-between text-lg font-semibold">
         Cart Totals
       </h3>
       <table className="shoppingBagTotalTable">
         <tbody>
           <tr>
-            <th>Subtotal</th>
+            <th>MRP</th>
             <td>
               {new Intl.NumberFormat("en-IN", {
                 style: "currency",
@@ -27,12 +28,34 @@ const CartTotals = ({
             </td>
           </tr>
           <tr>
-            <th>Shipping</th>
+            <th>Discount</th>
             <td>
               {new Intl.NumberFormat("en-IN", {
                 style: "currency",
                 currency: "INR",
-              }).format(CART_SHIPPING_AMOUNT)}
+              }).format(totalPrice - discountedPrice)}
+            </td>
+          </tr>
+          <tr>
+            <th>After Discount</th>
+            <td>
+              {new Intl.NumberFormat("en-IN", {
+                style: "currency",
+                currency: "INR",
+              }).format(discountedPrice)}
+            </td>
+          </tr>
+          <tr>
+            <th>Shipping</th>
+            <td>
+              {CART_SHIPPING_AMOUNT == 0 ? (
+                <>
+                <span className="text-xs">Free Delivery</span>
+                </>
+              ) : (new Intl.NumberFormat("en-IN", {
+                style: "currency",
+                currency: "INR",
+              }).format(CART_SHIPPING_AMOUNT))}
             </td>
           </tr>
           <tr>
@@ -41,7 +64,7 @@ const CartTotals = ({
               {new Intl.NumberFormat("en-IN", {
                 style: "currency",
                 currency: "INR",
-              }).format(totalPrice * (CART_GST_PERCENTAGE / 100))}
+              }).format(discountedPrice - (discountedPrice * (100 / (100+CART_GST_PERCENTAGE))))}
             </td>
           </tr>
           <tr>
@@ -53,17 +76,15 @@ const CartTotals = ({
               }).format(
                 totalPrice === 0
                   ? 0
-                  : totalPrice +
-                      CART_SHIPPING_AMOUNT +
-                      totalPrice * (CART_GST_PERCENTAGE / 100)
-              )}
+                  : discountedPrice +
+                      CART_SHIPPING_AMOUNT)}
             </td>
           </tr>
         </tbody>
       </table>
       {!hideCheckoutButton && (
         <button
-          className="absolute w-[80%] bottom-4 left-1/2 transform -translate-x-1/2 bg-[#7c5e10] text-white px-6 py-2 rounded-md hover:bg-[#5a450c] disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="relative w-[95%] bottom-4 left-1/2 transform -translate-x-1/2 bg-[#7c5e10] text-white px-6 py-2 rounded-md hover:bg-[#5a450c] disabled:bg-gray-400 disabled:cursor-not-allowed"
           onClick={() => {
             handleTabClick("cartTab2");
             window.scrollTo({ top: 0, behavior: "smooth" });

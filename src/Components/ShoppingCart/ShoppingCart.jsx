@@ -70,6 +70,7 @@ const ShoppingCart = () => {
             <ShoppingCartTab1
               cartItems={cartItems}
               totalPrice={totalPrice}
+              discountedPrice={discountedPrice}
               handleQuantityChange={handleQuantityChange}
               removeItem={removeItem}
               handleTabClick={handleTabClick}

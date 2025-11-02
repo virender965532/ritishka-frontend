@@ -160,5 +160,5 @@ export const MENU = [
   },
 ];
 
-export const CART_SHIPPING_AMOUNT = 50; // Flat shipping rate
+export const CART_SHIPPING_AMOUNT = 0; // Flat shipping rate
 export const CART_GST_PERCENTAGE = 18;

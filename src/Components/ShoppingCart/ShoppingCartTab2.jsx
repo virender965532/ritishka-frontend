@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CartTotals from "./CartTotals";
+import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
 
 const ShoppingCartTab2 = ({
   cartItems,
@@ -30,6 +31,8 @@ const ShoppingCartTab2 = ({
   const [billingSubmitted, setBillingSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [paymentProcessing, setPaymentProcessing] = useState(false);
+  const { error, isLoading, Razorpay } = useRazorpay();
+
 
   // Ensure default payment selection is Online Payment
   useEffect(() => {
@@ -95,49 +98,61 @@ const ShoppingCartTab2 = ({
 
   const handleRazorpayPayment = async () => {
     setPaymentProcessing(true);
-    try {
-      const res = await loadRazorpayScript();
-      if (!res) throw new Error("Razorpay SDK failed to load");
+    // const options = {
+    //     key: "rzp_test_RbKxQcjvVldXzY", // dummy test key
+    //     amount: Math.round((100 || 0) * 100), // amount in paise
+    //     currency: "INR",
+    //     name: "Ritishka Silver",
+    //     description: "Order Payment",
+    //     // order_id: "dummy_order_id", // normally from backend
+    //     handler: function (response) {
+    //       console.log("Razorpay success:", response);
+    //       // On success, navigate to order success
+    //       // In production you would verify signature and capture the payment on server
+    //       window.location.href = "/order/success";
+    //     },
+    //     prefill: {
+    //       name: `${billing.firstName} ${billing.lastName}`,
+    //       email: billing.email,
+    //       contact: billing.phone,
+    //     },
+    //     notes: {
+    //       address: billing.street + ", " + billing.city,
+    //     },
+    //     theme: {
+    //       color: "#bfa046",
+    //     },
+    //   };
+    {
+    const options = {
+      key: "rzp_test_RbKxQcjvVIdXzY", // dummy test key
+      amount: Math.round((100 || 0) * 100), // amount in paise
+      currency: "INR",
+      name: "Ritishka Silver",
+      description: "Order Payment",
+      // order_id: "dummy_order_id", // normally from backend
+      handler: function (response) {
+        console.log("Razorpay success:", response);
+        // On success, navigate to order success
+        // In production you would verify signature and capture the payment on server
+        window.location.href = "/order/success";
+      },
+      prefill: {
+        name: `${billing.firstName} ${billing.lastName}`,
+        email: billing.email,
+        contact: billing.phone,
+      },
+      notes: {
+        address: billing.street + ", " + billing.city,
+      },
+      theme: {
+        color: "#bfa046",
+      },
+    };
 
-      // Dummy order data — in production you must create an order on the backend
-      const options = {
-        key: "rzp_test_RbKxQcjvVldXzY", // dummy test key
-        amount: Math.round((100 || 0) * 100), // amount in paise
-        currency: "INR",
-        name: "Ritishka Silver",
-        description: "Order Payment",
-        // order_id: "dummy_order_id", // normally from backend
-        handler: function (response) {
-          console.log("Razorpay success:", response);
-          // On success, navigate to order success
-          // In production you would verify signature and capture the payment on server
-          window.location.href = "/order/success";
-        },
-        prefill: {
-          name: `${billing.firstName} ${billing.lastName}`,
-          email: billing.email,
-          contact: billing.phone,
-        },
-        notes: {
-          address: billing.street + ", " + billing.city,
-        },
-        theme: {
-          color: "#bfa046",
-        },
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.on("payment.failed", function (resp) {
-        console.error("Payment failed:", resp);
-        alert("Payment failed. Please try again or use a different method.");
-      });
-      rzp.open();
-    } catch (err) {
-      console.error(err);
-      alert("Unable to initiate payment. Please try again later.");
-    } finally {
-      setPaymentProcessing(false);
-    }
+    const razorpayInstance = new Razorpay(options);
+    razorpayInstance.open();
+  };
   };
 
   const handleCTA = () => {

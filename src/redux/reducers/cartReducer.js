@@ -2,8 +2,8 @@ import { v4 as uuid } from "uuid";
 import {
   ADD_TO_CART,
   DECREASE_QUANTITY,
-  DELETE_FROM_CART,
-  DELETE_ALL_FROM_CART,
+  REMOVE_FROM_CART,
+  REMOVE_ALL_FROM_CART,
   UPDATE_QUANTITY
 } from "../actions/cartActions";
 
@@ -71,11 +71,12 @@ const cartReducer = (state = initState, action) => {
     }
   }
 
-  if (action.type === DELETE_FROM_CART) {
-    return cartItems.filter(cartItem => cartItem.cartItemId !== product.cartItemId);
+  if (action.type === REMOVE_FROM_CART) {
+    const cartItemId = product;
+    return cartItems.filter(cartItem => cartItem._id !== cartItemId);
   }
 
-  if (action.type === DELETE_ALL_FROM_CART) {
+  if (action.type === REMOVE_ALL_FROM_CART) {
     return [];
   }
 

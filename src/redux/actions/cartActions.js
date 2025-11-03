@@ -1,8 +1,8 @@
 export const ADD_TO_CART = "cart/addToCart";
 export const DECREASE_QUANTITY = "cart/decreaseQuantity";
 export const UPDATE_QUANTITY = "cart/updateQuantity";
-export const DELETE_FROM_CART = "cart/deleteFromCart";
-export const DELETE_ALL_FROM_CART = "cart/deleteAllFromCart";
+export const REMOVE_FROM_CART = "cart/removeFromCart";
+export const REMOVE_ALL_FROM_CART = "cart/removeAllFromCart";
 
 //add to cart
 export const addToCart = (
@@ -66,7 +66,7 @@ export const deleteFromCart = (item, addToast) => {
     if (addToast) {
       addToast("Removed From Cart", { appearance: "error", autoDismiss: true });
     }
-    dispatch({ type: DELETE_FROM_CART, payload: item });
+    dispatch({ type: REMOVE_FROM_CART, payload: item });
   };
 };
 //delete all from cart
@@ -78,7 +78,7 @@ export const deleteAllFromCart = addToast => {
         autoDismiss: true
       });
     }
-    dispatch({ type: DELETE_ALL_FROM_CART });
+    dispatch({ type: REMOVE_ALL_FROM_CART });
   };
 };
 

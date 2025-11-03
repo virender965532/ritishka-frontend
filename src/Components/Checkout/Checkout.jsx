@@ -62,6 +62,7 @@ const Checkout = () => {
             selectedPayment={selectedPayment}
             handlePaymentChange={handlePaymentChange}
             scrollToTop={scrollToTop}
+            discountedPrice={discountedPrice}
           />
         </div>
       </div>

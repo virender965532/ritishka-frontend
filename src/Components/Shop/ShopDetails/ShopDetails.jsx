@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ShopDetails.css";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../../Features/Cart/cartSlice";
+import useCart from "../../../customHooks/useCart";
+import useWishlist from "../../../customHooks/useWishlist";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiHeart } from "react-icons/fi";
 import { FaCartPlus } from "react-icons/fa";
@@ -15,6 +15,7 @@ import {
   fetchOccasions,
   fetchTags,
 } from "./../../../api/api";
+import { useSelector, useDispatch } from 'react-redux';
 
 const GOLD = "#ffebc6";
 const SORT_OPTIONS = [
@@ -43,6 +44,8 @@ const ShopDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const query = useQuery();
+  const { addToCart } = useCart();
+  const { toggleWishlist } = useWishlist();
 
   // Filter options
   const [allCategories, setAllCategories] = useState([]);
@@ -203,15 +206,7 @@ const ShopDetails = () => {
   const handleSortChange = (e) => setSort(e.target.value);
 
   const handleAddToCart = (product) => {
-    const productInCart = cartItems.find(
-      (item) => item.productID === product.productID
-    );
-    if (productInCart && productInCart.quantity >= 20) {
-      alert("Product limit reached");
-    } else {
-      dispatch(addToCart(product));
-      alert("Added to cart!");
-    }
+    addToCart(product);
   };
 
   const clearFilters = () => {

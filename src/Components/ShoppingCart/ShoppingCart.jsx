@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./ShoppingCart.css";
-import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart, updateQuantity } from "../../Features/Cart/cartSlice";
+import useCart from "../../customHooks/useCart";
 import ShoppingCartTabs from "../ShoppingCart/ShoppingCartTabs";
 import ShoppingCartTab1 from "../ShoppingCart/ShoppingCartTab1";
-import ShoppingCartTab2 from "../ShoppingCart/ShoppingCartTab2";
-import ShoppingCartTab3 from "../ShoppingCart/ShoppingCartTab3";
 import success from "../../Assets/success.png";
 
 const ShoppingCart = () => {
-  const cartData = useSelector((state) => state?.cartData);
-  const [cartItems, setCartItems] = useState(cartData || []);
-  const dispatch = useDispatch();
-
+  const { cartItems, removeFromCart: removeCartItem, updateQuantity: updateCartQuantity } = useCart();
+  const [localCartItems, setLocalCartItems] = useState(cartItems || []);
   const [activeTab, setActiveTab] = useState("cartTab1");
   const [payments, setPayments] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -22,18 +17,18 @@ const ShoppingCart = () => {
   );
 
   useEffect(() => {
-    if (cartData) {
+    if (cartItems) {
       let total = 0;
       let discounted = 0;
-      cartData.forEach((item) => {
+      cartItems.forEach((item) => {
         total += item?.price * item?.quantity;
         discounted += item?.discountedPrice * item?.quantity;
       });
-      setCartItems(cartData);
+      setLocalCartItems(cartItems);
       setTotalPrice(total);
       setDiscountedPrice(discounted);
     }
-  }, [cartData]);
+  }, [cartItems]);
 
   const handleTabClick = (tab) => {
     if (tab === "cartTab1" || cartItems.length > 0) setActiveTab(tab);
@@ -41,12 +36,13 @@ const ShoppingCart = () => {
 
   const handleQuantityChange = (_id, quantity) => {
     if (quantity >= 1 && quantity <= 20) {
-      dispatch(updateQuantity({ _id, quantity }));
+      updateCartQuantity(_id, quantity);
     }
   };
 
-  const handlePaymentChange = (e) => setSelectedPayment(e.target.value);
-  const removeItem = (id) => dispatch(removeFromCart(id));
+  const removeItem = (id) => {
+    removeCartItem(id);
+  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -61,43 +57,20 @@ const ShoppingCart = () => {
         <ShoppingCartTabs
           activeTab={activeTab}
           handleTabClick={handleTabClick}
-          cartItems={cartItems}
+          cartItems={localCartItems}
           payments={payments}
         />
 
         <div className="shoppingCartTabsContent">
-          {activeTab === "cartTab1" && (
-            <ShoppingCartTab1
-              cartItems={cartItems}
-              totalPrice={totalPrice}
-              discountedPrice={discountedPrice}
-              handleQuantityChange={handleQuantityChange}
-              removeItem={removeItem}
-              handleTabClick={handleTabClick}
-              scrollToTop={scrollToTop}
-            />
-          )}
-
-          {activeTab === "cartTab2" && (
-            <ShoppingCartTab2
-              cartItems={cartItems}
-              totalPrice={totalPrice}
-              handleTabClick={handleTabClick}
-              setPayments={setPayments}
-              selectedPayment={selectedPayment}
-              handlePaymentChange={handlePaymentChange}
-              scrollToTop={scrollToTop}
-            />
-          )}
-
-          {activeTab === "cartTab3" && (
-            <ShoppingCartTab3
-              cartItems={cartItems}
-              totalPrice={totalPrice}
-              selectedPayment={selectedPayment}
-              success={success}
-            />
-          )}
+          <ShoppingCartTab1
+            cartItems={cartItems}
+            totalPrice={totalPrice}
+            discountedPrice={discountedPrice}
+            handleQuantityChange={handleQuantityChange}
+            removeItem={removeItem}
+            handleTabClick={handleTabClick}
+            scrollToTop={scrollToTop}
+          />
         </div>
       </div>
     </div>

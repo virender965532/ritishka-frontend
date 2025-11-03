@@ -650,7 +650,7 @@
   width: 100%;
   border: 2px dashed #bfa046;
   border-radius: 12px;
-  background: #fffbe9;
+  /* background: #fffbe9; */
 }
 
 .orderInfoItem {
@@ -1013,7 +1013,7 @@
 }
 
 .orderInfo div {
-  background: #f9f9f9;
+  /* background: #f9f9f9; */
   padding: 15px 25px;
   border-radius: 10px;
 }

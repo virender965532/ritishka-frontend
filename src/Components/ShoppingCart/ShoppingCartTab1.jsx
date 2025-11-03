@@ -8,11 +8,17 @@ const ShoppingCartTab1 = ({
   cartItems,
   totalPrice,
   handleQuantityChange,
-  removeItem,
+  removeItem = () => {},
   handleTabClick,
   scrollToTop,
   discountedPrice,
 }) => {
+  const handleProceedToCheckout = () => {
+    redirectToCheckout();
+  }
+  const redirectToCheckout = () => {
+    window.location.href = "/checkout";
+  }
   return (
     <div className="shoppingBagSection">
       <div className="shoppingBagTableSection">
@@ -40,6 +46,7 @@ const ShoppingCartTab1 = ({
           cartItems={cartItems}
           handleTabClick={handleTabClick}
           discountedPrice={discountedPrice}
+          handleProceedToCheckout={handleProceedToCheckout}
         />
       </div>
     </div>

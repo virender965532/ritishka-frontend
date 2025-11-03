@@ -6,9 +6,14 @@ import { getImageUrl } from "../../utils/imageUtils";
 const ShoppingBagDesktop = ({
   cartItems,
   handleQuantityChange,
-  removeItem,
+  removeItem = () => {},
   scrollToTop,
 }) => {
+  const removeProduct = (id) => () => {
+    if(typeof id !== 'undefined' && id !== null && id !== '' && typeof removeItem === 'function') {
+      removeItem(id);
+    }
+  };
   return (
     <table className="shoppingBagTable">
       <thead>
@@ -86,7 +91,7 @@ const ShoppingBagDesktop = ({
                   className="flex flex-row items-center justify-self-center mx-auto !w-auto !h-auto cursor-pointer text-[red] hover:text-red-600 transition-colors duration-200 ease-in-out"
                   title="Remove Item"
                 >
-                  <MdOutlineClose onClick={() => removeItem(item.productID)} />
+                  <MdOutlineClose onClick={removeProduct(item?._id)} />
                 </div>
               </td>
             </tr>

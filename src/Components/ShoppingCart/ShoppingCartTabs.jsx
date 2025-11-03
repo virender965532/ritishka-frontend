@@ -6,11 +6,20 @@ const ShoppingCartTabs = ({
   cartItems,
   payments,
 }) => {
+  const redirectToCheckout = () => {
+    window.location.href = "/checkout";
+  }
+  const redirectToCart = () => {
+    window.location.href = "/cart";
+  }
+  const redirectToConfirmation = () => {
+    window.location.href = "/order/success";
+  }
   return (
     <div className={`shoppingCartTabs ${activeTab}`}>
       <button
         className={activeTab === "cartTab1" ? "active" : ""}
-        onClick={() => handleTabClick("cartTab1")}
+        onClick={redirectToCart}
       >
         <div className="shoppingCartTabsHeading">
           <h3 className="flex flex-row relative opacity-100 font-extrabold items-center justify-start text-xl">
@@ -24,8 +33,8 @@ const ShoppingCartTabs = ({
 
       <button
         className={activeTab === "cartTab2" ? "active" : ""}
-        onClick={() => handleTabClick("cartTab2")}
-        disabled={cartItems.length === 0}
+        disabled={false}
+        onClick={redirectToCheckout}
       >
         <div className="shoppingCartTabsHeading">
           <h3 className="flex flex-row relative opacity-100 font-extrabold items-center justify-start text-xl">
@@ -39,8 +48,8 @@ const ShoppingCartTabs = ({
 
       <button
         className={activeTab === "cartTab3" ? "active" : ""}
-        onClick={() => handleTabClick("cartTab3")}
-        disabled={cartItems.length === 0 || payments === false}
+        disabled={false}
+        onClick={redirectToConfirmation}
       >
         <div className="shoppingCartTabsHeading">
           <h3 className="flex flex-row relative opacity-100 font-extrabold items-center justify-start text-xl">

@@ -1,0 +1,82 @@
+/* Container */
+.care-container {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #fafafa, #fafafa);
+  color: #c39e8a;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 40px 20px;
+}
+.hero h1 {
+  font-size: 2.5rem;
+  font-family: Georgia, serif;
+  margin-bottom: 10px;
+  color: #c39e8a;
+}
+.hero p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Section */
+.section {
+  max-width: 800px;
+  margin: 40px auto;
+}
+.section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #c39e8a;
+}
+.section h3 {
+  font-size: 1.2rem;
+  margin: 15px 0 10px;
+}
+.section ul {
+  margin-left: 20px;
+  list-style: disc;
+}
+
+/* Reminders Section */
+.reminders {
+  background: #fafafa;
+  padding: 40px 20px;
+  text-align: center;
+}
+.reminders h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+.reminders p {
+  max-width: 600px;
+  margin: 0 auto 30px;
+  color: #555;
+}
+
+/* Cards */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  max-width: 250px;
+}
+.card h3 {
+  margin-bottom: 10px;
+  color: #c39e8a;
+}
+.card p {
+  color: #666;
+  font-size: 0.95rem;
+}

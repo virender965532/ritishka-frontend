@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ShopDetails.css";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../../Features/Cart/cartSlice";
+import useCart from "../../../customHooks/useCart";
+import useWishlist from "../../../customHooks/useWishlist";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiHeart } from "react-icons/fi";
 import { FaCartPlus } from "react-icons/fa";
@@ -15,6 +15,7 @@ import {
   fetchOccasions,
   fetchTags,
 } from "./../../../api/api";
+import { useSelector, useDispatch } from 'react-redux';
 
 const GOLD = "#ffebc6";
 const SORT_OPTIONS = [
@@ -43,6 +44,8 @@ const ShopDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const query = useQuery();
+  const { addToCart } = useCart();
+  const { toggleWishlist } = useWishlist();
 
   // Filter options
   const [allCategories, setAllCategories] = useState([]);
@@ -84,13 +87,14 @@ const ShopDetails = () => {
       fetchCollections(),
       fetchOccasions(),
       fetchTags(),
-    ]).then(([cat, col, occ, tag, color]) => {
+    ]).then(([cat, col, occ, tag]) => {
       setAllCategories(cat.data?.categories || []);
       setAllCollections(col.data || []);
       setAllOccasions(occ.data || []);
       setAllTags(tag.data || []);
+    }).catch((err) => {
+      console.error("Error fetching filter options:", err);
     });
-    // eslint-disable-next-line
   }, []);
 
   // Parse filters from URL (names, not IDs) when filter options are loaded
@@ -168,11 +172,13 @@ const ShopDetails = () => {
       tag: filters.tag,
       color: filters.color,
     }).then((res) => {
+      console.log("Filtered products:", res?.data);
       setProducts(res?.data?.products || []);
       setCurrentPage(res?.data?.currentPage || 1);
       setTotalPages(res?.data?.totalPages || 1);
+    }).catch((err) => {
+      console.error("Error fetching filtered products:", err);
     });
-    // eslint-disable-next-line
   }, [filters, sort, page, filtersInitialized]);
 
   // Handlers
@@ -200,15 +206,7 @@ const ShopDetails = () => {
   const handleSortChange = (e) => setSort(e.target.value);
 
   const handleAddToCart = (product) => {
-    const productInCart = cartItems.find(
-      (item) => item.productID === product.productID
-    );
-    if (productInCart && productInCart.quantity >= 20) {
-      alert("Product limit reached");
-    } else {
-      dispatch(addToCart(product));
-      alert("Added to cart!");
-    }
+    addToCart(product);
   };
 
   const clearFilters = () => {

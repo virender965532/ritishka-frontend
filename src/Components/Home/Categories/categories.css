@@ -18,7 +18,7 @@
   display: inline-block;
   width: 100%;
   margin: 0 auto;
-  background: rgb(255 235 198);
+  /* background: rgb(255 235 198); */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   transition: all 0.3s ease-in-out;
@@ -27,7 +27,7 @@
 
 .categories-desktop {
   display: none;
-  background: #ffebc6;
+  /* background: #ffebc6; */
 }
 .categories-list {
   display: flex;

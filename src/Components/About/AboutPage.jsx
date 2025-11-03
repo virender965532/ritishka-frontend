@@ -1,141 +1,179 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import "./AboutPage.css";
+import { fetchCategories } from "../../api/api";
 
-import about1 from "../../Assets/About/about-1.jpg";
-import about2 from "../../Assets/About/about-2.jpg";
 
-import Services from "../../Components/Home/Services/Services";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { Autoplay } from "swiper/modules";
-
-import brand1 from "../../Assets/Brands/brand1.png";
-import brand2 from "../../Assets/Brands/brand2.png";
-import brand3 from "../../Assets/Brands/brand3.png";
-import brand4 from "../../Assets/Brands/brand4.png";
-import brand5 from "../../Assets/Brands/brand5.png";
-import brand6 from "../../Assets/Brands/brand6.png";
-import brand7 from "../../Assets/Brands/brand7.png";
-
-const AboutPage = () => {
+function AboutPage() {
+  const [categories, setCategories] = useState([]);
+  useMemo(() => {
+      const fetchData = async () => {
+        try {
+          const res = await fetchCategories({ page: 1, limit: 10, search: "" });
+          let cats = res.data.categories || [];
+          cats = cats.filter((cat) => cat.isactive);
+          cats.sort((a, b) => a.name.localeCompare(b.name));
+          setCategories(cats);
+        } catch (error) {
+          console.error("Error fetching categories:", error);
+        }
+      };
+      fetchData();
+    }, []); 
   return (
     <>
-      <div className="aboutSection">
-        <h2>Where Elegance Meets Excellence</h2>
-        <img src={about1} alt="" />
-        <div className="aboutContent">
-          <h3>Our Story</h3>
-          <h4>At Ritishka Silver, we believe that every piece of silver tells a story — of heritage,
-             craftsmanship, and timeless beauty. Founded with a passion for purity and design, 
-             our startup is dedicated to bringing you the finest silver jewelry and artifacts that
-              blend traditional artistry with modern sophistication.
-          </h4>
-          <p>
-          Whether you’re searching for everyday elegance or heirloom-worthy creations, Ritishka Silver 
-          is your destination for authenticity, quality, and design innovation. Each item in our collection 
-          is thoughtfully curated or handcrafted, using premium 92.5 sterling silver to ensure durability, 
-          charm, and value.
+      <section
+        style={{
+          fontFamily: "Arial, Helvetica, sans-serif",
+          padding: "60px 20px",
+          background: "#fafafa",
+          color: "#222",
+        }}
+      >
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          {/* Heading */}
+          <h1
+            style={{
+              textAlign: "center",
+              fontSize: "32px",
+              lineHeight: "1.3",
+              marginBottom: "20px",
+              color: "#c39e8a",
+            }}
+          >
+            About Us
+          </h1>
+          <p
+            style={{
+              textAlign: "center",
+              fontSize: "16px",
+              color: "#555",
+              maxWidth: "700px",
+              margin: "0 auto 50px",
+            }}
+          >
+            Welcome to <strong>Ritishka</strong>, where timeless elegance meets
+            modern charm in every piece of{" "}
+            <strong>925 Sterling Silver Jewellery</strong>.
           </p>
-          <div className="content1">
-            <div className="contentBox">
-              <h5>Our Mission</h5>
+
+          {/* Mission & Vision */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "30px",
+              marginBottom: "50px",
+            }}
+          >
+            <div className="about-text mission">
+              <h2 style={{ color: "#c39e8a", marginTop: 0 }}>Our Mission</h2>
               <p>
-                Premium Sterling Silver (92.5%), Artisan Craftsmanship & Unique Designs, Customer-Centric Approach, 
-                Ethically Sourced & Hand-Finished Products
+                At Ritishka, our mission is to make{" "}
+                <strong>925 Sterling Silver Jewellery</strong> a part of everyone's everyday
+                elegance. We aim  to deliver high-quality, affordable luxury piecesthat blend timeless beauty
+                with modern design.
               </p>
             </div>
-            <div className="contentBox">
-              <h5>Our Vision</h5>
+
+            <div className="about-text vision">
+              <h2 style={{ color: "#c39e8a", marginTop: 0 }}>Our Vision</h2>
               <p>
-              join us on a journey where silver shines brighter — not just as a metal, but as a
-               symbol of grace, culture, and individuality.
+                Our vision is to be a trusted jewellery brand that stands for
+                purity, authenticity, and elegance, making silver jewellery not just an
+                accessory but an expression of style and emotion.
               </p>
-              
             </div>
           </div>
-          <div className="content2">
-            {/* <div className="imgContent">
-              <img src={about2} alt="" />
-            </div> */}
-            <div className="textContent">
-              <h5>The Company</h5>
-              <p>
-              Ritishka Silver – Crafted with Passion, Delivered with Love.
 
-              </p>
+          {/* Who Are We */}
+          <div className="about-text who-are-we">
+            <h2 style={{ color: "#c39e8a", marginTop: 0 }}>Who Are We?</h2>
+            <p>
+              We are <strong>Ritishka</strong>, an e-commerce jewellery brand
+              dedicated to creating fine <strong>Sterling Silver Jewellery</strong>. Every piece we
+              design reflects passion, craftsmanship, and attention to detail. From minimal
+              daily wear to statement pieces our jewellery is made to complement every occasions.
+            </p>
+          </div>
+
+          {/* Why Ritishka */}
+          <div style={{ marginBottom: "50px" }}>
+            <h2 style={{ textAlign: "center", color: "#c39e8a" }}>
+              Why Choose Ritishka?
+            </h2>
+            <div className="about-text why-ritishka">
+              {[
+                {
+                  title: "Authenticity",
+                  desc: "Genuine 925 Sterling Silver, hallmarked for purity.",
+                },
+                {
+                  title: "Rhodium Plated",
+                  desc: "Extra shine, durability and long-lasting beauty.",
+                },
+                {
+                  title: "Premium Packaging",
+                  desc: "Elegant packaging for a luxurious unboxing experience.",
+                },
+                {
+                  title: "Perfect for Gifting",
+                  desc: "Thoughtfully crafted jewellery that makes the ideal gift.",
+                },
+              ].map((item, idx) => (
+                <div
+                  key={idx}
+                  className="why-ritishka-item about-text"
+                >
+                  <h3 style={{ marginTop: 0, color: "#333" }}>✔ {item.title}</h3>
+                  <p>{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Our Products */}
+          <div
+            style={{
+              background: "#fff",
+              padding: "25px",
+              borderRadius: "10px",
+              boxShadow: "0 4px 14px rgba(0,0,0,0.06)",
+            }}
+          >
+            <h2 style={{ color: "#c39e8a", marginTop: 0, textAlign: "center" }}>
+              Our Products
+            </h2>
+            <p style={{ textAlign: "center", color: "#555" }}>
+              We offer a wide collection of fine 925 Sterling Silver Jewellery:
+            </p>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: "15px",
+                marginTop: "20px",
+              }}
+            >
+              {categories.map((Category, idx) => (
+                <span
+                  key={idx}
+                  style={{
+                    background: "#f6f6f6",
+                    padding: "10px 18px",
+                    borderRadius: "25px",
+                  }}
+                >
+                  {Category?.name}
+                </span>
+              ))}
             </div>
           </div>
         </div>
-      </div>
-      <Services />
-      <div className="companyPartners">
-        <h5>Company Partners</h5>
-        <Swiper
-          slidesPerView={1}
-          loop={true}
-          breakpoints={{
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 5,
-            },
-
-            768: {
-              slidesPerView: 4,
-              spaceBetween: 40,
-            },
-
-            1024: {
-              slidesPerView: 5,
-              spaceBetween: 50,
-            },
-          }}
-          spaceBetween={10}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-          modules={[Autoplay]}
-        >
-          <SwiperSlide>
-            <div className="aboutBrands">
-              <img src={brand1} alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="aboutBrands">
-              <img src={brand2} alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="aboutBrands">
-              <img src={brand3} alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="aboutBrands">
-              <img src={brand4} alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="aboutBrands">
-              <img src={brand5} alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="aboutBrands">
-              <img src={brand6} alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="aboutBrands">
-              <img src={brand7} alt="" />
-            </div>
-          </SwiperSlide>
-        </Swiper>
-      </div>
+      </section>
     </>
+
   );
-};
+}
 
 export default AboutPage;

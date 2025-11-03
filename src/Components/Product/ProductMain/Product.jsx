@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../../Features/Cart/cartSlice";
-import { addToWishList, removeFromWishList } from "../../../Features/Wishlist/wishListSlice";
+import useAddToCart from "../../../customHooks/useAddToCart";
+import useAddToWishlist from "../../../customHooks/useAddToWishlist";
 import { getImageUrl } from "../../../utils/imageUtils";
 import { GoChevronLeft } from "react-icons/go";
 import { GoChevronRight } from "react-icons/go";
@@ -28,6 +28,8 @@ const Product = () => {
   const dispatch = useDispatch();
   const [wishlistItems, setWishlistItems] = useState(wishlistData || []);
   const [cartItems, setCartItems] = useState(cartData || []);
+  const addToCartHook = useAddToCart();
+  const toggleWishlistHook = useAddToWishlist();
 
   React.useEffect(() => {
     if (!slug) {
@@ -152,75 +154,30 @@ const Product = () => {
   // };
 
   const handleWishClick = () => {
-    setClicked(!clicked);
-    const productInWishlist = (wishlistItems || []).find(item => item._id === product._id);
-    if (!clicked) {
+    const willBeClicked = !clicked;
+    setClicked(willBeClicked);
+
+    const productInWishlist = (wishlistItems || []).find((item) => item._id === product._id);
+
+    if (willBeClicked) {
       if (!productInWishlist) {
-        dispatch(addToWishList(product));
+        // use hook to add to wishlist (handles dispatch + toast)
+        toggleWishlistHook(product);
         setWishlistItems((prev) => [...prev, product]);
-        toast.success("Added to wishlist!", {
-          duration: 2000,
-          style: {
-            backgroundColor: "#07bc0c",
-            color: "white",
-          },
-          iconTheme: {
-            primary: "#fff",
-            secondary: "#07bc0c",
-          },
-        });
       }
     } else {
       if (productInWishlist) {
-        dispatch(removeFromWishList(product));
-        setWishlistItems((prev) => prev.filter(item => item._id !== product._id));
-        toast.error("Removed from wishlist!", {
-          duration: 2000,
-          style: {
-            backgroundColor: "#ff4b4b",
-            color: "white",
-          },
-          iconTheme: {
-            primary: "#fff",
-            secondary: "#ff4b4b",
-          },
-        });
+        // use hook to remove from wishlist (handles dispatch + toast)
+        toggleWishlistHook(product);
+        setWishlistItems((prev) => prev.filter((item) => item._id !== product._id));
       }
     }
   };
 
   const handleAddToCart = () => {
-    const productDetails = {...product, highlightedColor: highlightedColor, quantity: 1};
-    const productInCart = (cartItems || []).find(
-      (item) => item?._id === productDetails?._id
-    );
-
-    if (productInCart && productInCart.quantity >= 500) {
-      toast.error("Product limit reached", {
-        duration: 2000,
-        style: {
-          backgroundColor: "#ff4b4b",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#ff4b4b",
-        },
-      });
-    } else {
-      dispatch(addToCart(productDetails));
-      toast.success(`Added to cart!`, {
-        duration: 2000,
-        style: {
-          backgroundColor: "#07bc0c",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#07bc0c",
-        },
-      });
-    }
+    // Delegate add-to-cart work to the custom hook. It will handle
+    // highlightedColor fallback, quantity default and toasts.
+    addToCartHook(product, highlightedColor);
   };
 
   return (

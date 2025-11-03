@@ -22,7 +22,7 @@ const ThreeDynamicCards = () => {
             href={card.link}
             className="three-dynamic-card"
             key={idx}
-            target="_blank"
+            target="_self"
             rel="noopener noreferrer"
           >
             <div className="three-dynamic-card-img-wrapper">

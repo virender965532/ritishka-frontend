@@ -38,11 +38,12 @@ const CollectionForm = ({ selected, onSave, showCreateForm = false, handleshowcr
     
     try {
       var message = "";
+      
       if (selected) {
         await updateCollection(selected._id, form);
         message = `Category updated successfully!`;
       } else {
-        await createCollection;
+        await createCollection(form);
         message = `Category created successfully!`;
       }
       toast.success(`${message}`, {

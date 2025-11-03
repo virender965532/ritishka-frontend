@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./LimitedEdition.css";
 
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../../Features/Cart/cartSlice";
+import useCart from "../../../customHooks/useCart";
+import useWishlist from "../../../customHooks/useWishlist";
 import { getImageUrl } from "../../../utils/imageUtils";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -23,10 +23,11 @@ import { FaCartPlus } from "react-icons/fa";
 
 import toast from "react-hot-toast";
 import { ProductTypes } from "./../../../api/api";
+import { useSelector } from 'react-redux';
 
 const FeaturedProducts = () => {
-  const dispatch = useDispatch();
-
+  const { addToCart } = useCart();
+  const { toggleWishlist } = useWishlist();
   const [wishList, setWishList] = useState({});
   const [products, setProducts] = useState([]);
 
@@ -39,10 +40,11 @@ const FeaturedProducts = () => {
   }, []);
   
 
-  const handleWishlistClick = (productID) => {
+  const handleWishlistClick = (product) => {
+    const isNowInWishlist = toggleWishlist(product);
     setWishList((prevWishlist) => ({
       ...prevWishlist,
-      [productID]: !prevWishlist[productID],
+      [product._id]: isNowInWishlist,
     }));
   };
 
@@ -55,37 +57,8 @@ const FeaturedProducts = () => {
 
   const cartItems = useSelector((state) => state?.cart?.items);
 
-  const handleAddToCart = (product) => {
-    const productInCart = cartItems?.find(
-      (item) => item.productID === product.productID
-    );
-
-    if (productInCart && productInCart.quantity >= 20) {
-      toast.error("Product limit reached", {
-        duration: 2000,
-        style: {
-          backgroundColor: "#ff4b4b",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#ff4b4b",
-        },
-      });
-    } else {
-      dispatch(addToCart(product));
-      toast.success(`Added to cart!`, {
-        duration: 2000,
-        style: {
-          backgroundColor: "#07bc0c",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#07bc0c",
-        },
-      });
-    }
+    const handleAddToCart = (product) => {
+    addToCart(product);
   };
 
   return (

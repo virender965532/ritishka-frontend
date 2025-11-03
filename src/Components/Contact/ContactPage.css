@@ -195,7 +195,7 @@
 .contact-full-bg {
   width: 100%;
   min-height: 100%;
-  background: #ffebc6;
+  /* background: #ffebc6; */
   margin: 0;
   padding: 0;
   font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
@@ -212,18 +212,18 @@
   width: 97%;
   max-width: 97%;
   text-align: center;
-  background: #fff;
+  /* background: #fff; */
   /* padding: 32px 0 12px 0; */
   border-bottom: 3px solid #ffebc6;
   margin: auto auto;
   padding: auto auto;
-  background-color: #ffebc6;
+  /* background-color: #ffebc6; */
 }
 
 .contact-form-large {
   width: 97%;
   max-width: 97%;
-  background: #ffebc6;
+  /* background: #ffebc6; */
   /* padding: 48px 0 64px 0; */
   display: flex;
   flex-direction: column;
@@ -238,7 +238,7 @@
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 4px 32px rgba(247, 228, 192, 0.13);
-  padding: 40px 32px 32px 32px;
+  padding: 32px 70px 32px 32px;
   display: flex;
   flex-direction: column;
   gap: 28px;

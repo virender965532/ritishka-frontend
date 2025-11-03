@@ -1,0 +1,39 @@
+.refund-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+  line-height: 1.7;
+}
+
+.refund-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.refund-container h2 {
+  font-size: 1.3rem;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  /* border-left: 4px solid #c39e8a; rose-gold accent */
+  padding-left: 8px;
+  color: #444;
+}
+
+.refund-container p,
+.refund-container li {
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.refund-container ul {
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.refund-container .highlight {
+  font-weight: 600;
+  color: #c39e8a;
+}

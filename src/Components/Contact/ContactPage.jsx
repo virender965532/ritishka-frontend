@@ -68,20 +68,20 @@ const ContactPage = () => {
   return (
     <div className="contact-full-bg">
       <div className="contact-details-large">
-        <h1 style={{ fontSize: "3rem", margin: "32px 0 12px 0", fontWeight: 900, letterSpacing: 2 }}>
-          Sanjay and Company
+        <h1 style={{ fontSize: "2.5rem", margin: "32px 0 12px 0", fontWeight: 300, letterSpacing: 2 }}>
+          contact Us
         </h1>
-        <div style={{ fontSize: "1.5rem", color: "#7c6f57", marginBottom: 8 }}>
-          A-79/16 Baba Colony Burari, Delhi, India 110084
+        <div style={{ fontSize: "1rem", color: "#7c6f57", marginBottom: 8 }}>
+          📞 Call or chat with us on WhatsApp at +91-8595220018 (Monday to Friday, 10:30 AM - 6:00 PM)
         </div>
-        <div style={{ fontSize: "1.3rem", color: "#7c6f57", marginBottom: 8 }}>
-          <span style={{ fontWeight: 700 }}>Email:</span> care@ritishka.in
+        <div style={{ fontSize: "1rem", color: "#7c6f57", marginBottom: 8 }}>
+          <span style={{ fontWeight: 700 }}>📧 Email us at:</span> care@ritishka.in
         </div>
-        <div style={{ fontSize: "1.3rem", color: "#7c6f57", marginBottom: 24 }}>
-          <span style={{ fontWeight: 700 }}>Phone:</span> +91 9716620018
+        <div style={{ fontSize: "1rem", color: "#7c6f57", marginBottom: 24 }}>
+          <span style={{ fontWeight: 700 }}>We're here to help! 😊</span>
         </div>
       </div>
-      <div className="contact-map-large">
+      {/* <div className="contact-map-large">
         <iframe
           src="https://www.google.com/maps?q=A-79/16+Baba+Colony+Burari,+Delhi,+India+110084&output=embed"
           width="100%"
@@ -91,10 +91,10 @@ const ContactPage = () => {
           title="Sanjay and Company Location"
           style={{ border: `4px solid ${GOLD}`, borderRadius: "20px", display: "block" }}
         ></iframe>
-      </div>
+      </div> */}
       <div className="contact-form-large">
         <h2 style={{ fontSize: "2.2rem", fontWeight: 800, marginTop: 20, marginBottom: 20, textAlign: "center" }}>
-          Get In Touch
+          Drop Us A Line
         </h2>
         <form onSubmit={handleSubmit} noValidate>
           <div className="form-group-large">
@@ -145,7 +145,7 @@ const ContactPage = () => {
               color: "#222",
               fontWeight: 700,
               fontSize: "1.3rem",
-              padding: "22px 0",
+              padding: "12px 0px 10px 0px",
               borderRadius: "10px",
               marginTop: "10px",
               width: "100%",

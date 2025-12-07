@@ -78,3 +78,13 @@ export const deleteDynamicCard = (id) => axios.delete(`${API_BASE}/pages/dynamic
 // Auth APIs
 export const loginUser = (data) => axios.post(`${API_BASE}/auth/login`, data);
 export const signupUser = (data) => axios.post(`${API_BASE}/auth/signup`, data);
+
+// User Profile APIs
+export const updateUserProfile = (data) => axios.put(`${API_BASE}/user/profile`, data);
+
+// Address APIs
+export const fetchAddresses = () => axios.get(`${API_BASE}/user/addresses`);
+export const createAddress = (data) => axios.post(`${API_BASE}/user/addresses`, data);
+export const updateAddress = (id, data) => axios.put(`${API_BASE}/user/addresses/${id}`, data);
+export const deleteAddress = (id) => axios.delete(`${API_BASE}/user/addresses/${id}`);
+export const markPrimaryAddress = (id) => axios.patch(`${API_BASE}/user/addresses/${id}/primary`);

@@ -20,15 +20,18 @@ import { fetchCategories } from "../../api/api"; // <-- Add this import, adjust 
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice"; // <-- Adjust the import path as needed
 import { useNavigate } from "react-router-dom";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const Navbar = () => {
   const wishlistData = useSelector((state) => state?.wishlistData);
   const cartData = useSelector((state) => state?.cartData);
+  const authData = useSelector((state) => state?.auth);
   const [wishlistItems, setWishlistItems] = useState(wishlistData || []);
   const [cartItems, setCartItems] = useState(cartData || []);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navbarLinks, setNavbarLinks] = useState(NAVBAR_LINKS);
   const [isSticky, setIsSticky] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -131,9 +134,6 @@ const Navbar = () => {
         </div>
         <div className="iconContainer">
           <FiSearch size={22} onClick={scrollToTop} />
-          <Link to="/login" onClick={scrollToTop}>
-            <FaRegUser size={22} />
-          </Link>
           <Link to="/cart" onClick={scrollToTop}>
           {cartItems?.length > 0 && (
             <Badge
@@ -162,6 +162,38 @@ const Navbar = () => {
             </Badge>)}
             {wishlistItems?.length === 0 && <FiHeart size={22} />}
           </Link>
+          <div className="userProfileContainer" >
+            { authData?.user ? (
+              <div className="userProfile">
+                <FaRegUser size={22} />
+                <span className="userName">{authData?.user?.name || authData?.user?.email || 'Guest'}</span>
+                <MdOutlineKeyboardArrowDown size={20} />
+                <div className="userDropdown">
+                  <Link to="/profile" >
+                    <p>Manage Profile</p>
+                  </Link>
+                  <Link to="/orders" >
+                    <p>Track Orders</p>
+                  </Link>
+                  <button onClick={() => { handleLogout(); setUserDropdownOpen(false); }} className="logoutBtn">
+                    Logout
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <FaRegUser size={22} />
+                <div className="guestDropdown">
+                  <Link to="/login" >
+                    <p>Login</p>
+                  </Link>
+                  <Link to="/signup" >
+                    <p>Sign Up</p>
+                  </Link>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </nav>
 
@@ -251,10 +283,28 @@ const Navbar = () => {
 
           <div className="mobile-menuFooter">
             <div className="mobile-menuFooterLogin">
-              <Link to="/login" onClick={toggleMobileMenu}>
-                <FaRegUser />
-                <p>My Account</p>
-              </Link>
+              {authData?.user ? (
+                <div className="mobileUserProfile">
+                  <FaRegUser />
+                  <p>{authData.user.name || authData.user.email}</p>
+                  <div className="mobileUserOptions">
+                    <Link to="/profile" onClick={toggleMobileMenu}>
+                      Manage Profile
+                    </Link>
+                    <Link to="/orders" onClick={toggleMobileMenu}>
+                      Track Orders
+                    </Link>
+                    <button onClick={() => { handleLogout(); toggleMobileMenu(); }} className="mobileLogoutBtn">
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <Link to="/login" onClick={toggleMobileMenu}>
+                  <FaRegUser />
+                  <p>My Account</p>
+                </Link>
+              )}
             </div>
             <div className="mobile-menuFooterLangCurrency">
               <div className="mobile-menuFooterLang">

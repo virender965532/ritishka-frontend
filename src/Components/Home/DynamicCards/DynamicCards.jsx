@@ -38,7 +38,7 @@ const DynamicCards = () => {
       </div>
       <div className="dynamic-cards-grid-desktop">
         <div className="main-card-desktop">
-          <a href={mainCard?.link ? mainCard?.link : '#'}>
+          <a className="main-img-desktop" href={mainCard?.link ? mainCard?.link : '#'}>
             <img src={getImageUrl(mainCard?.img)} alt={mainCard?.alt} className="main-img-desktop" loading="lazy" />
           </a>
         </div>

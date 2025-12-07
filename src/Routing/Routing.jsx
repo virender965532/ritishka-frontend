@@ -36,6 +36,7 @@ import RefundPolicy from "../Pages/RefundPolicy";
 import Careers from "../Pages/Careers";
 import ShippingPolicy from "../Components/Shipping/ShippingPolicy";
 import OrderSuccess from "../Components/OrderSuccess/OrderSuccess";
+import CustomerProfile from "../Pages/CustomerProfile";
 
 const Routing = () => {
   const location = useLocation();
@@ -55,8 +56,8 @@ const Routing = () => {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order/success" element={<OrderSuccess />} />
           {/* <Route path="/account" element={<CustomerDashboard />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/profile" element={<CustomerProfile />} />  */}
+          <Route path="/orders" element={<Orders />} /> */}
+          <Route path="/profile" element={<PrivateRoute><CustomerProfile /></PrivateRoute>} /> 
 
            {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />          

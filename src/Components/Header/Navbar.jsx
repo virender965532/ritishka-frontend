@@ -163,7 +163,7 @@ const Navbar = () => {
             {wishlistItems?.length === 0 && <FiHeart size={22} />}
           </Link>
           <div className="userProfileContainer" >
-            { authData?.user ? (
+            { true ? (
               <div className="userProfile">
                 <FaRegUser size={22} />
                 <span className="userName">{authData?.user?.name || authData?.user?.email || 'Guest'}</span>

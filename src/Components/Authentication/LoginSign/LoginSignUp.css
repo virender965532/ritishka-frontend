@@ -1,282 +1,170 @@
 .loginSignUpSectionContainer {
-.text-danger {
-  color: red !important;
-  font-size: 14px;
-  margin-top: 0px;
-  margin-left: 10px
-  /* margin-bottom: 10px; */
-}
-
-.loginSignUpSection {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(30, 30, 30, 0.45);
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  max-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-.loginSignUpContainer {
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), 0 1.5px 4px rgba(0, 0, 0, 0.1);
-  padding: 40px 32px 32px 32px;
-  min-width: 340px;
-  max-width: 95vw;
-  width: 420px;
-  gap: 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  animation: popup-fade-in 0.3s;
-}
-
-.loginSignUpCloseBtn {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  background: transparent;
-  border: none;
-  font-size: 1.7rem;
-  color: #767676;
-  cursor: pointer;
-  z-index: 2;
-  transition: color 0.2s;
-}
-
-.loginSignUpCloseBtn:hover {
-  color: #c32929;
-}
-
-.loginSignUpTabs {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.loginSignUpTabs p {
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  /* text-transform: uppercase; */
-  font-size: 16px;
-  font-weight: 600;
-  position: relative;
-  transition: color 0.3s;
-  color: #767676;
-  text-decoration: none;
-}
-
-.loginSignUpTabs p:hover {
-  color: #b18b47;
-}
-
-.loginSignUpTabs p.active {
-  color: #b18b47;
-}
-
-.loginSignUpTabs p.active::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #b18b47;
-}
-
-.loginSignUpTabs p:not(.active)::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: #b18b47;
-  transition: width 0.2s ease, left 0.2s ease;
-}
-
-.loginSignUpTabs p:not(.active):hover::after {
-  width: 100%;
-  left: 0;
-  transition-delay: 0.2s;
-}
-
-/* Tab1 Content */
-
-.loginSignUpTabsContentLogin form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-  min-width: 350px;
-  max-width: 350px;
-}
-
-.loginSignUpTabsContentLogin input {
-  padding: 20px;
-  border: 2px solid #e4e4e4;
-  outline-color: black;
-}
-
-.loginSignUpForgetPass {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 10px;
-}
-
-.loginSignUpForgetPass label {
-  display: flex;
-  align-items: center;
-}
-
-.loginSignUpForgetPass a {
-  font-size: 14px;
-  color: black;
-}
-
-/* custom radio button */
-
-.loginSignUpForgetPass label input {
-  appearance: none;
-  border: 2px solid #e4e4e4;
-  position: relative;
-  cursor: pointer;
-  outline: none;
-  padding: 6px !important;
-}
-
-.loginSignUpForgetPass label input:checked {
-  border: 2px solid #000000;
-}
-
-.loginSignUpForgetPass label input::after {
-  content: "";
-  display: block;
-  width: 8px;
-  height: 8px;
-  background-color: black;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.2s ease-in-out;
-}
-
-.loginSignUpForgetPass label input:checked::after {
-  transform: translate(-50%, -50%) scale(1);
-}
-
-/* custom radio button end */
-
-.loginSignUpForgetPass p {
-  color: #767676;
-  font-size: 14px;
-}
-
-.loginSignUpTabsContentLogin button {
-  padding: 20px;
-  background-color: black;
-  color: white;
-  border: none;
-  cursor: pointer;
-  /* text-transform: uppercase; */
-  font-weight: 600;
-}
-
-.loginSignUpTabsContentLoginText {
-  padding-top: 20px;
-}
-
-.loginSignUpTabsContentLoginText p {
-  font-size: 14px;
-  text-align: center;
-  color: #767676;
-}
-
-.loginSignUpTabsContentLoginText p span {
-  color: black;
-  cursor: pointer;
-  text-decoration: underline;
-  font-weight: 500;
-}
-
-/* Tab Content 2 */
-
-.loginSignUpTabsContentRegister form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-  min-width: 350px;
-  max-width: 350px;
-}
-
-.loginSignUpTabsContentRegister input {
-  padding: 20px;
-  border: 2px solid #e4e4e4;
-  outline-color: black;
-}
-
-.loginSignUpTabsContentRegister p {
-  color: #767676;
-  font-size: 14px;
-}
-
-.loginSignUpTabsContentRegister button {
-  padding: 20px;
-  background-color: black;
-  color: white;
-  border: none;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-@media screen and (max-width: 450px) {
   .loginSignUpSection {
-    padding-bottom: 30px;
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(40,40,40,0.6));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
   }
 
-  .loginSignUpTabsContentLogin form {
-    width: 330px;
+  .loginSignUpContainer {
+    background: radial-gradient(circle at top, #fff7e6, #ffffff);
+    border-radius: 22px;
+    width: 420px;
+    padding: 40px 32px;
+    box-shadow: 0 20px 50px rgba(177,139,71,0.35);
+    position: relative;
+    animation: popup 0.35s ease;
   }
 
-  .loginSignUpTabsContentRegister form {
-    width: 330px;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .loginSignUpTabsContentLogin form {
-    width: 280px;
+  @keyframes popup {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
   }
 
-  .loginSignUpTabsContentRegister form {
-    width: 280px;
+  .loginHeader h2 {
+    text-align: center;
+    color: #b18b47;
+    font-size: 26px;
+    font-weight: 700;
   }
-}
 
-/* Optional: popup fade-in animation */
-@keyframes popup-fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
+  .loginHeader p {
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+    margin-top: 6px;
   }
-  to {
-    opacity: 1;
-    transform: scale(1);
+
+  .loginSignUpTabs {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 25px 0;
   }
-}
+
+  .loginSignUpTabs p {
+    font-weight: 600;
+    cursor: pointer;
+    color: #999;
+    position: relative;
+  }
+
+  .loginSignUpTabs p.active {
+    color: #b18b47;
+  }
+
+  .loginSignUpTabs p.active::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: #b18b47;
+    bottom: -8px;
+    left: 0;
+    border-radius: 2px;
+  }
+
+  input {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1.5px solid #e6e6e6;
+    margin-bottom: 6px;
+    font-size: 15px;
+    transition: all 0.3s;
+  }
+
+  input:focus {
+    border-color: #b18b47;
+    box-shadow: 0 0 0 3px rgba(177,139,71,0.2);
+    outline: none;
+  }
+
+  .loginSignUpForgetPass {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin: 10px 0 20px;
+  }
+
+  .loginSignUpForgetPass label {
+    margin: 10px 5px;
+  }
+
+  .loginSignUpForgetPass input {
+    width: auto;
+    margin: 0;
+    margin-right: 10px;
+  }
+
+  .loginSignUpForgetPass a {
+    color: #b18b47;
+  }
+
+  .goldBtn {
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #b18b47, #e3c77a);
+    border: none;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+
+  .goldBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(177,139,71,0.4);
+  }
+
+  .switchText {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 14px;
+    color: #666;
+  }
+
+  .switchText span {
+    color: #b18b47;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .terms {
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+    color: #555;
+    margin: 12px 0 20px;
+  }
+
+  .terms input {
+    width: auto;
+    margin: 0;
+    margin-left: 10px;
+    background-color: #b18b47;
+  }
+
+  .terms a {
+    color: #b18b47;
+  }
+
+  .text-danger {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .loginSignUpError {
+    text-align: center;
+    color: red;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
 }

@@ -124,162 +124,137 @@ const LoginSignUp = () => {
   };
 
   return (
-    <div className="loginSignUpSectionContainer">
-      <div className="loginSignUpSection">
-        <div className="loginSignUpContainer">
-          <div className="loginSignUpTabs">
-            <p
-              onClick={() => handleTab("tabButton1")}
-              className={activeTab === "tabButton1" ? "active" : ""}
-            >
-              Login
-            </p>
-            <p
-              onClick={() => handleTab("tabButton2")}
-              className={activeTab === "tabButton2" ? "active" : ""}
-            >
-              Register
-            </p>
-          </div>
-          <div className="loginSignUpTabsContent">
-            {error && (
-              <div className="loginSignUpError" style={{ marginBottom: "20px", textAlign: "center", fontWeight: "bold", color: "red" }}>
-                <div style={{ color: "red" }}>{error}</div>
-              </div>
-            )}
-            {/* tab1 */}
-            {activeTab === "tabButton1" && (
-              <div className="loginSignUpTabsContentLogin">
-                <form onSubmit={handleLoginSubmit}>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email address *"
-                    value={loginData.email}
-                    onChange={handleLoginChange}
-
-                  />
-                  {loginErrors.email && (
-                    <p className="text-danger">{loginErrors.email}</p>
-                  )}
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Password *"
-                    value={loginData.password}
-                    onChange={handleLoginChange}
-
-                  />
-                  {loginErrors.password && (
-                    <p className="text-danger">{loginErrors.password}</p>
-                  )}
-                  <div className="loginSignUpForgetPass">
-                    <label>
-                      <input type="checkbox" className="brandRadio" />
-                      <p>Remember me</p>
-                    </label>
-                    <p>
-                      <Link to="/reset-password">Lost password?</Link>
-                    </p>
-                  </div>
-                  <button type="submit">Log In</button>
-                </form>
-                <div className="loginSignUpTabsContentLoginText">
-                  <p>
-                    No account yet?{" "}
-                    <span onClick={() => handleTab("tabButton2")}>
-                      Create Account
-                    </span>
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {/* Tab2 */}
-
-            {activeTab === "tabButton2" && (
-              <div className="loginSignUpTabsContentRegister">
-                <form onSubmit={handleSignupSubmit}>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Username *"
-                    value={signupData.name}
-                    onChange={handleSignupChange}
-
-                  />
-                  {registerErrors.name && (
-                    <p className="text-danger">{registerErrors.name}</p>
-                  )}
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email address *"
-                    value={signupData.email}
-                    onChange={handleSignupChange}
-
-                  />
-                  {registerErrors.email && (
-                    <p className="text-danger">{registerErrors.email}</p>
-                  )}
-                  <input
-                    type="text"
-                    name="phone"
-                    placeholder="Phone *"
-                    value={signupData.phone}
-                    onChange={handleSignupChange}
-
-                  />
-                  {registerErrors.phone && (
-                    <p className="text-danger">{registerErrors.phone}</p>
-                  )}
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Password *"
-                    value={signupData.password}
-                    onChange={handleSignupChange}
-
-                  />
-                  {registerErrors.password && (
-                    <p className="text-danger">{registerErrors.password}</p>
-                  )}
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirm Password *"
-                    value={signupData.confirmPassword}
-                    onChange={handleSignupChange}
-
-                  />
-                  {registerErrors.confirmPassword && (
-                    <p className="text-danger">{registerErrors.confirmPassword}</p>
-                  )}
-                  <div className="loginSignUpForgetPass">
-                    <label>
-                      <input type="checkbox" className="brandRadio" required />
-                      <p>
-                        I accept that I have read & understood the{" "}
-                        <Link
-                          to="/terms"
-                          style={{ textDecoration: "none", color: "#c32929" }}
-                        >
-                          {" "}
-                          privacy policy
-                        </Link>
-                        .
-                      </p>
-                    </label>
-                  </div>
-                  <button type="submit" className="flex flex-col text-center bg-[#b18b47] border border-[#b18b47]">Register</button>
-                </form>
-              </div>
-            )}
-          </div>
+  <div className="loginSignUpSectionContainer">
+    <div className="loginSignUpSection">
+      <div className="loginSignUpContainer">
+        <div className="loginHeader">
+          <h2>Welcome to Ritishka</h2>
         </div>
+
+        <div className="loginSignUpTabs">
+          <p
+            onClick={() => handleTab("tabButton1")}
+            className={activeTab === "tabButton1" ? "active" : ""}
+          >
+            Login
+          </p>
+          <p
+            onClick={() => handleTab("tabButton2")}
+            className={activeTab === "tabButton2" ? "active" : ""}
+          >
+            Signup
+          </p>
+        </div>
+
+        {error && (
+          <div className="loginSignUpError">{error}</div>
+        )}
+
+        {activeTab === "tabButton1" && (
+          <div className="loginSignUpTabsContentLogin">
+            <form onSubmit={handleLoginSubmit}>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={loginData.email}
+                onChange={handleLoginChange}
+              />
+              {loginErrors.email && <p className="text-danger">{loginErrors.email}</p>}
+
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={loginData.password}
+                onChange={handleLoginChange}
+              />
+              {loginErrors.password && <p className="text-danger">{loginErrors.password}</p>}
+
+              <div className="loginSignUpForgetPass">
+                <label>
+                  <input type="checkbox" />
+                  <span>Remember me</span>
+                </label>
+                <Link to="/reset-password">Forgot Password?</Link>
+              </div>
+
+              <button type="submit" className="goldBtn">Login</button>
+            </form>
+
+            <p className="switchText">
+              New to Ritishka?{" "}
+              <span onClick={() => handleTab("tabButton2")}>Create an Account</span>
+            </p>
+          </div>
+        )}
+
+        {activeTab === "tabButton2" && (
+          <div className="loginSignUpTabsContentRegister">
+            <form onSubmit={handleSignupSubmit}>
+              <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                value={signupData.name}
+                onChange={handleSignupChange}
+              />
+              {registerErrors.name && <p className="text-danger">{registerErrors.name}</p>}
+
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={signupData.email}
+                onChange={handleSignupChange}
+              />
+              {registerErrors.email && <p className="text-danger">{registerErrors.email}</p>}
+
+              <input
+                type="text"
+                name="phone"
+                placeholder="Phone Number"
+                value={signupData.phone}
+                onChange={handleSignupChange}
+              />
+              {registerErrors.phone && <p className="text-danger">{registerErrors.phone}</p>}
+
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={signupData.password}
+                onChange={handleSignupChange}
+              />
+              {registerErrors.password && <p className="text-danger">{registerErrors.password}</p>}
+
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={signupData.confirmPassword}
+                onChange={handleSignupChange}
+              />
+              {registerErrors.confirmPassword && (
+                <p className="text-danger">{registerErrors.confirmPassword}</p>
+              )}
+
+              <label className="terms">
+                <input type="checkbox" required />
+                <span>
+                  I agree to the <Link to="/terms">Privacy Policy</Link>
+                </span>
+              </label>
+
+              <button type="submit" className="goldBtn">Create Account</button>
+            </form>
+          </div>
+        )}
       </div>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default LoginSignUp;

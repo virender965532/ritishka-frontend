@@ -124,7 +124,7 @@ const LoginSignUp = () => {
   };
 
   return (
-    <>
+    <div className="loginSignUpSectionContainer">
       <div className="loginSignUpSection">
         <div className="loginSignUpContainer">
           <div className="loginSignUpTabs">
@@ -271,14 +271,14 @@ const LoginSignUp = () => {
                       </p>
                     </label>
                   </div>
-                  <button type="submit">Register</button>
+                  <button type="submit" className="flex flex-col text-center bg-[#b18b47] border border-[#b18b47]">Register</button>
                 </form>
               </div>
             )}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

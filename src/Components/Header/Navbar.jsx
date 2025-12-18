@@ -18,14 +18,14 @@ import Badge from "@mui/material/Badge";
 import { NAVBAR_LINKS } from "../../Constants/Constants"; // <-- Import your links
 import { fetchCategories } from "../../api/api"; // <-- Add this import, adjust path as needed
 import { useDispatch } from "react-redux";
-import { logout } from "../../store/authSlice"; // <-- Adjust the import path as needed
+import { logout } from "../../redux/actions/loginActions"; // <-- Adjust the import path as needed
 import { useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const Navbar = () => {
   const wishlistData = useSelector((state) => state?.wishlistData);
   const cartData = useSelector((state) => state?.cartData);
-  const authData = useSelector((state) => state?.auth);
+  const authData = useSelector((state) => state?.userData);
   const [wishlistItems, setWishlistItems] = useState(wishlistData || []);
   const [cartItems, setCartItems] = useState(cartData || []);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -163,7 +163,7 @@ const Navbar = () => {
             {wishlistItems?.length === 0 && <FiHeart size={22} />}
           </Link>
           <div className="userProfileContainer" >
-            { true ? (
+            { authData?.user ? (
               <div className="userProfile">
                 <FaRegUser size={22} />
                 <span className="userName">{authData?.user?.name || authData?.user?.email || 'Guest'}</span>

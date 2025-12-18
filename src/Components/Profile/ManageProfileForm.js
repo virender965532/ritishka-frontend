@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { updateUserProfile } from '../../api/api';
+import { useSelector } from 'react-redux';
 
 
 const ManageProfileForm = () => {
   const [form, setForm] = useState({
     name: '',
-    mobile: '',
+    phone: '',
     email: '',
     dob: '',
   });
@@ -13,6 +14,18 @@ const ManageProfileForm = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [apiError, setApiError] = useState('');
+  const authData = useSelector((state) => state?.userData);
+  useEffect(() => {
+    if (authData?.user) {
+      console.log('Auth Data:', authData);
+      setForm({
+        name: authData?.user?.name || '',
+        phone: authData?.user?.phone || '',
+        email: authData?.user?.email || '',
+        dob: authData?.user?.dob || '',
+      });
+    }
+  }, [authData]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,8 +35,8 @@ const ManageProfileForm = () => {
   const validate = () => {
     const errs = {};
     if (!form.name.trim()) errs.name = 'Name is required';
-    if (!form.mobile.trim()) errs.mobile = 'Mobile number is required';
-    else if (!/^\d{10}$/.test(form.mobile)) errs.mobile = 'Enter valid 10-digit mobile number';
+    if (!form.phone.trim()) errs.phone = 'Phone number is required';
+    else if (!/^\d{10}$/.test(form.phone)) errs.phone = 'Enter valid 10-digit phone number';
     if (!form.email.trim()) errs.email = 'Email is required';
     else if (!validateEmail(form.email)) errs.email = 'Enter valid email';
     if (!form.dob) errs.dob = 'Date of birth is required';
@@ -70,16 +83,16 @@ const ManageProfileForm = () => {
         {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
       </div>
       <div>
-        <label className="block text-sm font-medium mb-1">Mobile Number</label>
+        <label className="block text-sm font-medium mb-1">Phone Number</label>
         <input
           type="text"
-          name="mobile"
-          value={form.mobile}
+          name="phone"
+          value={form.phone}
           onChange={handleChange}
           maxLength={10}
-          className={`w-full border rounded px-3 py-2 focus:outline-none ${errors.mobile ? 'border-red-500' : 'border-gray-300'}`}
+          className={`w-full border rounded px-3 py-2 focus:outline-none ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
         />
-        {errors.mobile && <p className="text-red-500 text-xs mt-1">{errors.mobile}</p>}
+        {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
       </div>
       <div>
         <label className="block text-sm font-medium mb-1">Email</label>

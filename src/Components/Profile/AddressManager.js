@@ -6,7 +6,8 @@ import {
   deleteAddress,
   markPrimaryAddress
 } from '../../api/api'
-import { FaClosedCaptioning, FaCross } from 'react-icons/fa6';
+import { FaTimes } from "react-icons/fa";
+
 
 
 // --- AddressManager Component ---
@@ -181,7 +182,7 @@ const AddressManager = () => {
         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
           <div className="bg-white rounded shadow-lg p-6 w-full max-w-4xl relative">
             <button className="absolute top-2 right-2 text-gray-500" onClick={closeModal}>
-                <FaCross size={20} />
+                <FaTimes size={20} />
             </button>
             <h4 className="text-lg font-semibold mb-4">{editId ? 'Edit Address' : 'Add New Address'}</h4>
             <form onSubmit={handleFormSubmit} className="w-full flex flex-wrap gap-4">

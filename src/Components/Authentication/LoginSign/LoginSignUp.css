@@ -1,3 +1,4 @@
+.loginSignUpSectionContainer {
 .text-danger {
   color: red !important;
   font-size: 14px;
@@ -78,11 +79,11 @@
 }
 
 .loginSignUpTabs p:hover {
-  color: black;
+  color: #b18b47;
 }
 
 .loginSignUpTabs p.active {
-  color: black;
+  color: #b18b47;
 }
 
 .loginSignUpTabs p.active::after {
@@ -92,7 +93,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: rgb(0, 0, 0);
+  background-color: #b18b47;
 }
 
 .loginSignUpTabs p:not(.active)::after {
@@ -102,7 +103,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: rgb(0, 0, 0);
+  background-color: #b18b47;
   transition: width 0.2s ease, left 0.2s ease;
 }
 
@@ -277,4 +278,5 @@
     opacity: 1;
     transform: scale(1);
   }
+}
 }

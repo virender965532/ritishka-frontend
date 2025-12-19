@@ -22,7 +22,7 @@ const Home = () => {
       <Categories />
       <CollectionBox />
       <FeaturedProducts />
-      <Trendy />
+      {/* <Trendy /> */}
       {/* <Banner /> */}
       <HotSellerProducts />
       {/* <DealTimer /> */}

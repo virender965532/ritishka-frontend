@@ -5,19 +5,48 @@ import toast from "react-hot-toast";
 
 const useCart = () => {
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state?.userData);
   const cartData = useSelector((state) => state?.cartData) || [];
 
   const addToCartHandler = useCallback(
-    (product, highlightedColorParam) => {
+    (product, highlightedColorParam = null) => {
+      if (!userData || !userData.token) {
+        toast.error("Please login to add to cart", {
+          duration: 2000,
+          style: {
+            backgroundColor: "#ff4b4b",
+            color: "white",
+          },
+          iconTheme: {
+            primary: "#fff",
+            secondary: "#ff4b4b",
+          },
+        });
+        return;
+      }
       if (!product) return;
 
       const finalColor =
         highlightedColorParam || (product?.colors && product.colors.length > 0 ? product.colors[0] : "");
 
-      const productDetails = { ...product, highlightedColor: finalColor, quantity: 1 };
-
+      const {_id: _id, quantity: quantity} = product;
+      const productDetails = { _id, quantity, highlightedColor: finalColor, quantity: 1 };
       const productInCart = cartData.find((item) => item?._id === productDetails?._id);
 
+      if (productInCart) {
+        toast.error("Product Already Added", {
+          duration: 2000,
+          style: {
+            backgroundColor: "#ff4b4b",
+            color: "white",
+          },
+          iconTheme: {
+            primary: "#fff",
+            secondary: "#ff4b4b",
+          },
+        });
+        return;
+      }
       if (productInCart && productInCart.quantity >= 500) {
         toast.error("Product limit reached", {
           duration: 2000,

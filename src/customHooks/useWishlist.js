@@ -6,11 +6,31 @@ import toast from "react-hot-toast";
 const useWishlist = () => {
   const dispatch = useDispatch();
   const wishlistData = useSelector((state) => state?.wishlistData) || [];
+  const userData = useSelector((state) => state?.userData);
 
   const addToWishlistHandler = useCallback(
-    (product) => {
-      if (!product) return;
+    (productDetail, highlightedColorParam = null) => {
+      if (!productDetail) return;
 
+      if (!userData || !userData.token) {
+        toast.error("Please login to add to wishlist", {
+          duration: 2000,
+          style: {
+            backgroundColor: "#ff4b4b",
+            color: "white",
+          },
+          iconTheme: {
+            primary: "#fff",
+            secondary: "#ff4b4b",
+          },
+        });
+
+        return;
+      }
+
+      const finalColor = highlightedColorParam || (productDetail?.colors && productDetail.colors.length > 0 ? productDetail.colors[0] : "");
+      const {_id: _id, quantity: quantity} = productDetail;
+      const product = { _id, quantity, highlightedColor: finalColor };
       const productInWishlist = wishlistData.find((item) => item?._id === product?._id);
       if (productInWishlist) return;
 
@@ -34,6 +54,22 @@ const useWishlist = () => {
     (product) => {
       if (!product) return;
 
+      if (!userData || !userData.token) {
+        toast.error("Please login to add to wishlist", {
+          duration: 2000,
+          style: {
+            backgroundColor: "#ff4b4b",
+            color: "white",
+          },
+          iconTheme: {
+            primary: "#fff",
+            secondary: "#ff4b4b",
+          },
+        });
+
+        return;
+      }
+
       dispatch(removeFromWishList(product));
       toast.error("Removed from wishlist!", {
         duration: 2000,
@@ -51,9 +87,28 @@ const useWishlist = () => {
   );
 
   const toggleWishlistHandler = useCallback(
-    (product) => {
-      if (!product) return;
-      
+    (productDetail, highlightedColorParam = null) => {
+      if (!productDetail) return;
+
+      if (!userData || !userData.token) {
+        toast.error("Please login to add to wishlist", {
+          duration: 2000,
+          style: {
+            backgroundColor: "#ff4b4b",
+            color: "white",
+          },
+          iconTheme: {
+            primary: "#fff",
+            secondary: "#ff4b4b",
+          },
+        });
+
+        return;
+      }
+
+      const finalColor = highlightedColorParam || (productDetail?.colors && productDetail.colors.length > 0 ? productDetail.colors[0] : "");
+      const {_id: _id, quantity: quantity} = productDetail;
+      const product = { _id, quantity, highlightedColor: finalColor };
       const productInWishlist = wishlistData.find((item) => item?._id === product?._id);
       if (!productInWishlist) {
         addToWishlistHandler(product);

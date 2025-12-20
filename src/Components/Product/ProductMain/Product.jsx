@@ -1,44 +1,31 @@
 import React, { useState, useEffect } from "react";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
-import { useDispatch, useSelector } from "react-redux";
-import useAddToCart from "../../../customHooks/useAddToCart";
-import useAddToWishlist from "../../../customHooks/useAddToWishlist";
+import useCart from "../../../customHooks/useCart";
+import useWishlist from "../../../customHooks/useWishlist";
 import { getImageUrl } from "../../../utils/imageUtils";
 import { GoChevronLeft } from "react-icons/go";
 import { GoChevronRight } from "react-icons/go";
-// import { FaStar } from "react-icons/fa";
 import { FiHeart } from "react-icons/fi";
-// import { PiShareNetworkLight } from "react-icons/pi";
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
 import "./Product.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { ProductBySlug } from "./../../../api/api";
-// import Subcategory from './../../../Pages/admin/Subcategory';
 
 const Product = () => {
   // Product images Gallery
-
   const { slug } = useParams();
   const navigate = useNavigate();
-  const wishlistData = useSelector((state) => state?.wishlistData);
-  const cartData = useSelector((state) => state?.cartData);
   const [highlightedColor, setHighlightedColor] = useState("");
-  const dispatch = useDispatch();
-  const [wishlistItems, setWishlistItems] = useState(wishlistData || []);
-  const [cartItems, setCartItems] = useState(cartData || []);
-  const addToCartHook = useAddToCart();
-  const toggleWishlistHook = useAddToWishlist();
-
-  React.useEffect(() => {
+  const { addToCart } = useCart();
+  const { toggleWishlist } = useWishlist();
+  useEffect(() => {
     if (!slug) {
       navigate("/");
     }
   }, [slug, navigate]);
   const [currentImg, setCurrentImg] = useState(0);
   const [product, setProduct] = useState([]);
-  const [clicked, setClicked] = useState(false);
 
   const fetchProductBySlug = () => ProductBySlug(slug).then((res) => {
         if (!res?.data) {
@@ -59,35 +46,6 @@ const Product = () => {
     }
   }, [product]);
 
-  useEffect(()=>{
-    if(product && wishlistItems){
-      const productInWishlist = (wishlistItems || []).find(item => item._id === product._id);
-      setWishlistItems((prev) => {
-        if (productInWishlist) {
-          return prev.map(item =>
-            item._id === product._id ? { ...item, quantity: 1 } : item
-          );
-        }
-        return prev;
-      });
-      setClicked(!!productInWishlist);
-    }
-  }, [wishlistItems, product])
-
-  useEffect(()=>{
-    if(product && cartItems){
-      const productInCart = (cartItems || []).find(item => item._id === product._id);
-      setCartItems((prev) => {
-        if (productInCart) {
-          return prev.map(item =>
-            item._id === product._id ? { ...item, quantity: 1 } : item
-          );
-        }
-        return prev;
-      });
-    }
-  }, [cartItems, product])
-
   const prevImg = () => {
     setCurrentImg(currentImg === 0 ? product?.images?.length - 1 : currentImg - 1);
   };
@@ -96,88 +54,12 @@ const Product = () => {
     setCurrentImg(currentImg === product?.images?.length - 1 ? 0 : currentImg + 1);
   };
 
-  // const increment = () => {
-  //   if (quantity < maxQuantity) {
-  //     setQuantity(quantity + 1);
-  //   } else {
-  //     if (quantityError) {
-  //       return;
-  //     }
-  //     toast.error(`Maximum quantity of ${maxQuantity} reached`, {
-  //       duration: 2000,
-  //       style: {
-  //         backgroundColor: "#ff4b4b",
-  //         color: "white",
-  //       },
-  //       iconTheme: {
-  //         primary: "#fff",
-  //         secondary: "#ff4b4b",
-  //       },
-  //     });
-  //     setQuantityError(true);
-  //     setTimeout(() => {
-  //       setQuantityError(false);
-  //     }, 2000);
-  //   }
-  // };
-
-  // const decrement = () => {
-  //   if (quantity > 1) {
-  //     setQuantity(quantity - 1);
-  //   } else {
-  //     if (quantityError) {
-  //       return;
-  //     }
-  //       toast.error("Quantity cannot be less than 1", {
-  //         duration: 2000,
-  //         style: {
-  //           backgroundColor: "#ff4b4b",
-  //           color: "white",
-  //       },
-  //       iconTheme: {
-  //         primary: "#fff",
-  //         secondary: "#ff4b4b",
-  //       },
-  //     });
-  //     setQuantityError(true);
-  //     setTimeout(() => {
-  //       setQuantityError(false);
-  //     }, 2000);
-  //   }
-  // };
-
-  // const handleInputChange = (event) => {
-  //   const value = parseInt(event.target.value);
-  //   if (!isNaN(value) && value > 0) {
-  //     setQuantity(value);
-  //   }
-  // };
-
   const handleWishClick = () => {
-    const willBeClicked = !clicked;
-    setClicked(willBeClicked);
-
-    const productInWishlist = (wishlistItems || []).find((item) => item._id === product._id);
-
-    if (willBeClicked) {
-      if (!productInWishlist) {
-        // use hook to add to wishlist (handles dispatch + toast)
-        toggleWishlistHook(product);
-        setWishlistItems((prev) => [...prev, product]);
-      }
-    } else {
-      if (productInWishlist) {
-        // use hook to remove from wishlist (handles dispatch + toast)
-        toggleWishlistHook(product);
-        setWishlistItems((prev) => prev.filter((item) => item._id !== product._id));
-      }
-    }
+    toggleWishlist(product, highlightedColor);
   };
 
   const handleAddToCart = () => {
-    // Delegate add-to-cart work to the custom hook. It will handle
-    // highlightedColor fallback, quantity default and toasts.
-    addToCartHook(product, highlightedColor);
+    addToCart(product, highlightedColor);
   };
 
   return (
@@ -270,7 +152,7 @@ const Product = () => {
             <div className="productWishShare">
               <div className="productWishList">
                 <button onClick={handleWishClick}>
-                  <FiHeart color={clicked ? "red" : ""} size={17} />
+                  <FiHeart color={""} size={17} />
                   <p>Add to Wishlist</p>
                 </button>
               </div>

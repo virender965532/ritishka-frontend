@@ -78,7 +78,7 @@ const LoginSignUp = () => {
         const res = await loginUser(loginData);
 
         localStorage.setItem("token", res?.data?.token);
-        dispatch(loginAndSaveData(res.data, true));
+        dispatch(loginAndSaveData(res.data));
         const role = res.data.user?.role;
         if (role === "ADMIN" || role === "SUPERADMIN") {
           navigate("/admin/dashboard");

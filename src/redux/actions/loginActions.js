@@ -36,7 +36,6 @@ export const CREATE_PROFILE = "CREATE_PROFILE";
 //create profile action
 export const loginAndSaveData = (
   loginDetails,
-  addToast,
 ) => {
   return dispatch => {
     dispatch({
@@ -47,7 +46,6 @@ export const loginAndSaveData = (
 };
 
 export const logout = (
-  addToast,
 ) => {
   return dispatch => {
     dispatch({

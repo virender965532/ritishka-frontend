@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToWishList, removeFromWishList } from "../Features/Wishlist/wishListSlice";
+import { addToWishlist, deleteFromWishlist } from "../redux/actions/wishlistActions";
 import toast from "react-hot-toast";
 
 const useWishlist = () => {
@@ -28,13 +28,13 @@ const useWishlist = () => {
         return;
       }
 
-      const finalColor = highlightedColorParam || (productDetail?.colors && productDetail.colors.length > 0 ? productDetail.colors[0] : "");
-      const {_id: _id, quantity: quantity} = productDetail;
-      const product = { _id, quantity, highlightedColor: finalColor };
-      const productInWishlist = wishlistData.find((item) => item?._id === product?._id);
+      const finalColor = highlightedColorParam || (productDetail?.colors && productDetail.colors.length > 0 ? productDetail.colors[0] : "") || productDetail?.highlightedColor;
+      const {_id} = productDetail;
+      const product = { _id, highlightedColor: finalColor };
+      const productInWishlist = wishlistData ? (wishlistData || []).find((item) => item?._id === product?._id) : null;
       if (productInWishlist) return;
 
-      dispatch(addToWishList(product));
+      dispatch(addToWishlist({product_id: _id, color: finalColor}));
       toast.success("Added to wishlist!", {
         duration: 2000,
         style: {
@@ -70,7 +70,8 @@ const useWishlist = () => {
         return;
       }
 
-      dispatch(removeFromWishList(product));
+      const id = product && product._id ? product._id : product;
+      dispatch(deleteFromWishlist(id));
       toast.error("Removed from wishlist!", {
         duration: 2000,
         style: {
@@ -107,15 +108,13 @@ const useWishlist = () => {
       }
 
       const finalColor = highlightedColorParam || (productDetail?.colors && productDetail.colors.length > 0 ? productDetail.colors[0] : "");
-      const {_id: _id, quantity: quantity} = productDetail;
-      const product = { _id, quantity, highlightedColor: finalColor };
-      const productInWishlist = wishlistData.find((item) => item?._id === product?._id);
+      const {_id} = productDetail;
+      const product = { _id, highlightedColor: finalColor };
+      const productInWishlist = wishlistData ? (wishlistData || []).find((item) => item?.product_id === product?._id) : null;
       if (!productInWishlist) {
-        addToWishlistHandler(product);
-        return true;
+        addToWishlistHandler(productDetail, highlightedColorParam);
       } else {
         removeFromWishlistHandler(product);
-        return false;
       }
     },
     [addToWishlistHandler, removeFromWishlistHandler, wishlistData]

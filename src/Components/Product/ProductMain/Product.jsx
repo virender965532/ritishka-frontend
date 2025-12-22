@@ -11,30 +11,27 @@ import { Link } from "react-router-dom";
 import "./Product.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { ProductBySlug } from "./../../../api/api";
+import { useSelector } from "react-redux";
 
 const Product = () => {
-  // Product images Gallery
   const { slug } = useParams();
   const navigate = useNavigate();
+  const wishlistData = useSelector((state) => state?.wishlistData) || [];
+  const cartData = useSelector((state) => state?.cartData) || [];
+  const [wishlistAdded, setWishlistAdded] = useState(false);
+  const [cartAdded, setCartAdded] = useState(false);
   const [highlightedColor, setHighlightedColor] = useState("");
   const { addToCart } = useCart();
   const { toggleWishlist } = useWishlist();
+  const [currentImg, setCurrentImg] = useState(0);
+  const [product, setProduct] = useState([]);
+
   useEffect(() => {
     if (!slug) {
       navigate("/");
     }
   }, [slug, navigate]);
-  const [currentImg, setCurrentImg] = useState(0);
-  const [product, setProduct] = useState([]);
 
-  const fetchProductBySlug = () => ProductBySlug(slug).then((res) => {
-        if (!res?.data) {
-          navigate("/");
-        } else {
-          setProduct(res?.data);
-        }  
-      });
-      
   useEffect(() => {
     fetchProductBySlug();
   }, []);
@@ -45,6 +42,22 @@ const Product = () => {
       setHighlightedColor(defaultColor);
     }
   }, [product]);
+
+  useEffect(() => {
+    setWishlistAdded(wishlistData.some(item => item.product_id === product._id));
+  }, [wishlistData, product]);
+
+  useEffect(() => {
+    setCartAdded(cartData.some(item => item.product_id === product._id));
+  }, [cartData, product]);
+
+  const fetchProductBySlug = () => ProductBySlug(slug).then((res) => {
+    if (!res?.data) {
+      navigate("/");
+    } else {
+      setProduct(res?.data);
+    }  
+  });
 
   const prevImg = () => {
     setCurrentImg(currentImg === 0 ? product?.images?.length - 1 : currentImg - 1);
@@ -151,10 +164,17 @@ const Product = () => {
             </div>
             <div className="productWishShare">
               <div className="productWishList">
-                <button onClick={handleWishClick}>
-                  <FiHeart color={""} size={17} />
-                  <p>Add to Wishlist</p>
+                {wishlistAdded ? (
+                  <button onClick={handleWishClick}>
+                    <FiHeart color={"red"} size={17} />
+                    <p>Remove from Wishlist</p>
+                  </button>
+                ) : (
+                  <button onClick={handleWishClick}>
+                    <FiHeart color={""} size={17} />
+                    <p>Add to Wishlist</p>
                 </button>
+                )}
               </div>
               <div className="productCartBtn">
                 <button onClick={handleAddToCart}>Add to Cart</button>

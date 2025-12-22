@@ -1,27 +1,25 @@
 import { LOGIN, LOGOUT } from "../actions/loginActions";
 
-const initState = [];
+const initState = {
+  user: null,
+  token: localStorage.getItem("token") || null,
+};
 
 const loginReducer = (state = initState, action) => {
+  switch (action.type) {
+    case LOGIN:
+      return {
+        user: action.payload.user,
+        token: action.payload.token,
+      };
 
-  if (action.type === LOGIN) {
-    return {
-      ...state,
-      user: action.payload.user,
-      token: action.payload.token,
-    }
-  } 
-  
-  if (action.type === LOGOUT) {
-    return {
-      ...state,
-      user: null,
-      token: null,
-    }
+    case LOGOUT:
+      localStorage.removeItem("token");
+      return initState;
+
+    default:
+      return state;
   }
-
-  // If the action type does not match, return the current state
-  return state;
 };
 
 export default loginReducer;

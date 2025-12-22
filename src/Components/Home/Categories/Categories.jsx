@@ -29,7 +29,7 @@ const Categories = () => {
       <div className="categories-desktop">
         <ul className="categories-list">
           {categories.map((cat) => (
-            <li className="categories-item" key={cat._id}>
+            <li className="categories-item" key={`desktop-${cat._id}`}>
               <Link to={`/shop?category=${cat.name || cat.name.toLowerCase()}`}
                 aria-label="homepage" className="categories-link">
                 <img
@@ -48,7 +48,7 @@ const Categories = () => {
         <div className="categories-scroll">
           <ul className="categories-list-mobile">
             {categories.map((cat) => (
-              <li className="categories-item-mobile" key={cat._id}>
+              <li className="categories-item-mobile" key={`mobile-${cat._id}`}>
                 <Link to={`/shop?category=${cat.name || cat.name.toLowerCase()}`}
                   aria-label="homepage" className="categories-link-mobile">
                   <img

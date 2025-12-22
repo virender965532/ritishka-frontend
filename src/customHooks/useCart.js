@@ -9,7 +9,7 @@ const useCart = () => {
   const cartData = useSelector((state) => state?.cartData) || [];
 
   const addToCartHandler = useCallback(
-    (product, highlightedColorParam = null) => {
+    (product, highlightedColorParam = null, qty = 1) => {
       if (!userData || !userData.token) {
         toast.error("Please login to add to cart", {
           duration: 2000,
@@ -29,8 +29,8 @@ const useCart = () => {
       const finalColor =
         highlightedColorParam || (product?.colors && product.colors.length > 0 ? product.colors[0] : "");
 
-      const {_id: _id, quantity: quantity} = product;
-      const productDetails = { _id, quantity, highlightedColor: finalColor, quantity: 1 };
+      const {_id: _id} = product;
+      const productDetails = { _id, highlightedColor: finalColor, quantity: qty };
       const productInCart = cartData.find((item) => item?._id === productDetails?._id);
 
       if (productInCart) {

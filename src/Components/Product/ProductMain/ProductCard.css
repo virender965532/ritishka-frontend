@@ -1,0 +1,17 @@
+.jewel-card {
+  border: 1px solid #efe6d6;
+  border-radius: 8px;
+  background: #fffdf8;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.jewel-card-img img { width: 100%; height: 220px; object-fit: cover; border-radius:6px }
+.jewel-card-body { padding: 4px 0 }
+.jewel-card-title { margin: 0; color: #4b3f2a; font-weight: 700 }
+.jewel-card-price { margin: 4px 0; color: #7c6f57; font-weight: 600 }
+.jewel-card-actions { display:flex; gap:8px }
+.jewel-btn { flex:1; padding:8px 10px; border-radius:6px; cursor:pointer; border:0; font-weight:700 }
+.jewel-btn.remove { background:#fff; color:#b04f3b; border:1px solid #f2d2c6 }
+.jewel-btn.add { background:#b18b47; color:white }

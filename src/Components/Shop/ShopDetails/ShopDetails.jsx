@@ -4,6 +4,7 @@ import useCart from "../../../customHooks/useCart";
 import useWishlist from "../../../customHooks/useWishlist";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiHeart } from "react-icons/fi";
+import { AiFillHeart } from "react-icons/ai";
 import { FaCartPlus } from "react-icons/fa";
 import RcSlider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -74,8 +75,8 @@ const ShopDetails = () => {
     filters.priceMin,
     filters.priceMax,
   ]);
-  const [wishList, setWishList] = useState({});
-  const cartItems = useSelector((state) => state?.cart?.items);
+  const wishlistData = useSelector((state) => state?.wishlistData) || [];
+  const cartData = useSelector((state) => state?.cartData) || [];
 
   // For one-time filter initialization from URL
   const [filtersInitialized, setFiltersInitialized] = useState(false);
@@ -172,7 +173,6 @@ const ShopDetails = () => {
       tag: filters.tag,
       color: filters.color,
     }).then((res) => {
-      console.log("Filtered products:", res?.data);
       setProducts(res?.data?.products || []);
       setCurrentPage(res?.data?.currentPage || 1);
       setTotalPages(res?.data?.totalPages || 1);
@@ -444,20 +444,11 @@ const ShopDetails = () => {
                       </Link>
                       <button
                         className="jewel-wishlist"
-                        onClick={() =>
-                          setWishList((prev) => ({
-                            ...prev,
-                            [product._id]: !prev[product._id],
-                          }))
-                        }
+                        onClick={() => toggleWishlist(product)}
                         title="Add to Wishlist"
+                        style={{ borderColor: `${wishlistData.some(item => item.product_id === product._id) ? "#e74c3c" : "#ffebc6"}` }}
                       >
-                        <FiHeart
-                          style={{
-                            color: wishList[product?._id] ? "#e74c3c" : GOLD,
-                            fontSize: 22,
-                          }}
-                        />
+                        {wishlistData.some(item => item.product_id === product._id) ? (<AiFillHeart size={22} color="red" />) : (<FiHeart color="#ffebc6" size={22} />)}
                       </button>
                     </div>
                     <div className="jewel-product-info">

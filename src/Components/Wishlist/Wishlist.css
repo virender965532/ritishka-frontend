@@ -1,0 +1,19 @@
+.wishlist-page {
+    .jewel-wishlist-page { padding: 28px; background: linear-gradient(180deg,#fffdf7 0%, #fff 100%); min-height:60vh }
+    .jewel-wishlist-header h1 { font-size:32px; margin:0; font-weight:800; color:#b18b47 }
+    .jewel-wishlist-header p { color:#7c6f57; margin:8px 0 20px }
+    .jewel-wishlist-body { max-width:1200px; margin:0 auto }
+    .jewel-wishlist-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:18px }
+    .jewel-wishlist-grid .jewel-card { transition: transform .18s ease, box-shadow .18s ease }
+    .jewel-wishlist-grid .jewel-card:hover { transform: translateY(-6px); box-shadow: 0 8px 30px rgba(177,139,71,0.12) }
+    .empty { text-align:center; color:#7c6f57; padding:40px; font-weight:600 }
+
+    @media (max-width: 992px) {
+    .jewel-wishlist-grid { grid-template-columns: repeat(2,1fr) }
+    }
+    @media (max-width: 600px) {
+    .jewel-wishlist-grid { grid-template-columns: 1fr }
+    .jewel-card-img img { height:180px }
+    }
+}
+

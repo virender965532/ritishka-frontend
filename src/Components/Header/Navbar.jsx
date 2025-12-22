@@ -21,6 +21,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/loginActions"; // <-- Adjust the import path as needed
 import { useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { AiFillHeart } from "react-icons/ai";
 
 const Navbar = () => {
   const wishlistData = useSelector((state) => state?.wishlistData);
@@ -158,7 +159,7 @@ const Navbar = () => {
                   horizontal: "right",
               }}
             >
-              <FiHeart size={22} onClick={scrollToTop} />
+              <AiFillHeart color="red" size={22} onClick={scrollToTop}/>
             </Badge>)}
             {wishlistItems?.length === 0 && <FiHeart size={22} />}
           </Link>

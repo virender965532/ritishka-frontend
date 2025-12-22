@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Tooltip from "@mui/material/Tooltip";
-import Zoom from "@mui/material/Zoom";
 import useCart from "../../../customHooks/useCart";
 import useWishlist from "../../../customHooks/useWishlist";
 import { getImageUrl } from "../../../utils/imageUtils";
-import { GoChevronLeft } from "react-icons/go";
-import { GoChevronRight } from "react-icons/go";
-import { FiHeart } from "react-icons/fi";
-import { Link } from "react-router-dom";
 import "./Product.css";
-import { useParams, useNavigate } from "react-router-dom";
+import ProductGallery from "./ProductGallery";
+import ProductInfo from "./ProductInfo";
+import ProductActions from "./ProductActions";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { ProductBySlug } from "./../../../api/api";
 import { useSelector } from "react-redux";
+const ProductLightbox = React.lazy(() => import("./ProductLightbox"));
 
 const Product = () => {
   const { slug } = useParams();
@@ -71,136 +69,53 @@ const Product = () => {
     toggleWishlist(product, highlightedColor);
   };
 
-  const handleAddToCart = () => {
-    addToCart(product, highlightedColor);
+  const handleAddToCart = (quantity = 1) => {
+    addToCart(product, highlightedColor, quantity);
   };
 
+  // lightbox
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const openLightbox = (i) => { setLightboxIndex(i || 0); setLightboxOpen(true); };
+  const closeLightbox = () => setLightboxOpen(false);
+  const lightPrev = () => setLightboxIndex((p) => p === 0 ? (product?.images?.length - 1 || 0) : p - 1);
+  const lightNext = () => setLightboxIndex((p) => p === (product?.images?.length - 1) ? 0 : p + 1);
+
   return (
-    <>
+    <div className="productContainer">
       <div className="productSection">
-        <div className="productShowCase">
-          <div className="productGallery">
-            <div className="productThumb">
-              <img src={product?.images ? getImageUrl(product?.images[0]) : `#`} onClick={() => setCurrentImg(0)} alt="" />
-              <img src={product?.images ? getImageUrl(product?.images[1]) : `#`} onClick={() => setCurrentImg(1)} alt="" />
-              <img src={product?.images ? getImageUrl(product?.images[2]) : `#`} onClick={() => setCurrentImg(2)} alt="" />
-              <img src={product?.images ? getImageUrl(product?.images[3]) : `#`} onClick={() => setCurrentImg(3)} alt="" />
-              <img src={product?.images ? getImageUrl(product?.images[4]) : `#`} onClick={() => setCurrentImg(4)} alt="" />
-              <img src={product?.images ? getImageUrl(product?.images[5]) : `#`} onClick={() => setCurrentImg(5)} alt="" />
-            </div>
-            <div className="productFullImg">
-              <img src={product?.images ? getImageUrl(product?.images[currentImg]) : `#`} alt="" />
-              <div className="buttonsGroup">
-                <button onClick={prevImg} className="directionBtn">
-                  <GoChevronLeft size={18} />
-                </button>
-                <button onClick={nextImg} className="directionBtn">
-                  <GoChevronRight size={18} />
-                </button>
-              </div>
-            </div>
+        <div className="productBreadcrumb">
+          <div className="breadcrumbLink">
+            <Link to="/">Home</Link>&nbsp;/&nbsp;
+            <Link to="/shop">Shop</Link>&nbsp;/&nbsp;
+            <p>{product?.title || ''}</p>
           </div>
-          <div className="productDetails">
-            <div className="productBreadcrumb">
-              <div className="breadcrumbLink">
-                <Link to="/">Home</Link>&nbsp;/&nbsp;
-                <Link to="/shop">Shop</Link>&nbsp;/&nbsp;
-                <p>{product?.title || ''}</p>
-              </div>
-            </div>
-            <div className="productName">
-              <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>{product?.brand || ''}</h1>
-              <h2>{product?.title || ''}</h2>
-            </div>
-            {/* <div className="productRating">
-              <FaStar color="#FEC78A" size={10} />
-              <FaStar color="#FEC78A" size={10} />
-              <FaStar color="#FEC78A" size={10} />
-              <FaStar color="#FEC78A" size={10} />
-              <FaStar color="#FEC78A" size={10} />
-              <p>8k+ reviews</p>
-            </div> */}
-            <div className="productPrice">
-              <h3>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.price)}</h3>
-            </div>
-            <div className="productDescription">
-              <p>{product?.shortDescription  || ''}</p>
-            </div>
-            <div className="productDescription">
-              <p>{product?.description  || ''}</p>
-            </div>
-            <div className="productSizeColor">
-              <div className="productColor">
-                <p>Color</p>
-                <div className="colorBtn">
-                  {product?.colors?.map((color) => (
-                    <Tooltip
-                      key={color}
-                      placement="top"
-                      enterTouchDelay={0}
-                      TransitionComponent={Zoom}
-                      arrow
-                    >
-                      <button
-                        className={
-                          highlightedColor === color ? "highlighted" : ""
-                        }
-                        style={{
-                          backgroundColor: color.toLowerCase(),
-                          border:
-                            highlightedColor === color
-                              ? "0px solid #000"
-                              : "0px solid white",
-                          padding: "8px",
-                          margin: "5px",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => setHighlightedColor(color)}
-                      />
-                    </Tooltip>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="productWishShare">
-              <div className="productWishList">
-                {wishlistAdded ? (
-                  <button onClick={handleWishClick}>
-                    <FiHeart color={"red"} size={17} />
-                    <p>Remove from Wishlist</p>
-                  </button>
-                ) : (
-                  <button onClick={handleWishClick}>
-                    <FiHeart color={""} size={17} />
-                    <p>Add to Wishlist</p>
-                </button>
-                )}
-              </div>
-              <div className="productCartBtn">
-                <button onClick={handleAddToCart}>Add to Cart</button>
-              </div>
-              {/* <div className="productShare">
-                <PiShareNetworkLight size={22} />
-                <p>Share</p>
-              </div> */}
-            </div>
-            <div className="productTags">
-              <p>
-                <span>CATEGORIES: </span>{product?.category?.name || 'N/A'}
-              </p>
-              <p>
-                <span>SUB-CATEGORIES: </span>{product?.subcategory?.name || 'N/A'}
-              </p>
-              <p>
-                <span>TAGS: </span>{product?.tags?.length > 0 ? product?.tags.map((el, index)=> {
-                  return el?.name
-                }).join(',') : 'N/A'}
-              </p>
-            </div>
+        </div>
+        <div className="productShowCase">
+          <div className="productGalleryWrapper">
+            <ProductGallery
+              product={product}
+              currentImg={currentImg}
+              setCurrentImg={setCurrentImg}
+              prevImg={prevImg}
+              nextImg={nextImg}
+              onOpenLightbox={openLightbox}
+            />
+          </div>
+          <div className="productDetailsWrapper">
+            <ProductInfo product={product} highlightedColor={highlightedColor} setHighlightedColor={setHighlightedColor} />
+            <ProductActions wishlistAdded={wishlistAdded} cartAdded={cartAdded} handleWishClick={handleWishClick} handleAddToCart={handleAddToCart} />
           </div>
         </div>
       </div>
-    </>
+      {lightboxOpen && (
+        // lazy load ProductLightbox to avoid circular issues
+        <React.Suspense fallback={null}>
+          <ProductLightbox images={product?.images || []} startIndex={lightboxIndex} onClose={closeLightbox} onPrev={lightPrev} onNext={lightNext} />
+        </React.Suspense>
+      )}
+    </div>
   );
 };
 

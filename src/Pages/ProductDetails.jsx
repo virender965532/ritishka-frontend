@@ -8,7 +8,7 @@ const ProductDetails = () => {
     <>
       <Product />
       <AdditionalInfo />
-      <RelatedProducts />
+      {/* <RelatedProducts /> */}
     </>
   );
 };

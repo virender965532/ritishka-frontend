@@ -465,8 +465,8 @@
 }
 .jewel-product-img-wrap {
   position: relative;
-  width: 180px;
-  height: 220px;
+  width: 100%;
+  height: 350px;
   border-radius: 14px;
   overflow: hidden;
   background: #ffebc6;
@@ -504,8 +504,8 @@
 }
 .jewel-wishlist {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 3px;
+  right: 3px;
   background: #fff;
   border: 2px solid #ffebc6;
   border-radius: 50%;

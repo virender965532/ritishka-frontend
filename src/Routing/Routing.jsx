@@ -13,6 +13,7 @@ import ResetPass from "./../Components/Authentication/Reset/ResetPass";
 import BlogDetails from "./../Components/Blog/BlogDetails/BlogDetails";
 import TermsConditions from "./../Pages/TermsConditions";
 import ShoppingCart from "./../Components/ShoppingCart/ShoppingCart";
+import Wishlist from "../Components/Wishlist/Wishlist";
 import Checkout from "./../Components/Checkout/Checkout";
 import Category from './../Pages/admin/Category';
 import Subcategory from './../Pages/admin/Subcategory';
@@ -87,6 +88,7 @@ const Routing = () => {
           <Route path="/BlogDetails" element={<BlogDetails />} />
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/cart" element={<ShoppingCart />} />
+          <Route path="/wishlist" element={<PrivateRoute><Wishlist /></PrivateRoute>} />
           <Route path="/care" element={<Care/>}/>
           <Route path="/policy" element={<Policy/>}/>
           <Route path="/RefundPolicy" element={<RefundPolicy/>}/>

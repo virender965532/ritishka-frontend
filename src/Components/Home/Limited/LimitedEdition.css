@@ -94,6 +94,14 @@
   width: 95%;
 } */
 
+.limitedProductInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 92%;
+  margin: 5px 5px 5px 5px
+}
+
 .lpCategoryWishlist {
   display: flex;
   justify-content: space-between;

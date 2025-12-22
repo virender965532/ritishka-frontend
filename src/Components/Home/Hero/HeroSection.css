@@ -2,6 +2,7 @@
   /* background-color: #e7d5d1; */
   /* background-image: url("../../../Assets/slideshow-pattern.png"); */
   background-size: cover;
+  position: relative;
   padding: 20px 20px;
   display: flex;
   align-items: center;
@@ -204,7 +205,7 @@
 
   .heroArrow.left {
     left: 8px;
-    top: 50%
+    top: 50%;
   }
 
   .heroArrow.right {
@@ -264,12 +265,12 @@
 
   .heroArrow.left {
     left: 2px;
-    top: 34%;
+    top: 50%;
   }
 
   .heroArrow.right {
     right: 2px;
-    top: 34%;
+    top: 50%;
   }
 }
 

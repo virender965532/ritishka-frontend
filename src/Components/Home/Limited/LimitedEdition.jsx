@@ -134,14 +134,14 @@ const LimitedEdition = () => {
                         </Link>
                         {product?.price && (
                           <>
-                          <div className="productPriceInfo">
-                          <span className={`` + (product?.discountedPrice ? "productPriceStrikeOut" : "productPrice")}>
-                            <p>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.price || 0)}</p>
-                          </span>
-                          {product?.discountedPrice && (<span className="productPrice">
-                            <p>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.discountedPrice || 0)}</p>
-                          </span>)}
-                        </div>
+                          <div className="jewel-product-price">
+                              <span className="jewel-product-original">
+                                {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.price || 0)}
+                              </span>
+                              <span className="jewel-product-discount">
+                                {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(product?.discountedPrice || 0)}
+                              </span>
+                            </div>
                           </>
                         )}
                         {/* <div className="productRatingReviews">

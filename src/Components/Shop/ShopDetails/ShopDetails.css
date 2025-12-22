@@ -563,12 +563,12 @@
 }
 .jewel-product-original {
   text-decoration: line-through;
-  color: #bfa14a;
+  color: #e74c3c;
   font-size: 1rem;
   margin-right: 6px;
 }
 .jewel-product-discount {
-  color: #e74c3c;
+  color: #bfa14a;
   font-size: 1.2rem;
   font-weight: 700;
 }

@@ -371,7 +371,7 @@
 .jewel-shop-main {
   display: flex;
   gap: 18px;
-  padding: 36px 8vw 0 8vw;
+  padding: 36px 2vw 36px 3vw;
 }
 .jewel-shop-sidebar {
   width: 230px;
@@ -474,6 +474,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  object-fit: contain;
 }
 .jewel-product-img {
   width: 100%;
@@ -504,8 +505,8 @@
 }
 .jewel-wishlist {
   position: absolute;
-  top: 3px;
-  right: 3px;
+  top: 5px;
+  right: 5px;
   background: #fff;
   border: 2px solid #ffebc6;
   border-radius: 50%;

@@ -1,0 +1,11 @@
+.wb-button{
+  background: transparent;
+  border: none;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.wb-button:focus{outline: none}
+.wb-icon{display:block}

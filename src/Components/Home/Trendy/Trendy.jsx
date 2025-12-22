@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../Features/Cart/cartSlice";
 import { getImageUrl } from "../../../utils/imageUtils";
 import { Link } from "react-router-dom";
-import { FiHeart } from "react-icons/fi";
+import WishlistButton from "../../Common/WishlistButton/WishlistButton";
 import { FaCartPlus } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { fetchTags, ProductTag } from "./../../../api/api";
@@ -156,15 +156,7 @@ const Trendy = () => {
                               <div className="trendyProductInfo">
                                 <div className="trendyProductCategoryWishlist">
                                   <p>{product?.category?.name || ''}</p>
-                                  <FiHeart
-                                    onClick={() => handleWishlistClick(product._id)}
-                                    style={{
-                                      color: wishList[product._id]
-                                        ? "red"
-                                        : "#767676",
-                                      cursor: "pointer",
-                                    }}
-                                  />
+                                  <WishlistButton product={product} size={18} />
                                 </div>
                                 <div className="trendyProductNameInfo">
                                   <Link to={product?.slug ? `/product/` + product?.slug : '/shop'} onClick={scrollToTop}>

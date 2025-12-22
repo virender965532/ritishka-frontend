@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./LimitedEdition.css";
 
 import useCart from "../../../customHooks/useCart";
-import useWishlist from "../../../customHooks/useWishlist";
+import WishlistButton from "../../Common/WishlistButton/WishlistButton";
 import { getImageUrl } from "../../../utils/imageUtils";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -15,8 +15,6 @@ import { Autoplay } from "swiper/modules";
 import { Link } from "react-router-dom";
 
 // import StoreData from "../../../Data/StoreData";
-
-import { FiHeart } from "react-icons/fi";
 // import { FaStar } from "react-icons/fa";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaCartPlus } from "react-icons/fa";
@@ -27,7 +25,6 @@ import { useSelector } from 'react-redux';
 
 const HotSellerProducts = () => {
   const { addToCart } = useCart();
-  const { toggleWishlist } = useWishlist();
   const [wishList, setWishList] = useState({});
   const [products, setProducts] = useState([]);
 
@@ -40,13 +37,7 @@ const HotSellerProducts = () => {
   }, []);
   
 
-  const handleWishlistClick = (product) => {
-    const isNowInWishlist = toggleWishlist(product);
-    setWishList((prevWishlist) => ({
-      ...prevWishlist,
-      [product._id]: isNowInWishlist,
-    }));
-  };
+  
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -137,13 +128,7 @@ const HotSellerProducts = () => {
                     <div className="limitedProductInfo">
                       <div className="lpCategoryWishlist">
                         <p>{product?.category?.name}</p>
-                        <FiHeart
-                          onClick={() => handleWishlistClick(product?._id)}
-                          style={{
-                            color: wishList[product?._id] ? "red" : "#767676",
-                            cursor: "pointer",
-                          }}
-                        />
+                        <WishlistButton product={product} size={18} />
                       </div>
                       <div className="productNameInfo">
                         <Link

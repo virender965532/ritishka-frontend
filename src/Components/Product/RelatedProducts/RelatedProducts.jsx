@@ -10,7 +10,7 @@ import { Navigation } from "swiper/modules";
 import StoreData from "../../../Data/StoreData";
 import { getImageUrl } from "../../../utils/imageUtils";
 
-import { FiHeart } from "react-icons/fi";
+import WishlistButton from "../../Common/WishlistButton/WishlistButton";
 import { FaStar } from "react-icons/fa";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
@@ -95,15 +95,7 @@ const RelatedProducts = () => {
                     <div className="relatedProductInfo">
                       <div className="rpCategoryWishlist">
                         <p>Dresses</p>
-                        <FiHeart
-                          onClick={() => handleWishlistClick(product.productID)}
-                          style={{
-                            color: wishList[product.productID]
-                              ? "red"
-                              : "#767676",
-                            cursor: "pointer",
-                          }}
-                        />
+                        <WishlistButton productId={product.productID} size={16} />
                       </div>
                       <div className="productNameInfo">
                         <h5 onClick={scrollToTop}>{product.productName}</h5>

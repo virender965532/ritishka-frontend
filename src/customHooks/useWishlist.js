@@ -10,7 +10,7 @@ const useWishlist = () => {
 
   const addToWishlistHandler = useCallback(
     (productDetail, highlightedColorParam = null) => {
-      if (!productDetail) return;
+      if (!productDetail) return false;
 
       if (!userData || !userData.token) {
         toast.error("Please login to add to wishlist", {
@@ -25,14 +25,14 @@ const useWishlist = () => {
           },
         });
 
-        return;
+        return false;
       }
 
       const finalColor = highlightedColorParam || (productDetail?.colors && productDetail.colors.length > 0 ? productDetail.colors[0] : "") || productDetail?.highlightedColor;
-      const {_id} = productDetail;
-      const product = { _id, highlightedColor: finalColor };
-      const productInWishlist = wishlistData ? (wishlistData || []).find((item) => item?._id === product?._id) : null;
-      if (productInWishlist) return;
+      const {_id} = typeof productDetail === 'string' ? { _id: productDetail } : productDetail;
+      const product = { _id: _id, highlightedColor: finalColor };
+      const productInWishlist = wishlistData ? (wishlistData || []).find((item) => item?.product_id === product?._id) : null;
+      if (productInWishlist) return false;
 
       dispatch(addToWishlist({product_id: _id, color: finalColor}));
       toast.success("Added to wishlist!", {
@@ -46,13 +46,14 @@ const useWishlist = () => {
           secondary: "#07bc0c",
         },
       });
+      return true;
     },
-    [dispatch, wishlistData]
+    [dispatch, wishlistData, userData]
   );
 
   const removeFromWishlistHandler = useCallback(
     (product) => {
-      if (!product) return;
+      if (!product) return false;
 
       if (!userData || !userData.token) {
         toast.error("Please login to add to wishlist", {
@@ -67,7 +68,7 @@ const useWishlist = () => {
           },
         });
 
-        return;
+        return false;
       }
 
       const id = product && product._id ? product._id : product;
@@ -83,13 +84,14 @@ const useWishlist = () => {
           secondary: "#ff4b4b",
         },
       });
+      return true;
     },
-    [dispatch]
+    [dispatch, userData]
   );
 
   const toggleWishlistHandler = useCallback(
-    (productDetail, highlightedColorParam = null) => {
-      if (!productDetail) return;
+    (productDetailOrId, highlightedColorParam = null) => {
+      if (!productDetailOrId) return null;
 
       if (!userData || !userData.token) {
         toast.error("Please login to add to wishlist", {
@@ -104,20 +106,21 @@ const useWishlist = () => {
           },
         });
 
-        return;
+        return null;
       }
 
-      const finalColor = highlightedColorParam || (productDetail?.colors && productDetail.colors.length > 0 ? productDetail.colors[0] : "");
-      const {_id} = productDetail;
-      const product = { _id, highlightedColor: finalColor };
-      const productInWishlist = wishlistData ? (wishlistData || []).find((item) => item?.product_id === product?._id) : null;
+      const id = typeof productDetailOrId === 'string' ? productDetailOrId : productDetailOrId._id;
+      const finalColor = highlightedColorParam || (productDetailOrId?.colors && productDetailOrId.colors.length > 0 ? productDetailOrId.colors[0] : "");
+      const productInWishlist = wishlistData ? (wishlistData || []).find((item) => item?.product_id === id) : null;
       if (!productInWishlist) {
-        addToWishlistHandler(productDetail, highlightedColorParam);
+        addToWishlistHandler(typeof productDetailOrId === 'string' ? { _id: id } : productDetailOrId, highlightedColorParam);
+        return true;
       } else {
-        removeFromWishlistHandler(product);
+        removeFromWishlistHandler(id);
+        return false;
       }
     },
-    [addToWishlistHandler, removeFromWishlistHandler, wishlistData]
+    [addToWishlistHandler, removeFromWishlistHandler, wishlistData, userData]
   );
 
   return {

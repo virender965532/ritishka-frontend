@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./ShopDetails.css";
 import useCart from "../../../customHooks/useCart";
-import useWishlist from "../../../customHooks/useWishlist";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FiHeart } from "react-icons/fi";
-import { AiFillHeart } from "react-icons/ai";
+import WishlistButton from "../../Common/WishlistButton/WishlistButton";
 import { FaCartPlus } from "react-icons/fa";
 import RcSlider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -46,7 +44,6 @@ const ShopDetails = () => {
   const navigate = useNavigate();
   const query = useQuery();
   const { addToCart } = useCart();
-  const { toggleWishlist } = useWishlist();
 
   // Filter options
   const [allCategories, setAllCategories] = useState([]);
@@ -442,14 +439,12 @@ const ShopDetails = () => {
                           />
                         )}
                       </Link>
-                      <button
+                      <WishlistButton
+                        product={product}
+                        size={22}
                         className="jewel-wishlist"
-                        onClick={() => toggleWishlist(product)}
-                        title="Add to Wishlist"
                         style={{ borderColor: `${wishlistData.some(item => item.product_id === product._id) ? "#e74c3c" : "#ffebc6"}` }}
-                      >
-                        {wishlistData.some(item => item.product_id === product._id) ? (<AiFillHeart size={22} color="red" />) : (<FiHeart color="#ffebc6" size={22} />)}
-                      </button>
+                      />
                     </div>
                     <div className="jewel-product-info">
                       <div className="jewel-product-category">

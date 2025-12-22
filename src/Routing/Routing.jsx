@@ -88,7 +88,7 @@ const Routing = () => {
           <Route path="/BlogDetails" element={<BlogDetails />} />
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/cart" element={<ShoppingCart />} />
-          <Route path="/wishlist" element={<PrivateRoute><Wishlist /></PrivateRoute>} />
+          <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/care" element={<Care/>}/>
           <Route path="/policy" element={<Policy/>}/>
           <Route path="/RefundPolicy" element={<RefundPolicy/>}/>

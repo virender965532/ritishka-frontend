@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./Trendy.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../../Features/Cart/cartSlice";
 import { getImageUrl } from "../../../utils/imageUtils";
 import { Link } from "react-router-dom";
 import WishlistButton from "../../Common/WishlistButton/WishlistButton";
 import { FaCartPlus } from "react-icons/fa";
-import toast from "react-hot-toast";
 import { fetchTags, ProductTag } from "./../../../api/api";
 
 const Trendy = () => {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("tab0");
-  const [wishList, setWishList] = useState({});
   const [tags, setTags] = useState([]);
   const [productTagData, setProductTagData] = useState([]);
   const [tagurl, setTagUrl] = useState("/shop?tag=[]");
@@ -44,60 +41,8 @@ const Trendy = () => {
       behavior: "smooth",
     });
   };
-
-  const handleWishlistClick = (productID) => {
-    setWishList((prevWishlist) => ({
-      ...prevWishlist,
-      [productID]: !prevWishlist[productID],
-    }));
-  };
-
-  const sortByPrice = (a, b) => a.productPrice - b.productPrice;
-
-  const sortByReviews = (a, b) => {
-    const reviewsA = parseInt(
-      a.productReviews.replace("k+ reviews", "").replace(",", "")
-    );
-    const reviewsB = parseInt(
-      b.productReviews.replace("k+ reviews", "").replace(",", "")
-    );
-    return reviewsB - reviewsA;
-  };
-
   const cartItems = useSelector((state) => state?.cart?.items);
 
-  const handleAddToCart = (product) => {
-    const productInCart = cartItems.find(
-      (item) => item.productID === product.productID
-    );
-
-    if (productInCart && productInCart.quantity >= 20) {
-      toast.error("Product limit reached", {
-        duration: 2000,
-        style: {
-          backgroundColor: "#ff4b4b",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#ff4b4b",
-        },
-      });
-    } else {
-      dispatch(addToCart(product));
-      toast.success(`Added to cart!`, {
-        duration: 2000,
-        style: {
-          backgroundColor: "#07bc0c",
-          color: "white",
-        },
-        iconTheme: {
-          primary: "#fff",
-          secondary: "#07bc0c",
-        },
-      });
-    }
-  };
 
   return (
     <>
@@ -143,13 +88,12 @@ const Trendy = () => {
                                     className="trendyProduct_back"
                                   />
                                 </Link>
-                                <h4 onClick={() => handleAddToCart(product)}>
+                                <h4 >
                                   Add to Cart
                                 </h4>
                               </div>
                               <div
                                 className="trendyProductImagesCart"
-                                onClick={() => handleAddToCart(product)}
                               >
                                 <FaCartPlus />
                               </div>

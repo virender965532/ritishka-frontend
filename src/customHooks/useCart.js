@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart, updateQuantity } from "../Features/Cart/cartSlice";
+import { addToCart, deleteFromCart, updateQuantity } from "../redux/actions/cartActions";
 import toast from "react-hot-toast";
 
 const useCart = () => {
@@ -34,18 +34,7 @@ const useCart = () => {
       const productInCart = cartData.find((item) => item?._id === productDetails?._id);
 
       if (productInCart) {
-        toast.error("Product Already Added", {
-          duration: 2000,
-          style: {
-            backgroundColor: "#ff4b4b",
-            color: "white",
-          },
-          iconTheme: {
-            primary: "#fff",
-            secondary: "#ff4b4b",
-          },
-        });
-        return;
+        productDetails.quantity = productInCart.quantity + qty;
       }
       if (productInCart && productInCart.quantity >= 500) {
         toast.error("Product limit reached", {
@@ -82,7 +71,7 @@ const useCart = () => {
     (productId) => {
       if (!productId) return;
 
-      dispatch(removeFromCart(productId));
+      dispatch(deleteFromCart(productId));
       toast.success("Removed from cart!", {
         duration: 2000,
         style: {

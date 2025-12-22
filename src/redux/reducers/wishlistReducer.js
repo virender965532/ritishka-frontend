@@ -5,6 +5,7 @@ import {
   DELETE_ALL_FROM_WISHLIST,
   SET_WISHLIST
 } from "../actions/wishlistActions";
+import { LOGOUT } from "../actions/loginActions";
 
 const initState = [];
 
@@ -37,6 +38,10 @@ const wishlistReducer = (state = initState, action) => {
   if (action.type === SET_WISHLIST) {
     return Array.isArray(action.payload) ? action.payload : wishlistItems;
 
+  }
+
+  if (action.type === LOGOUT) {
+    return initState;
   }
 
   return wishlistItems;

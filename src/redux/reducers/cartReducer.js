@@ -6,6 +6,7 @@ import {
   REMOVE_ALL_FROM_CART,
   UPDATE_QUANTITY
 } from "../actions/cartActions";
+import { LOGOUT } from "../actions/loginActions";
 
 const initState = [];
 
@@ -78,6 +79,10 @@ const cartReducer = (state = initState, action) => {
 
   if (action.type === REMOVE_ALL_FROM_CART) {
     return [];
+  }
+
+  if (action.type === LOGOUT) {
+    return initState;
   }
 
   return state;

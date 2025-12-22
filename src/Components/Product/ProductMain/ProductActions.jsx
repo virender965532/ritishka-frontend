@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FiHeart } from "react-icons/fi";
 import { AiFillHeart  } from "react-icons/ai";
+import CartButton from "../../Common/CartButton";
 
 const ProductActions = ({ wishlistAdded, cartAdded, handleWishClick, handleAddToCart }) => {
   const [quantity, setQuantity] = useState(1);
@@ -36,7 +37,7 @@ const ProductActions = ({ wishlistAdded, cartAdded, handleWishClick, handleAddTo
       </div>
 
       <div className="productCartBtn">
-        <button onClick={onAdd}>Add to Cart</button>
+        <CartButton onClick={onAdd}>Add to Cart</CartButton>
       </div>
     </div>
   );

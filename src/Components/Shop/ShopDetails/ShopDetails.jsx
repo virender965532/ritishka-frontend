@@ -3,6 +3,7 @@ import "./ShopDetails.css";
 import useCart from "../../../customHooks/useCart";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import WishlistButton from "../../Common/WishlistButton/WishlistButton";
+import CartButton from "../../Common/CartButton";
 import { FaCartPlus } from "react-icons/fa";
 import RcSlider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -465,13 +466,10 @@ const ShopDetails = () => {
                           {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR'}).format(discounted)}
                         </span>
                       </div>
-                      <button
-                        className="jewel-add-cart"
-                        onClick={() => handleAddToCart(product)}
-                      >
+                      <CartButton className="jewel-add-cart" onClick={() => handleAddToCart(product)}>
                         <FaCartPlus style={{ marginRight: 6 }} />
                         Add to Cart
-                      </button>
+                      </CartButton>
                     </div>
                   </div>
                 );

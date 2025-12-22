@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./LimitedEdition.css";
 
 import useCart from "../../../customHooks/useCart";
+import CartButton from "../../Common/CartButton";
 import WishlistButton from "../../Common/WishlistButton/WishlistButton";
 import { getImageUrl } from "../../../utils/imageUtils";
 
@@ -115,15 +116,14 @@ const HotSellerProducts = () => {
                           className="lpImage"
                         />
                       </Link>
-                      <h4 onClick={() => handleAddToCart(product)}>
-                        Add to Cart
-                      </h4>
+                      <CartButton onClick={() => handleAddToCart(product)}>
+                        <FaCartPlus style={{ marginRight: 6 }} /> Add to Cart
+                      </CartButton>
                     </div>
-                    <div
-                      className="lpProductImagesCart"
-                      onClick={() => handleAddToCart(product)}
-                    >
-                      <FaCartPlus />
+                    <div className="lpProductImagesCart">
+                      <CartButton onClick={() => handleAddToCart(product)}>
+                        <FaCartPlus />
+                      </CartButton>
                     </div>
                     <div className="limitedProductInfo">
                       <div className="lpCategoryWishlist">

@@ -1,10 +1,10 @@
-import { v4 as uuid } from "uuid";
 import {
   ADD_TO_CART,
   DECREASE_QUANTITY,
   REMOVE_FROM_CART,
   REMOVE_ALL_FROM_CART,
-  UPDATE_QUANTITY
+  UPDATE_QUANTITY,
+  SET_CART
 } from "../actions/cartActions";
 import { LOGOUT } from "../actions/loginActions";
 
@@ -14,9 +14,11 @@ const cartReducer = (state = initState, action) => {
   const cartItems = state;
   const product = action.payload;
 
+  const getId = item => (item && (item._id || item.product_id || item.id)) || null;
+
   if (action.type === ADD_TO_CART) {
     // no variation (your products only have highlightedColor right now)
-    const cartItem = cartItems.find(item => item._id === product._id);
+    const cartItem = cartItems.find(item => getId(item) === getId(product));
 
     if (!cartItem) {
       // Add new item
@@ -24,17 +26,16 @@ const cartReducer = (state = initState, action) => {
         ...cartItems,
         {
           ...product,
-          quantity: product.quantity ? product.quantity : 1,
-          cartItemId: uuid()
+          quantity: typeof product.quantity === 'number' ? product.quantity : 1
         }
       ];
     } else {
       // Increase quantity of existing item
       return cartItems.map(item =>
-        item.cartItemId === cartItem.cartItemId
+        getId(item) === getId(cartItem)
           ? {
               ...item,
-              quantity: product.quantity
+              quantity: typeof product.quantity === 'number'
                 ? item.quantity + product.quantity
                 : item.quantity + 1
             }
@@ -44,37 +45,41 @@ const cartReducer = (state = initState, action) => {
   }
 
   if (action.type === DECREASE_QUANTITY) {
-    if (product.quantity === 1) {
-      return cartItems.filter(
-        cartItem => cartItem.cartItemId !== product.cartItemId
-      );
-    } else {
+    const id = getId(product);
+    if (typeof product.quantity === 'number') {
+      if (product.quantity <= 0 || product.quantity === 0) {
+        return cartItems.filter(cartItem => getId(cartItem) !== id);
+      }
       return cartItems.map(item =>
-        item.cartItemId === product.cartItemId
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
+        getId(item) === id ? { ...item, quantity: product.quantity } : item
       );
     }
+    // fallback: decrement by 1
+    return cartItems.map(item =>
+      getId(item) === id ? { ...item, quantity: Math.max(0, item.quantity - 1) } : item
+    );
   }
 
   if (action.type === UPDATE_QUANTITY) {
-    console.log("Updating quantity for product:", product, action);
-    if (product.quantity === 0) {
-      return cartItems.filter(
-        cartItem => cartItem._id !== product._id
-      );
-    } else {
+    const id = getId(product);
+    if (typeof product.quantity === 'number') {
+      if (product.quantity === 0) {
+        return cartItems.filter(cartItem => getId(cartItem) !== id);
+      }
       return cartItems.map(item =>
-        item._id === product._id
-          ? { ...item, quantity: product.quantity }
-          : item
+        getId(item) === id ? { ...item, quantity: product.quantity } : item
       );
     }
+    return cartItems;
   }
 
   if (action.type === REMOVE_FROM_CART) {
-    const cartItemId = product;
-    return cartItems.filter(cartItem => cartItem._id !== cartItemId);
+    const cartItemId = action.payload;
+    return cartItems.filter(cartItem => getId(cartItem) !== cartItemId);
+  }
+
+  if (action.type === SET_CART) {
+    return Array.isArray(action.payload) ? action.payload : cartItems;
   }
 
   if (action.type === REMOVE_ALL_FROM_CART) {

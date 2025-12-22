@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getImageUrl } from "../../../utils/imageUtils";
 import { Link } from "react-router-dom";
 import WishlistButton from "../../Common/WishlistButton/WishlistButton";
+import CartButton from "../../Common/CartButton";
+import useCart from "../../../customHooks/useCart";
 import { FaCartPlus } from "react-icons/fa";
 import { fetchTags, ProductTag } from "./../../../api/api";
 
@@ -42,6 +44,7 @@ const Trendy = () => {
     });
   };
   const cartItems = useSelector((state) => state?.cart?.items);
+  const { addToCart } = useCart();
 
 
   return (
@@ -88,14 +91,14 @@ const Trendy = () => {
                                     className="trendyProduct_back"
                                   />
                                 </Link>
-                                <h4 >
-                                  Add to Cart
-                                </h4>
+                                <CartButton onClick={() => addToCart(product)}>
+                                  <FaCartPlus style={{ marginRight: 6 }} /> Add to Cart
+                                </CartButton>
                               </div>
-                              <div
-                                className="trendyProductImagesCart"
-                              >
-                                <FaCartPlus />
+                              <div className="trendyProductImagesCart">
+                                <CartButton onClick={() => addToCart(product)}>
+                                  <FaCartPlus />
+                                </CartButton>
                               </div>
                               <div className="trendyProductInfo">
                                 <div className="trendyProductCategoryWishlist">

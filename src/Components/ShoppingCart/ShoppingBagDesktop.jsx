@@ -29,8 +29,8 @@ const ShoppingBagDesktop = ({
       </thead>
 
       <tbody>
-        {cartItems.length > 0 ? (
-          cartItems.map((item) => (
+        {cartItems.length > 0 && cartItems[0].hasOwnProperty('_id') ? (
+          (cartItems || []).map((item) => (
             <tr key={item?._id}>
               <td className="">
                 <Link to={`/product/${item?.slug}`} onClick={scrollToTop}>

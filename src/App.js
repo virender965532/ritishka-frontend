@@ -10,6 +10,7 @@ import Routing from "./Routing/Routing";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile, getWishlist } from "./api/api";
 import { loginAndSaveData } from "./redux/actions/loginActions";
+import { fetchCart } from "./redux/actions/cartActions";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,8 @@ const App = () => {
           type: "wishlist/setWishlist",
           payload: wishlistRes.data?.items || [],
         });
+        // load cart after successful profile load
+        dispatch(fetchCart());
       } catch (err) {
         console.error("Session expired");
         localStorage.removeItem("token");

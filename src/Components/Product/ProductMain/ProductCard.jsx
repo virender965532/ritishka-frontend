@@ -1,6 +1,7 @@
 import React from "react";
 import { getImageUrl } from "../../../utils/imageUtils";
 import "./ProductCard.css";
+import CartButton from "../../Common/CartButton";
 
 const ProductCard = ({ product, wishlistEntry, onRemove, onAddToCart }) => {
   const img = product?.images && product.images[0] ? getImageUrl(product.images[0]) : "#";
@@ -20,7 +21,7 @@ const ProductCard = ({ product, wishlistEntry, onRemove, onAddToCart }) => {
       </div>
       <div className="jewel-card-actions">
         <button className="jewel-btn remove" onClick={() => onRemove(wishlistEntry?._id || wishlistEntry?.product_id)}>Remove</button>
-        <button className="jewel-btn add" onClick={() => onAddToCart(product)}>Add to Cart</button>
+        <CartButton className="jewel-btn add" onClick={() => onAddToCart(product)}>Add to Cart</CartButton>
       </div>
     </div>
   );

@@ -11,11 +11,14 @@ import StoreData from "../../../Data/StoreData";
 import { getImageUrl } from "../../../utils/imageUtils";
 
 import WishlistButton from "../../Common/WishlistButton/WishlistButton";
+import CartButton from "../../Common/CartButton";
+import useCart from "../../../customHooks/useCart";
 import { FaStar } from "react-icons/fa";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const RelatedProducts = () => {
   const [wishList, setWishList] = useState({});
+  const { addToCart } = useCart();
 
   const handleWishlistClick = (productID) => {
     setWishList((prevWishlist) => ({
@@ -89,7 +92,7 @@ const RelatedProducts = () => {
                         className="rpBackImg"
                         alt={product.productName}
                       />
-                      <h4>Add to Cart</h4>
+                      <CartButton onClick={() => addToCart({ _id: product.productID })}>Add to Cart</CartButton>
                     </div>
 
                     <div className="relatedProductInfo">

@@ -53,7 +53,7 @@ const ShoppingCart = () => {
         color: c.color || null,
       };
     });
-  }, [products]);
+  }, [products, cartData]);
 
   useEffect(() => {
     if (cartItems && cartItems.length > 0 && products.length > 0) {
@@ -78,7 +78,7 @@ const ShoppingCart = () => {
   };
 
   const handleQuantityChange = (_id, quantity) => {
-    if (quantity >= 1 && quantity <= 20) {
+    if (quantity >= 1 && quantity <= 100) {
       updateCartQuantity(_id, quantity);
     }
   };

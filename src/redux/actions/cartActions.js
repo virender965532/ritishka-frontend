@@ -44,29 +44,6 @@ export const addToCart = (
     }
   };
 };
-//decrease from cart
-export const decreaseQuantity = (item, addToast) => {
-  return async dispatch => {
-    try {
-      const id = item && (item._id || item.product_id || item.id) ? (item._id || item.product_id || item.id) : item;
-      const newQty = (item.quantity && item.quantity > 1) ? item.quantity - 1 : 0;
-      if (newQty === 0) {
-        await apiDeleteFromCart(id);
-        dispatch({ type: REMOVE_FROM_CART, payload: id });
-        if (addToast) addToast("Removed From Cart", { appearance: "error", autoDismiss: true });
-        return;
-      }
-      const res = await apiUpdateCartItem(id, { quantity: newQty });
-      const payload = res && res.data && res.data.item ? res.data.item : { ...item, quantity: newQty };
-      if (addToast) {
-        addToast("Item Decremented From Cart", { appearance: "warning", autoDismiss: true });
-      }
-      dispatch({ type: DECREASE_QUANTITY, payload });
-    } catch (err) {
-      if (addToast) addToast("Failed to decrease quantity", { appearance: "error", autoDismiss: true });
-    }
-  };
-};
 
 //update quantity from cart
 export const updateQuantity = (item, addToast) => {
@@ -89,7 +66,7 @@ export const updateQuantity = (item, addToast) => {
 export const deleteFromCart = (item, addToast) => {
   return async dispatch => {
     try {
-      const id = item && (item._id || item.product_id || item.id) ? (item._id || item.product_id || item.id) : item;
+      const id = item?._id ? item?._id : item;
       await apiDeleteFromCart(id);
       if (addToast) {
         addToast("Removed From Cart", { appearance: "error", autoDismiss: true });

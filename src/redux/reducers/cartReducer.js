@@ -15,7 +15,6 @@ const cartReducer = (state = initState, action) => {
   const product = action.payload;
 
   const getId = item => (item && (item._id || item.product_id || item.id)) || null;
-
   if (action.type === ADD_TO_CART) {
     // no variation (your products only have highlightedColor right now)
     const cartItem = cartItems.find(item => getId(item) === getId(product));
@@ -44,30 +43,14 @@ const cartReducer = (state = initState, action) => {
     }
   }
 
-  if (action.type === DECREASE_QUANTITY) {
-    const id = getId(product);
-    if (typeof product.quantity === 'number') {
-      if (product.quantity <= 0 || product.quantity === 0) {
-        return cartItems.filter(cartItem => getId(cartItem) !== id);
-      }
-      return cartItems.map(item =>
-        getId(item) === id ? { ...item, quantity: product.quantity } : item
-      );
-    }
-    // fallback: decrement by 1
-    return cartItems.map(item =>
-      getId(item) === id ? { ...item, quantity: Math.max(0, item.quantity - 1) } : item
-    );
-  }
-
   if (action.type === UPDATE_QUANTITY) {
-    const id = getId(product);
+    const product_id = product?.product_id;
     if (typeof product.quantity === 'number') {
       if (product.quantity === 0) {
-        return cartItems.filter(cartItem => getId(cartItem) !== id);
+        return cartItems.filter(cartItem => cartItem?.product_id !== product_id);
       }
       return cartItems.map(item =>
-        getId(item) === id ? { ...item, quantity: product.quantity } : item
+        item?.product_id === product_id ? { ...item, quantity: product.quantity } : item
       );
     }
     return cartItems;
@@ -75,7 +58,7 @@ const cartReducer = (state = initState, action) => {
 
   if (action.type === REMOVE_FROM_CART) {
     const cartItemId = action.payload;
-    return cartItems.filter(cartItem => getId(cartItem) !== cartItemId);
+    return cartItems.filter(cartItem => cartItem?.product_id !== cartItemId);
   }
 
   if (action.type === SET_CART) {

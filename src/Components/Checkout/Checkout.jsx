@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ShoppingCartTabs from "../ShoppingCart/ShoppingCartTabs";
 import ShoppingCartTab2 from "../ShoppingCart/ShoppingCartTab2";
+import { fetchProducts as apiFetchProducts } from "../../api/api";
 
 const Checkout = () => {
   const cartData = useSelector((state) => state?.cartData);
-  const [cartItems, setCartItems] = useState(cartData || []);
-  const dispatch = useDispatch();
-
+  const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(false);
+  const [localCartItems, setLocalCartItems] = useState([]);
   const [activeTab, setActiveTab] = useState("cartTab2");
   const [payments, setPayments] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -17,18 +18,56 @@ const Checkout = () => {
   );
 
   useEffect(() => {
-    if (cartData) {
+    let cancelled = false;
+    const loadProducts = async () => {
+      setLoadingProducts(true);
+      try {
+        const res = await apiFetchProducts();
+        const data = res?.data?.products || [];
+        if (!cancelled) setProducts(data);
+      } catch (err) {
+        console.error("Failed to fetch products:", err);
+      } finally {
+        if (!cancelled) setLoadingProducts(false);
+      }
+    };
+
+    loadProducts();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const cartItems = useMemo(() => {
+    if (!Array.isArray(cartData) || products?.length === 0) return [];
+    return cartData.map((c) => {
+      const id = c?.product_id;
+      const product = products.find((p) => p?._id === id) || {};
+      return {
+        ...product,
+        quantity: c.quantity || 1,
+        color: c.color || null,
+      };
+    });
+  }, [products, cartData]);
+
+  useEffect(() => {
+    if (cartItems && cartItems.length > 0 && products.length > 0) {
       let total = 0;
       let discounted = 0;
-      cartData.forEach((item) => {
-        total += item?.price * item?.quantity;
-        discounted += item?.discountedPrice * item?.quantity;
+      cartItems.forEach((item) => {
+        total += (item?.price || 0) * (item?.quantity || 0);
+        discounted += (item?.discountedPrice || 0) * (item?.quantity || 0);
       });
-      setCartItems(cartData);
+      setLocalCartItems(cartItems);
       setTotalPrice(total);
       setDiscountedPrice(discounted);
+    } else {
+      setLocalCartItems([]);
+      setTotalPrice(0);
+      setDiscountedPrice(0);
     }
-  }, [cartData]);
+  }, [cartItems, products]);
 
   const handleTabClick = (tab) => {
     if (tab === "cartTab1" || cartItems.length > 0) setActiveTab(tab);

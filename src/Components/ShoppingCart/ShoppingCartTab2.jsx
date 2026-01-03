@@ -174,24 +174,6 @@ const ShoppingCartTab2 = ({
       <div className="checkoutDetailsSection">
         <h4>Billing Details</h4>
         <form className="checkoutDetailsForm flex flex-col gap-4 mt-4 !w-full !max-w-7xl">
-          {/* <div className="checkoutDetailsFormRow">
-            <input type="text" placeholder="First Name" />
-            <input type="text" placeholder="Last Name" />
-          </div>
-          <input type="text" placeholder="Company Name (optional)" />
-          <select>
-            <option disabled selected>
-              Country / Region
-            </option>
-            <option>India</option>
-            <option>USA</option>
-            <option>UK</option>
-          </select>
-          <input type="text" placeholder="Street Address *" />
-          <input type="text" placeholder="Town / City *" />
-          <input type="text" placeholder="Postcode / ZIP *" />
-          <input type="text" placeholder="Phone *" />
-          <input type="mail" placeholder="Email *" /> */}
           {/* First + Last Name */}
           <div className="checkoutDetailsFormRow grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <div>

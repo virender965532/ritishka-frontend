@@ -3,7 +3,6 @@ import "./ShoppingCart.css";
 import useCart from "../../customHooks/useCart";
 import ShoppingCartTabs from "../ShoppingCart/ShoppingCartTabs";
 import ShoppingCartTab1 from "../ShoppingCart/ShoppingCartTab1";
-import success from "../../Assets/success.png";
 import { useSelector } from "react-redux";
 import { fetchProducts as apiFetchProducts } from "../../api/api";
 
@@ -17,9 +16,6 @@ const ShoppingCart = () => {
   const [payments, setPayments] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [discountedPrice, setDiscountedPrice] = useState(0);
-  const [selectedPayment, setSelectedPayment] = useState(
-    "Direct Bank Transfer"
-  );
 
   useEffect(() => {
     let cancelled = false;

@@ -6,6 +6,7 @@ import { fetchProducts as apiFetchProducts } from "../../api/api";
 
 const Checkout = () => {
   const cartData = useSelector((state) => state?.cartData);
+  const user = useSelector((state) => state?.userData?.user);
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [localCartItems, setLocalCartItems] = useState([]);
@@ -102,6 +103,7 @@ const Checkout = () => {
             handlePaymentChange={handlePaymentChange}
             scrollToTop={scrollToTop}
             discountedPrice={discountedPrice}
+            user={user}
           />
         </div>
       </div>

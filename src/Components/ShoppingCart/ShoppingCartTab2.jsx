@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CartTotals from "./CartTotals";
 import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
+import { fetchAddresses, updateAddress, createCheckout } from "../../api/api";
+import { useSelector } from "react-redux";
+import { CART_SHIPPING_AMOUNT, CART_GST_PERCENTAGE } from "../../Constants/Constants";
 
 const ShoppingCartTab2 = ({
   cartItems,
@@ -12,6 +15,7 @@ const ShoppingCartTab2 = ({
   handlePaymentChange,
   scrollToTop,
   discountedPrice,
+  user,
 }) => {
   const navigate = useNavigate();
 
@@ -32,6 +36,12 @@ const ShoppingCartTab2 = ({
   const [loading, setLoading] = useState(false);
   const [paymentProcessing, setPaymentProcessing] = useState(false);
   const { error, isLoading, Razorpay } = useRazorpay();
+  const [addresses, setAddresses] = useState([]);
+  const [loadingAddresses, setLoadingAddresses] = useState(false);
+  const [selectedAddressId, setSelectedAddressId] = useState(null);
+  const reduxUser = useSelector((state) => state?.userData?.user);
+  const [editingAddressId, setEditingAddressId] = useState(null);
+  const [editedAddress, setEditedAddress] = useState(null);
 
 
   // Ensure default payment selection is Online Payment
@@ -43,14 +53,73 @@ const ShoppingCartTab2 = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // populate billing from logged-in user when available
+  useEffect(() => {
+    const u = user || reduxUser || {};
+    if (u) {
+      const name = (u.name || "").trim();
+      const [first = "", ...rest] = name.split(" ");
+      const last = rest.join(" ");
+      setBilling((s) => ({ ...s, firstName: s.firstName || first, lastName: s.lastName || last, phone: s.phone || u.phone || "", email: s.email || u.email || "" }));
+    }
+  }, [user, reduxUser]);
+
+  // load addresses and auto-select primary
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      setLoadingAddresses(true);
+      try {
+        const res = await fetchAddresses();
+        const data = res?.data || [];
+        if (cancelled) return;
+        setAddresses(data);
+        // find primary address
+        const primary = data.find((a) => a.primary || a.isPrimary || a.is_primary || a.primaryAddress) || data[0];
+        if (primary) {
+          setSelectedAddressId(primary._id || primary.id || primary._doc?._id);
+          // populate billing fields from primary address
+          populateBillingFromAddress(primary);
+        }
+      } catch (err) {
+        console.error("Failed to fetch addresses:", err);
+      } finally {
+        if (!cancelled) setLoadingAddresses(false);
+      }
+    };
+    load();
+    return () => { cancelled = true; };
+  }, []);
+
+  const populateBillingFromAddress = (addr) => {
+    if (!addr) return;
+    setBilling((s) => ({
+      ...s,
+      firstName: s.firstName,
+      lastName: s.lastName,
+      flat: addr.flat || s.flat || "",
+      locality: addr.locality || s.locality || "",
+      area: addr.area || s.area || "",
+      landmark: addr.landmark || s.landmark || "",
+      city: addr.city || s.city || "",
+      state: addr.state || s.state || "",
+      country: addr.country || "India",
+      pincode: addr.pincode || s.pincode || "",
+      phone: s.phone,
+      email: s.email,
+      company: s.company || "",
+    }));
+  };
+
   const validate = () => {
     const e = {};
     if (!billing.firstName.trim()) e.firstName = "First name is required";
     if (!billing.lastName.trim()) e.lastName = "Last name is required";
     if (!billing.country) e.country = "Country is required";
-    if (!billing.street.trim()) e.street = "Street address is required";
+    if (!billing.flat.trim()) e.flat = "Flat is required";
+    if (!billing.locality.trim()) e.locality = "Locality is required";
     if (!billing.city.trim()) e.city = "City is required";
-    if (!billing.postcode.trim()) e.postcode = "Postcode / ZIP is required";
+    if (!billing.pincode.trim()) e.pincode = "Pincode is required";
     if (!billing.phone.trim()) e.phone = "Phone is required";
     else if (!/^[0-9]{6,15}$/.test(billing.phone.trim())) e.phone = "Enter a valid phone number";
     if (!billing.email.trim()) e.email = "Email is required";
@@ -96,75 +165,63 @@ const ShoppingCartTab2 = ({
     }
   };
 
+  const handleSelectAddress = (addr) => {
+    setSelectedAddressId(addr._id || addr.id);
+    populateBillingFromAddress(addr);
+  };
   const handleRazorpayPayment = async () => {
     setPaymentProcessing(true);
-    // const options = {
-    //     key: "rzp_test_RbKxQcjvVldXzY", // dummy test key
-    //     amount: Math.round((100 || 0) * 100), // amount in paise
-    //     currency: "INR",
-    //     name: "Ritishka Silver",
-    //     description: "Order Payment",
-    //     // order_id: "dummy_order_id", // normally from backend
-    //     handler: function (response) {
-    //       console.log("Razorpay success:", response);
-    //       // On success, navigate to order success
-    //       // In production you would verify signature and capture the payment on server
-    //       window.location.href = "/order/success";
-    //     },
-    //     prefill: {
-    //       name: `${billing.firstName} ${billing.lastName}`,
-    //       email: billing.email,
-    //       contact: billing.phone,
-    //     },
-    //     notes: {
-    //       address: billing.street + ", " + billing.city,
-    //     },
-    //     theme: {
-    //       color: "#bfa046",
-    //     },
-    //   };
-    {
-    const options = {
-      key: "rzp_test_RbKxQcjvVIdXzY", // dummy test key
-      amount: Math.round((100 || 0) * 100), // amount in paise
-      currency: "INR",
-      name: "Ritishka Silver",
-      description: "Order Payment",
-      // order_id: "dummy_order_id", // normally from backend
-      handler: function (response) {
-        console.log("Razorpay success:", response);
-        // On success, navigate to order success
-        // In production you would verify signature and capture the payment on server
-        window.location.href = "/order/success";
-      },
-      prefill: {
-        name: `${billing.firstName} ${billing.lastName}`,
-        email: billing.email,
-        contact: billing.phone,
-      },
-      notes: {
-        address: billing.street + ", " + billing.city,
-      },
-      theme: {
-        color: "#bfa046",
-      },
-    };
+    // create checkout on backend first
+    try {
+      const itemsPayload = (cartItems || []).map((it) => ({
+        product: it?._id || it.product_id || it.product,
+        quantity: it.quantity || 1,
+        makingCharge: it.makingCharge || 0,
+        discount: it.discount || 0,
+      }));
+      const createRes = await createCheckout({ items: itemsPayload, addressId: selectedAddressId, shippingCharge: CART_SHIPPING_AMOUNT, tax: CART_GST_PERCENTAGE, discount: 0 });
+      const checkout = createRes?.data?.checkout;
+      const amountToPay = Math.round((checkout?.grandTotal || totalPrice || 0) * 100);
 
-    const razorpayInstance = new Razorpay(options);
-    razorpayInstance.open();
-  };
+      const options = {
+        key: "rzp_test_RbKxQcjvVIdXzY", // dummy test key
+        amount: amountToPay, // amount in paise
+        currency: "INR",
+        name: "Ritishka Silver",
+        //     description: "Order Payment",
+        //     // order_id: "dummy_order_id", // normally from backend
+        //     handler: function (response) {
+        //       console.log("Razorpay success:", response);
+        //       window.location.href = "/order/success";
+        //     },
+        handler: function (response) {
+          console.log("Razorpay success:", response);
+          window.location.href = "/order/success";
+        },
+        prefill: {
+          name: `${billing.firstName} ${billing.lastName}`,
+          email: billing.email,
+          contact: billing.phone,
+        },
+        notes: {
+          address: billing.street + ", " + billing.city,
+        },
+        theme: {
+          color: "#bfa046",
+        }
+      };
+      await loadRazorpayScript();
+      const razorpayInstance = new Razorpay(options);
+      razorpayInstance.open();
+    } catch (err) {
+      console.error("Error creating checkout or opening payment:", err);
+      setErrors({ form: "Unable to initiate payment. Please try again." });
+      setPaymentProcessing(false);
+      return;
+    }
   };
 
   const handleCTA = () => {
-    // If COD selected
-    if (selectedPayment === "Cash on delivery") {
-      // COMMENTED OUT: place order API when backend ready
-      // await api.placeOrder({ billing, paymentMethod: 'COD' })
-      // For now directly navigate to success
-      navigate("/order/success");
-      return;
-    }
-
     // Online Payment
     handleRazorpayPayment();
   };
@@ -198,70 +255,6 @@ const ShoppingCartTab2 = ({
             </div>
           </div>
 
-          {/* Company Name */}
-          <div className="mb-4">
-            <input
-              type="text"
-              placeholder="Company Name (optional)"
-              value={billing.company}
-              onChange={handleBillingChange("company")}
-              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
-            />
-          </div>
-
-          {/* Country / Region */}
-          <div className="mb-4">
-            <select
-              value={billing.country}
-              onChange={handleBillingChange("country")}
-              className="border border-gray-300 rounded-md px-4 py-2 w-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
-            >
-              <option value="" disabled>
-                Country / Region *
-              </option>
-              <option>India</option>
-              <option>USA</option>
-              <option>UK</option>
-            </select>
-            {errors.country && <div className="text-red-500 text-sm mt-1">{errors.country}</div>}
-          </div>
-
-          {/* Street Address */}
-          <div className="mb-4">
-            <input
-              type="text"
-              placeholder="Street Address *"
-              value={billing.street}
-              onChange={handleBillingChange("street")}
-              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
-            />
-            {errors.street && <div className="text-red-500 text-sm mt-1">{errors.street}</div>}
-          </div>
-
-          {/* Town / City */}
-          <div className="mb-4">
-            <input
-              type="text"
-              placeholder="Town / City *"
-              value={billing.city}
-              onChange={handleBillingChange("city")}
-              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
-            />
-            {errors.city && <div className="text-red-500 text-sm mt-1">{errors.city}</div>}
-          </div>
-
-          {/* Postcode / ZIP */}
-          <div className="mb-4">
-            <input
-              type="text"
-              placeholder="Postcode / ZIP *"
-              value={billing.postcode}
-              onChange={handleBillingChange("postcode")}
-              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
-            />
-            {errors.postcode && <div className="text-red-500 text-sm mt-1">{errors.postcode}</div>}
-          </div>
-
           {/* Phone */}
           <div className="mb-4">
             <input
@@ -284,6 +277,116 @@ const ShoppingCartTab2 = ({
               className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
             />
             {errors.email && <div className="text-red-500 text-sm mt-1">{errors.email}</div>}
+          </div>
+
+          {/* Company Name */}
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Company Name (optional)"
+              value={billing.company}
+              onChange={handleBillingChange("company")}
+              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
+            />
+          </div>
+
+          {/* flat */}
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Flat *"
+              value={billing.flat}
+              onChange={handleBillingChange("flat")}
+              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
+            />
+            {errors.flat && <div className="text-red-500 text-sm mt-1">{errors.flat}</div>}
+          </div>
+
+          {/* Locality */}
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Locality Address *"
+              value={billing.locality}
+              onChange={handleBillingChange("locality")}
+              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
+            />
+            {errors.locality && <div className="text-red-500 text-sm mt-1">{errors.locality}</div>}
+          </div>
+
+          {/* Area */}
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Area Address *"
+              value={billing.area}
+              onChange={handleBillingChange("area")}
+              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
+            />
+            {errors.area && <div className="text-red-500 text-sm mt-1">{errors.area}</div>}
+          </div>
+
+          {/* Landmark */}
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Landmark *"
+              value={billing.landmark}
+              onChange={handleBillingChange("landmark")}
+              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
+            />
+            {errors.landmark && <div className="text-red-500 text-sm mt-1">{errors.landmark}</div>}
+          </div>
+
+          {/* Town / City */}
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Town / City *"
+              value={billing.city}
+              onChange={handleBillingChange("city")}
+              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
+            />
+            {errors.city && <div className="text-red-500 text-sm mt-1">{errors.city}</div>}
+          </div>
+
+          {/* State */}
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="State *"
+              value={billing.state}
+              onChange={handleBillingChange("state")}
+              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
+            />
+            {errors.state && <div className="text-red-500 text-sm mt-1">{errors.state}</div>}
+          </div>
+
+          {/* Pincode  */}
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Pincode / ZIP *"
+              value={billing.pincode}
+              onChange={handleBillingChange("pincode")}
+              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
+            />
+            {errors.pincode && <div className="text-red-500 text-sm mt-1">{errors.pincode}</div>}
+          </div>
+
+          {/* Country */}
+          <div className="mb-4">
+            <select
+              value={billing.country}
+              onChange={handleBillingChange("country")}
+              className="border border-gray-300 rounded-md px-4 py-2 w-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#bfa046]"
+            >
+              <option value="" disabled>
+                Country
+              </option>
+              <option>India</option>
+            </select>
+            {errors.country && <div className="text-red-500 text-sm mt-1">{errors.country}</div>}
           </div>
 
           <div>
@@ -315,28 +418,6 @@ const ShoppingCartTab2 = ({
           />
         </div>
 
-        <div className="checkoutPaymentContainer">
-          {["Cash on delivery", "Online Payment"].map((method) => (
-            <label key={method} className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="payment"
-                value={method}
-                checked={selectedPayment === method}
-                onChange={handlePaymentChange}
-              />
-              <span>{method}</span>
-            </label>
-          ))}
-          <div className="policyText">
-            Your data will be used as per our{" "}
-            <Link to="/terms" onClick={scrollToTop}>
-              Privacy Policy
-            </Link>
-            .
-          </div>
-        </div>
-
         <button
           onClick={() => {
             // If payment section is not yet enabled, prevent action
@@ -349,13 +430,46 @@ const ShoppingCartTab2 = ({
           }}
           className="bg-[#bfa046] text-white px-5 py-2 rounded-md"
           disabled={!billingSubmitted || paymentProcessing}
-        >
-          {selectedPayment === "Cash on delivery"
-            ? "Place Order"
-            : paymentProcessing
-            ? "Processing..."
-            : "Proceed to Payment"}
+        >Proceed to Payment
         </button>
+
+        {/* Addresses list */}
+        {loadingAddresses ? (
+          <div className="policyText">Loading addresses...</div>
+        ) : (
+          <div className="checkoutPaymentContainer mt-4">
+            {addresses && addresses.length > 0 ? (
+              addresses.map((addr) => {
+                const id = addr._id || addr.id;
+                return (
+                  <div key={id} className="border p-4 rounded-md mb-3 bg-white">
+                    <div className="flex justify-between items-start">
+                      <label className="flex items-start gap-3">
+                        <input
+                          type="radio"
+                          name="selectedAddress cursor-pointer"
+                          checked={selectedAddressId === id}
+                          onChange={() => handleSelectAddress(addr)}
+                        />
+                        <div>
+                          <div className="font-semibold text-[#7c5e10]">{addr.flat}{addr.locality ? ", " + addr.locality : ""} </div>
+                          <div className="text-sm text-[#7c5e10]">{addr.area} {addr.landmark} {addr.city}</div>
+                          <div className="text-sm text-[#7c5e10]">{addr.state} {addr.country} {addr.pincode}</div>
+                        </div>
+                      </label>
+                      <div>
+                        {addr.isPrimary && <span className="text-sm text-[#bfa046]">Primary</span>}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="policyText">No saved addresses found.</div>
+            )}
+          </div>
+        )}
+
       </div>
     </div>
   );

@@ -102,6 +102,9 @@ export const markPrimaryAddress = (id) => api.patch(`/user/addresses/${id}/prima
 //Authentication APIs
 export const getProfile = () => api.get('/auth/me');
 
+// Checkout APIs
+export const createCheckout = (data) => api.post('/checkout/create', data);
+
 //wishlist APIs
 export const addToWishlist = (data) => api.post('/wishlist', data);
 export const getWishlist = () => api.get('/wishlist');

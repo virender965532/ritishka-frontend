@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CartTotals from "./CartTotals";
 import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
-import { fetchAddresses, updateAddress, createCheckout } from "../../api/api";
+import { fetchAddresses, createAddress, createCheckout } from "../../api/api";
 import { useSelector } from "react-redux";
 import { CART_SHIPPING_AMOUNT, CART_GST_PERCENTAGE } from "../../Constants/Constants";
 
@@ -40,9 +40,26 @@ const ShoppingCartTab2 = ({
   const [loadingAddresses, setLoadingAddresses] = useState(false);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const reduxUser = useSelector((state) => state?.userData?.user);
-  const [editingAddressId, setEditingAddressId] = useState(null);
-  const [editedAddress, setEditedAddress] = useState(null);
-
+  const [RazorPayOption, setRazorPayOption] = useState({
+        key: "rzp_test_RbKxQcjvVIdXzY", // dummy test key
+        currency: "INR",
+        name: "Ritishka Silver",
+        description: "",
+        handler: function (response) {
+          window.location.href = "/order/success";
+        },
+        prefill: {
+          name: "",
+          email: "",
+          contact: "",
+        },
+        notes: {
+          address: "",
+        },
+        theme: {
+          color: "#bfa046",
+        }
+      });
 
   // Ensure default payment selection is Online Payment
   useEffect(() => {
@@ -148,10 +165,29 @@ const ShoppingCartTab2 = ({
     if (!validate()) return;
     setLoading(true);
     try {
-      // COMMENTED OUT: submit billing details to backend (backend not ready)
-      // await api.submitBillingDetails(billing);
-      console.log("Billing data to submit (commented):", billing);
-
+      const itemsPayload = (cartItems || []).map((it) => ({
+        product: it?._id || it.product_id || it.product,
+        quantity: it.quantity || 1,
+        makingCharge: it.makingCharge || 0,
+        discount: it.discount || 0,
+      }));
+      const createRes = await createCheckout({ items: itemsPayload, addressId: selectedAddressId, shippingCharge: CART_SHIPPING_AMOUNT, tax: CART_GST_PERCENTAGE, discount: 0 });
+      const checkout = createRes?.data?.checkout;
+      const amountToPay = Math.round((checkout?.grandTotal || totalPrice || 0) * 100);
+      // order_id: checkout?.razorpayOrderId || "",
+      // description: `Ritishka Silver Payment for Order #${checkout?.razorpayOrderId || ""}`,
+      setRazorPayOption((OldRazorPayOption) => ({
+        ...OldRazorPayOption,
+        amount: amountToPay,
+        notes: `address: ${billing.flat} ${billing.locality} ${billing.area} ${billing.city} ${billing.state} ${billing.country} - ${billing.pincode}`,
+        prefill: {
+          name: `${billing.firstName} ${billing.lastName}` || "",
+          email: billing.email || "",
+          contact: billing.phone || "",
+        },
+        customer_id: reduxUser?._id || "",
+      }));
+      //create order from here and get order id and assign to RazorPayOption.order_id
       // Mark billing as submitted which will enable payment section
       setBillingSubmitted(true);
       // Scroll to top where payment section is (keeps the UX similar)
@@ -170,53 +206,17 @@ const ShoppingCartTab2 = ({
     populateBillingFromAddress(addr);
   };
   const handleRazorpayPayment = async () => {
-    setPaymentProcessing(true);
+    // setPaymentProcessing(true);
     // create checkout on backend first
     try {
-      const itemsPayload = (cartItems || []).map((it) => ({
-        product: it?._id || it.product_id || it.product,
-        quantity: it.quantity || 1,
-        makingCharge: it.makingCharge || 0,
-        discount: it.discount || 0,
-      }));
-      const createRes = await createCheckout({ items: itemsPayload, addressId: selectedAddressId, shippingCharge: CART_SHIPPING_AMOUNT, tax: CART_GST_PERCENTAGE, discount: 0 });
-      const checkout = createRes?.data?.checkout;
-      const amountToPay = Math.round((checkout?.grandTotal || totalPrice || 0) * 100);
-
-      const options = {
-        key: "rzp_test_RbKxQcjvVIdXzY", // dummy test key
-        amount: amountToPay, // amount in paise
-        currency: "INR",
-        name: "Ritishka Silver",
-        //     description: "Order Payment",
-        //     // order_id: "dummy_order_id", // normally from backend
-        //     handler: function (response) {
-        //       console.log("Razorpay success:", response);
-        //       window.location.href = "/order/success";
-        //     },
-        handler: function (response) {
-          console.log("Razorpay success:", response);
-          window.location.href = "/order/success";
-        },
-        prefill: {
-          name: `${billing.firstName} ${billing.lastName}`,
-          email: billing.email,
-          contact: billing.phone,
-        },
-        notes: {
-          address: billing.street + ", " + billing.city,
-        },
-        theme: {
-          color: "#bfa046",
-        }
-      };
       await loadRazorpayScript();
-      const razorpayInstance = new Razorpay(options);
+      console.log("RazorPayOption before creating instance:", RazorPayOption);
+      const razorpayInstance = new Razorpay(RazorPayOption);
       razorpayInstance.open();
     } catch (err) {
       console.error("Error creating checkout or opening payment:", err);
       setErrors({ form: "Unable to initiate payment. Please try again." });
-      setPaymentProcessing(false);
+      // setPaymentProcessing(false);
       return;
     }
   };
@@ -406,7 +406,6 @@ const ShoppingCartTab2 = ({
       <div
         className="checkoutPaymentSection"
         aria-hidden={!billingSubmitted}
-        style={{ pointerEvents: billingSubmitted ? "auto" : "none" }}
       >
         <div className="flex flex-col gap-6 mb-6 !w-full">
           <CartTotals
@@ -429,7 +428,8 @@ const ShoppingCartTab2 = ({
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
           className="bg-[#bfa046] text-white px-5 py-2 rounded-md"
-          disabled={!billingSubmitted || paymentProcessing}
+          disabled={!billingSubmitted}
+          style={{ pointerEvents: billingSubmitted ? "auto" : "none" }}
         >Proceed to Payment
         </button>
 
@@ -447,7 +447,7 @@ const ShoppingCartTab2 = ({
                       <label className="flex items-start gap-3">
                         <input
                           type="radio"
-                          name="selectedAddress cursor-pointer"
+                          name="selectedAddress"
                           checked={selectedAddressId === id}
                           onChange={() => handleSelectAddress(addr)}
                         />
